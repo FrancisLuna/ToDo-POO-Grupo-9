@@ -1,0 +1,67 @@
+@startuml
+
+class Aplicacion{
+    - tareas: Tarea[]
+
+
+    + aniadirTarea(tarea: Tarea)
+    + editarTarea(tareaEditada: Tarea)
+    + eliminarTarea(tareaAEliminar: Tarea)
+    + getListadoXEstado(estado: Estado)
+    + getListadoPersonalizado()
+}
+Aplicacion *-- Tarea
+
+class Tarea{
+    - usuario: Usuario
+    - titulo: string
+    - description: string
+    - fechaVencimiento: number
+    - prioridad: Prioridad
+    - etiqueta : Etiqueta
+    - categoria: Categoria
+    - porcentajeAvance: number
+    - etapa: Etapa
+
+}
+
+
+class Etiqueta{
+
+}
+Tarea *-- Etiqueta
+
+abstract class Categoria{
+    - id: number
+    - nombre: string
+}
+Tarea *-- Categoria
+
+class Trabajo extends Categoria{
+
+}
+class Personal extends Categoria{
+
+}
+class Recados extends Categoria{
+
+}
+
+class Usuario{
+    
+}
+Tarea *-- Usuario
+
+enum Prioridad{
+    ALTA
+    MEDIA
+    BAJA
+}
+Tarea o-- Prioridad
+
+enum Etapa{
+    COMPLETADA
+    PENDIENTE
+}
+Tarea o-- Etapa
+@enduml

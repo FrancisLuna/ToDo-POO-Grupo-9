@@ -1,0 +1,116 @@
+@startuml ToDoList
+
+title TP - TODO List - Grupo 9
+skinparam lineType ortho
+
+class Aplicacion{
+    - usuario: Usuario
+    - gestorDeTarea: GestorDeTarea
+    - gestorDeEstadisticas: GestorDeEstadisticas
+}
+
+class GestorDeEstadisticas{
+    + tiempoPromedioDedicadoALasTareas(tareas: Array<Tarea>): datetime
+    + cantidadDeTareasPorEstado(tareas: Array<Tarea>): Map<string, cantidad>
+    + CantidadDeTareasPorCategoría(tareas: Array<Tarea>): Map<string, cantidad>
+}
+
+class Usuario{
+    - email: string
+    - contraseña: string
+    - tareas: Array<Tarea>
+    - etiquetasCreadas: Etiqueta[]
+    - categoriasCreadas: Categoria[]
+
+    + setEmail(email: string): void
+    + getEmail(): string
+    + setContraseña(contraña: string): void
+    + getContraseña(): string
+    + crearEtiqueta(): void
+    + crearCategoria(): void
+    + asignarEtiqueta(): void
+    + asignarCategoria(): void
+}
+
+class Tarea{
+    - titulo: string
+    - descripcion: string
+    - fechaVencimiento: string
+    - fechaCreacion: string
+    - prioridad: Prioridad
+    - categoría: Categoria
+    - etiquetas: Etiqueta[]
+    - avance: Avance
+    - estado: Estado
+
+    + setTitulo(titulo: string): void
+    + setDescripcion(desc: string): void
+    + setFechaVencimiento(fecha: string): void
+    + setPrioridad(prioridad: string): void
+    + setCategoria(categoria: string): void
+    + setEtiqueta(etiqueta: string): void
+    + setAvance(avance: string): void
+    + setEstado(estado: string): void
+
+    + getTitulo(): string
+    + getDescripcion(): string
+    + getFechaVencimiento(): string
+    + getPrioridad(): string
+    + getCategoria(): string
+    + getEtiqueta(): string
+    + getAvance(): number
+    + getEstado(): string
+}
+
+ENUM Estado{
+    - Pendiente
+    - EnProgreso
+    - Completado
+}
+
+ENUM Avance{
+    - 0
+    - 25
+    - 50
+    - 75
+    - 100
+}
+
+ENUM Prioridad{
+    - Alta
+    - Media
+    - Baja
+}
+
+class Etiqueta{
+    - nombre: string
+    - esEtiqueta: boolean
+    - esCategoria: boolean
+
+    + setNombre(nombre: string): void
+    + getNombre(): string
+}
+
+class GestorDeTarea{
+    + crearTarea(tarea: Tarea): void
+    + eliminarTarea(tarea: Tarea): void
+    + editarTarea(tarea: Tarea): void
+    + ordenarTareasPorPrioridad(): Tarea[]
+    + ordenarTareasPorFecha(): Tarea[]
+    + buscarTareaPorTitulo(titulo: string): Tarea | null
+    + getTareasCompletadas(): Tarea[]
+    + getTareasPendientes(): Tarea[]
+    + notificarRecordatorio()
+}
+
+Aplicacion *-- Usuario
+Aplicacion <-- GestorDeTarea
+Aplicacion <-- GestorDeEstadisticas
+GestorDeEstadisticas *-- GestorDeTarea
+Tarea *-- Usuario
+Tarea o-- Etiqueta
+Tarea o-- Prioridad
+Tarea o-- Estado
+Tarea o-- Avance
+
+@enduml

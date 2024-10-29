@@ -20,7 +20,7 @@ class Usuario{
     - contraseña: string
     - tareas: Array<Tarea>
     - etiquetasCreadas: Etiqueta[]
-    - categoriasCreadas: Categoria[]
+    - categoriasCreadas: Etiqueta[]
 
     + setEmail(email: string): void
     + getEmail(): string
@@ -35,31 +35,31 @@ class Usuario{
 class Tarea{
     - titulo: string
     - descripcion: string
-    - fechaVencimiento: string
-    - fechaCreacion: string
+    - fechaVencimiento: Date
+    - fechaCreacion: Date
     - prioridad: Prioridad
-    - categoría: Categoria
-    - etiquetas: Etiqueta[]
     - avance: Avance
     - estado: Estado
-
+    - categoría: Etiqueta
+    - etiquetas: Etiqueta[]
+    
     + setTitulo(titulo: string): void
     + setDescripcion(desc: string): void
-    + setFechaVencimiento(fecha: string): void
-    + setPrioridad(prioridad: string): void
-    + setCategoria(categoria: string): void
-    + setEtiqueta(etiqueta: string): void
-    + setAvance(avance: string): void
-    + setEstado(estado: string): void
+    + setFechaVencimiento(fecha: Date): void
+    + setPrioridad(prioridad: Prioridad): void
+    + setCategoria(categoria: Categoria): void
+    + setEtiqueta(etiqueta: Etiqueta): void
+    + setAvance(avance: Avance): void
+    + setEstado(estado: Estado): void
 
     + getTitulo(): string
     + getDescripcion(): string
-    + getFechaVencimiento(): string
-    + getPrioridad(): string
-    + getCategoria(): string
-    + getEtiqueta(): string
-    + getAvance(): number
-    + getEstado(): string
+    + getFechaVencimiento(): Date
+    + getPrioridad(): Prioridad
+    + getCategoria(): Categoria
+    + getEtiquetas(): Etiqueta[]
+    + getAvance(): Avance
+    + getEstado(): Estado
 }
 
 ENUM Estado{
@@ -89,6 +89,8 @@ class Etiqueta{
 
     + setNombre(nombre: string): void
     + getNombre(): string
+    + getEsUnaEtiqueta(): boolean
+    + getEsUnaCategoria(): boolean
 }
 
 class GestorDeTarea{

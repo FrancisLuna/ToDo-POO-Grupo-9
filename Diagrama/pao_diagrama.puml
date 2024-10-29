@@ -17,19 +17,22 @@ class GestorDeEstadisticas{
 
 class Usuario{
     - email: string
-    - contraseña: string
+    - password: string
     - tareas: Array<Tarea>
-    - etiquetasCreadas: Etiqueta[]
-    - categoriasCreadas: Etiqueta[]
+    - clasificadores
+    - creadorDeCalificador
 
     + setEmail(email: string): void
     + getEmail(): string
-    + setContraseña(contraña: string): void
-    + getContraseña(): string
-    + crearEtiqueta(): void
-    + crearCategoria(): void
+    + setPassword(password: string): void
+    + getPassword(): string
+    + crearClasificador(nombre, tipo): void
     + asignarEtiqueta(): void
     + asignarCategoria(): void
+}
+
+class CreadorFechaConcreta{
+    + getFechaActual(): Date
 }
 
 class Tarea{
@@ -44,42 +47,72 @@ class Tarea{
     - etiquetas: Etiqueta[]
     
     + setTitulo(titulo: string): void
-    + setDescripcion(desc: string): void
-    + setFechaVencimiento(fecha: Date): void
-    + setPrioridad(prioridad: Prioridad): void
-    + setCategoria(categoria: Categoria): void
-    + setEtiqueta(etiqueta: Etiqueta): void
-    + setAvance(avance: Avance): void
-    + setEstado(estado: Estado): void
-
     + getTitulo(): string
+    + setDescripcion(desc: string): void
     + getDescripcion(): string
+    + getFechaCreacion(): Date
+    + setFechaVencimiento(fecha: Date): void
     + getFechaVencimiento(): Date
+    + setPrioridad(prioridad: Prioridad): void
     + getPrioridad(): Prioridad
-    + getCategoria(): Categoria
-    + getEtiquetas(): Etiqueta[]
+    + setAvance(avance: Avance): void
     + getAvance(): Avance
+    + setEstado(estado: Estado): void
     + getEstado(): Estado
+    + setCategoria(categoria: Categoria): void
+    + getCategoria(): Categoria
+    + setEtiqueta(etiqueta: Etiqueta): void
+    + getEtiquetas(): Etiqueta[]
+}
+
+class ClasificadorConcreto{
+    - tipo
+    - nombre
+    + setTipo(tipo): void
+    + getTipo(): TipoDeClasificador
+    + setNombre(nombre): void
+    + getNombre(): string
+}
+
+class CreadorDeClasificador{
+    + crearClasificador(): ClasificadorConcreto
+}
+
+interface Clasificador{
+    setTipo(tipo)
+    getTipo()
+    setNombre()
+    getNombre()
+}
+
+interface CreadorDeFecha{
+    getFechaActual()    
 }
 
 ENUM Estado{
-    - Pendiente
-    - EnProgreso
-    - Completado
+    Pendiente
+    EnProgreso
+    Completado
 }
 
 ENUM Avance{
-    - 0
-    - 25
-    - 50
-    - 75
-    - 100
+    0
+    25
+    50
+    75
+    100
 }
 
 ENUM Prioridad{
-    - Alta
-    - Media
-    - Baja
+    Alta
+    Media
+    Baja
+}
+
+ENUM TipoDeClasificador{
+    ninguno
+    categoria
+    etiqueta
 }
 
 class Etiqueta{
@@ -109,10 +142,18 @@ Aplicacion *-- Usuario
 Aplicacion <-- GestorDeTarea
 Aplicacion <-- GestorDeEstadisticas
 GestorDeEstadisticas *-- GestorDeTarea
-Tarea *-- Usuario
+Tarea --* Usuario
 Tarea o-- Etiqueta
 Tarea o-- Prioridad
 Tarea o-- Estado
 Tarea o-- Avance
+Tarea o-- TipoDeClasificador
+Tarea <-- CreadorFechaConcreta
+Usuario <-- TipoDeClasificador
+ClasificadorConcreto --|> Clasificador
+CreadorDeClasificador <-- ClasificadorConcreto
+Usuario <-- CreadorDeClasificador
+CreadorFechaConcreta --|> CreadorDeFecha
+
 
 @enduml

@@ -1,3 +1,3 @@
-interface CreadorFecha{
+interface CreadorDeFecha{
     getFechaActual(): Date;
 }

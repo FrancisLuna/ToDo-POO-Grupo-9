@@ -1,5 +1,5 @@
-import Categoria from "./marcador";
-import Etiqueta from "./marcador";
+import Clasificador from "../interfaces/clasificador";
+
 
 export default class Tarea{
     private titulo: string;
@@ -9,12 +9,12 @@ export default class Tarea{
     private prioridad: Prioridad = Prioridad.Baja;
     private avance: Avance = Avance.Cero;
     private estado: Estado = Estado.Pendiente;
-    private categoria: Categoria;
-    private etiquetas: Etiqueta[] = [];
+    private categoria: Clasificador;
+    private etiquetas: Clasificador[] = [];
 
-    constructor(titulo: string, fechaCreacion: CreadorFecha, fechaVencimiento: Date, prioridad: Prioridad, categoria: Categoria){
+    constructor(titulo: string, creadorDeFecha: CreadorDeFecha, fechaVencimiento: Date, prioridad: Prioridad, categoria: Clasificador){
         this.titulo = titulo;
-        this.fechaCreacion = fechaCreacion.getFechaActual();
+        this.fechaCreacion = creadorDeFecha.getFechaActual();
         this.fechaVencimiento = fechaVencimiento;
         this.categoria = categoria;
     }
@@ -71,19 +71,19 @@ export default class Tarea{
         return this.estado;
     }
 
-    public setCategoria(categoria: Categoria): void{
+    public setCategoria(categoria: Clasificador): void{
         this.categoria = categoria;
     }
 
-    public getCategoria(): Etiqueta{
+    public getCategoria(): Clasificador{
         return this.categoria;
     }
 
-    public setEtiqueta(etiqueta: Etiqueta): void{  
+    public setEtiqueta(etiqueta: Clasificador): void{  
         this.etiquetas.push(etiqueta); //una tarea puede tener más de una etiqueta
     }
 
-    public getEtiquetas(): Etiqueta[]{
+    public getEtiquetas(): Clasificador[]{
         return this.etiquetas;
     }
 }

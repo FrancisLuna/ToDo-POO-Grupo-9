@@ -28,38 +28,36 @@ class Usuario{
     + getContraseña(): string
     + crearEtiqueta(): void
     + crearCategoria(): void
-    + asignarEtiqueta(): void
-    + asignarCategoria(): void
 }
 
 class Tarea{
     - titulo: string
     - descripcion: string
-    - fechaVencimiento: string
-    - fechaCreacion: string
+    - fechaVencimiento: Date
+    - fechaCreacion: Date
     - prioridad: Prioridad
-    - categoría: Categoria
-    - etiquetas: Etiqueta[]
     - avance: Avance
     - estado: Estado
-
+    - categoría: Categoria
+    - etiquetas: Etiqueta[]
+    
     + setTitulo(titulo: string): void
-    + setDescripcion(desc: string): void
-    + setFechaVencimiento(fecha: string): void
-    + setPrioridad(prioridad: string): void
-    + setCategoria(categoria: string): void
-    + setEtiqueta(etiqueta: string): void
-    + setAvance(avance: string): void
-    + setEstado(estado: string): void
+    + setDescripcion(descripcion: string): void
+    + setFechaVencimiento(fecha: Date): void
+    + setPrioridad(prioridad: Prioridad): void
+    + setCategoria(categoria: Categoria): void
+    + setEtiqueta(etiqueta: Etiqueta): void
+    + setAvance(avance: Avance): void
+    + setEstado(estado: Estado): void
 
     + getTitulo(): string
     + getDescripcion(): string
-    + getFechaVencimiento(): string
-    + getPrioridad(): string
-    + getCategoria(): string
-    + getEtiqueta(): string
-    + getAvance(): number
-    + getEstado(): string
+    + getFechaVencimiento(): Date
+    + getPrioridad(): Prioridad
+    + getCategoria(): Categoria
+    + getEtiquetas(): Etiqueta[]
+    + getAvance(): Avance
+    + getEstado(): Estado
 }
 
 ENUM Estado{
@@ -82,14 +80,13 @@ ENUM Prioridad{
     - Baja
 }
 
-class Etiqueta{
-    - nombre: string
-    - esEtiqueta: boolean
-    - esCategoria: boolean
-
-    + setNombre(nombre: string): void
+abstract class Marcador{
+    - nombre
     + getNombre(): string
 }
+
+class Etiqueta extends Marcador{}
+class Categoria extends Marcador{}
 
 class GestorDeTarea{
     + crearTarea(tarea: Tarea): void
@@ -108,7 +105,7 @@ Aplicacion <-- GestorDeTarea
 Aplicacion <-- GestorDeEstadisticas
 GestorDeEstadisticas *-- GestorDeTarea
 Tarea *-- Usuario
-Tarea o-- Etiqueta
+Tarea o-- Marcador
 Tarea o-- Prioridad
 Tarea o-- Estado
 Tarea o-- Avance

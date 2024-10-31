@@ -1,11 +1,11 @@
 import Tarea from "./tarea";
-import CreadorDeClasificador from "./creadorDeclasificador";
-import Clasificador from "../interfaces/clasificador";
+import CreadorDeClasificador from "./creadorDeClasificador";
+import Clasificador from "../interfaces/clasifica";
 export default class Usuario{
     private email:string;
     private password: string;
     private tareas: Array<Tarea> = [];
-    private clasificadores: Array<Clasificador>=[]
+    private clasificadores: Array<Clasificador>=[] //etiquetas y categorias
     private creadorDeClasificador: CreadorDeClasificador;
 
     constructor(email: string, password: string, creadorDeClasificador: CreadorDeClasificador){

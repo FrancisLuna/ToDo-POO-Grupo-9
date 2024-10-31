@@ -1,3 +1,4 @@
+import CreadorDeFecha from "../interfaces/creadorDeFecha";
 export default class CreadorFechaConcreto implements CreadorDeFecha{
     
     public getFechaActual(): Date {

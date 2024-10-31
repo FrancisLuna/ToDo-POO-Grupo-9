@@ -1,4 +1,6 @@
-import Clasificador from "../interfaces/clasificador";
+import Etiqueta from "./etiqueta";
+import Categoria from "./categoria";
+import CreadorDeFecha from "../interfaces/creadorDeFecha";
 
 
 export default class Tarea{
@@ -9,14 +11,20 @@ export default class Tarea{
     private prioridad: Prioridad = Prioridad.Baja;
     private avance: Avance = Avance.Cero;
     private estado: Estado = Estado.Pendiente;
-    private categoria: Clasificador;
-    private etiquetas: Clasificador[] = [];
+    private categoria: Categoria | undefined;
+    private etiquetas: Etiqueta[] = [];
 
-    constructor(titulo: string, creadorDeFecha: CreadorDeFecha, fechaVencimiento: Date, prioridad: Prioridad, categoria: Clasificador){
+    constructor(titulo: string, creadorDeFecha: CreadorDeFecha, diasParaCompletar: number){
         this.titulo = titulo;
-        this.fechaCreacion = creadorDeFecha.getFechaActual();
-        this.fechaVencimiento = fechaVencimiento;
-        this.categoria = categoria;
+
+        this.fechaCreacion = creadorDeFecha.getFechaActual();     // opcion 1
+        this.fechaVencimiento = creadorDeFecha.getFechaActual();  // opcion 1
+
+        this.fechaCreacion = new Date();    //opcion 2
+        this.fechaVencimiento = new Date(); //opcion 2
+        this.fechaVencimiento.setDate(this.fechaVencimiento.getDate()+diasParaCompletar)
+
+        this.fechaVencimiento.setDate(this.fechaVencimiento.getDate()+diasParaCompletar)
     }
 
     public setTitulo(titulo: string): void{
@@ -71,19 +79,19 @@ export default class Tarea{
         return this.estado;
     }
 
-    public setCategoria(categoria: Clasificador): void{
+    public setCategoria(categoria: Categoria): void{
         this.categoria = categoria;
     }
 
-    public getCategoria(): Clasificador{
+    public getCategoria(): Categoria | undefined{
         return this.categoria;
     }
 
-    public setEtiqueta(etiqueta: Clasificador): void{  
+    public setEtiqueta(etiqueta: Etiqueta): void{  
         this.etiquetas.push(etiqueta); //una tarea puede tener más de una etiqueta
     }
 
-    public getEtiquetas(): Clasificador[]{
+    public getEtiquetas(): Etiqueta[]{
         return this.etiquetas;
     }
 }

@@ -1,0 +1,143 @@
+@startuml ToDoList
+
+title TP - TODO List - Grupo 9
+skinparam lineType ortho
+
+class Aplicacion{
+    - usuario: Usuario
+    - gestorDeTarea: GestorDeTarea
+    - gestorDeEstadisticas: GestorDeEstadisticas
+}
+
+class GestorDeEstadisticas{
+    + tiempoPromedioDedicadoALasTareas(tareas: Array<Tarea>): datetime
+    + cantidadDeTareasPorEstado(tareas: Array<Tarea>): Map<string, cantidad>
+    + CantidadDeTareasPorCategoría(tareas: Array<Tarea>): Map<string, cantidad>
+}
+
+class Usuario{
+    - email: string
+    - password: string
+    - tareas: Array<Tarea>
+    - clasificadores
+    - creadorDeCalificador
+
+    + setEmail(email: string): void
+    + getEmail(): string
+    + setPassword(password: string): void
+    + getPassword(): string
+    + crearClasificador(nombre, tipo): void
+}
+
+class CreadorFechaConcreta{
+    + getFechaActual(): Date
+}
+
+class Tarea{
+    - titulo: string
+    - descripcion: string
+    - fechaVencimiento: Date
+    - fechaCreacion: Date
+    - prioridad: Prioridad
+    - avance: Avance
+    - estado: Estado
+    - categoría: Etiqueta
+    - etiquetas: Etiqueta[]
+    
+    + setTitulo(titulo: string): void
+    + getTitulo(): string
+    + setDescripcion(desc: string): void
+    + getDescripcion(): string
+    + getFechaCreacion(): Date
+    + setFechaVencimiento(fecha: Date): void
+    + getFechaVencimiento(): Date
+    + setPrioridad(prioridad: Prioridad): void
+    + getPrioridad(): Prioridad
+    + setAvance(avance: Avance): void
+    + getAvance(): Avance
+    + setEstado(estado: Estado): void
+    + getEstado(): Estado
+    + setCategoria(categoria: Categoria): void
+    + getCategoria(): Categoria
+    + setEtiqueta(etiqueta: Etiqueta): void
+    + getEtiquetas(): Etiqueta[]
+}
+
+class ClasificadorConcreto{
+    - tipo
+    - nombre
+    + setTipo(tipo): void
+    + getTipo(): TipoDeClasificador
+    + setNombre(nombre): void
+    + getNombre(): string
+}
+
+class CreadorDeClasificador{
+    + crearClasificador(): ClasificadorConcreto
+}
+
+interface Clasificador{
+    setTipo(tipo)
+    getTipo()
+    setNombre()
+    getNombre()
+}
+
+interface CreadorDeFecha{
+    getFechaActual()    
+}
+
+ENUM Estado{
+    Pendiente
+    EnProgreso
+    Completado
+}
+
+ENUM Avance{
+    0
+    25
+    50
+    75
+    100
+}
+
+ENUM Prioridad{
+    Alta
+    Media
+    Baja
+}
+
+ENUM TipoDeClasificador{
+    ninguno
+    categoria
+    etiqueta
+}
+
+class GestorDeTarea{
+    + crearTarea(tarea: Tarea): void
+    + eliminarTarea(tarea: Tarea): void
+    + editarTarea(tarea: Tarea): void
+    + ordenarTareasPorPrioridad(): Tarea[]
+    + ordenarTareasPorFecha(): Tarea[]
+    + buscarTareaPorTitulo(titulo: string): Tarea | null
+    + getTareasCompletadas(): Tarea[]
+    + getTareasPendientes(): Tarea[]
+    + notificarRecordatorio()
+}
+
+Aplicacion *-- Usuario
+Aplicacion <-- GestorDeTarea
+Aplicacion <-- GestorDeEstadisticas
+GestorDeEstadisticas *-- GestorDeTarea
+Tarea -right-* Usuario
+Tarea o-up- Prioridad
+Tarea o-up- Estado
+Tarea o-up- Avance
+Tarea o-up- TipoDeClasificador
+Tarea <-- CreadorFechaConcreta
+Usuario <-- TipoDeClasificador
+ClasificadorConcreto --|> Clasificador
+CreadorDeClasificador <-- ClasificadorConcreto
+Usuario <-- CreadorDeClasificador
+CreadorFechaConcreta --|> CreadorDeFecha
+@enduml

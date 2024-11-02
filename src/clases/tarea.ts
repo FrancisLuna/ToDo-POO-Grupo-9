@@ -8,17 +8,19 @@
         private descripcion: string = "";
         private fechaCreacion: Moment = moment();
         private fechaVencimiento: Moment;
-        private prioridad: Prioridad = Prioridad.Baja;
-        private avance: Avance = Avance.Cero;
+        private prioridad: Prioridad;
+        private avance: Avance;
         private estados: Map<Estado,Moment>= new Map;
-        private estadoActual: Estado = Estado.Pendiente; 
+        private estadoActual: Estado; 
         private categoria: Categoria | undefined;
         private etiquetas: Etiqueta[] = [];
 
         constructor(titulo: string,diasParaCompletar: number){
             this.titulo = titulo;
             this.fechaVencimiento = this.fechaCreacion.clone().add(diasParaCompletar,'days');
-            this.estados.set(Estado.Pendiente,this.fechaCreacion);
+            this.prioridad = Prioridad.Baja;
+            this.avance = Avance.Cero;
+            this.estadoActual = Estado.Pendiente;
         }
 
         public setId(id:number): void{

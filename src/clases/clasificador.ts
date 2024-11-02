@@ -1,4 +1,4 @@
-export default  abstract class Marcador{
+export default  abstract class Clasificador{
     private nombre: string;
 
     constructor(nombre: string){

@@ -4,32 +4,21 @@ title TP - TODO List - Grupo 9
 skinparam lineType ortho
 
 class Aplicacion{
-    - usuario: Usuario
     - gestorDeTarea: GestorDeTarea
     - gestorDeEstadisticas: GestorDeEstadisticas
+    - categorias: Array<Categoria>
+    - etiquetas: Array<Etiqueta>
 }
 
 class GestorDeEstadisticas{
+    - Array<Tarea>
     + tiempoPromedioDedicadoALasTareas(tareas: Array<Tarea>): datetime
     + cantidadDeTareasPorEstado(tareas: Array<Tarea>): Map<string, cantidad>
     + CantidadDeTareasPorCategoría(tareas: Array<Tarea>): Map<string, cantidad>
 }
 
-class Usuario{
-    - email: string
-    - contraseña: string
-    - tareas: Array<Tarea>
-    - etiquetasCreadas: Etiqueta[]
-    - categoriasCreadas: Etiqueta[]
-
-    + setEmail(email: string): void
-    + getEmail(): string
-    + setContraseña(contraña: string): void
-    + getContraseña(): string
-    + crearEtiqueta(): void
-    + crearCategoria(): void
-    + asignarEtiqueta(): void
-    + asignarCategoria(): void
+class GestorDeNotificaciones{
+    + notificarRecordatorio()
 }
 
 class Tarea{
@@ -40,60 +29,50 @@ class Tarea{
     - prioridad: Prioridad
     - avance: Avance
     - estado: Estado
-    - categoría: Etiqueta
+    - categoría: Categoria
     - etiquetas: Etiqueta[]
     
     + setTitulo(titulo: string): void
-    + setDescripcion(desc: string): void
-    + setFechaVencimiento(fecha: Date): void
-    + setPrioridad(prioridad: Prioridad): void
-    + setCategoria(categoria: Categoria): void
-    + setEtiqueta(etiqueta: Etiqueta): void
-    + setAvance(avance: Avance): void
-    + setEstado(estado: Estado): void
-
     + getTitulo(): string
+    + setDescripcion(desc: string): void
     + getDescripcion(): string
+    + getFechaCreacion(): Date
+    + setFechaVencimiento(fecha: Date): void
     + getFechaVencimiento(): Date
+    + setPrioridad(prioridad: Prioridad): void
     + getPrioridad(): Prioridad
-    + getCategoria(): Categoria
-    + getEtiquetas(): Etiqueta[]
+    + setAvance(avance: Avance): void
     + getAvance(): Avance
+    + setEstado(estado: Estado): void
     + getEstado(): Estado
+    + setCategoria(categoria: Categoria): void
+    + getCategoria(): Categoria
+    + setEtiqueta(etiqueta: Etiqueta): void
+    + getEtiquetas(): Etiqueta[]
 }
 
 ENUM Estado{
-    - Pendiente
-    - EnProgreso
-    - Completado
+    Pendiente
+    EnProgreso
+    Completado
 }
 
 ENUM Avance{
-    - 0
-    - 25
-    - 50
-    - 75
-    - 100
+    0
+    25
+    50
+    75
+    100
 }
 
 ENUM Prioridad{
-    - Alta
-    - Media
-    - Baja
-}
-
-class Etiqueta{
-    - nombre: string
-    - esEtiqueta: boolean
-    - esCategoria: boolean
-
-    + setNombre(nombre: string): void
-    + getNombre(): string
-    + getEsUnaEtiqueta(): boolean
-    + getEsUnaCategoria(): boolean
+    Alta
+    Media
+    Baja
 }
 
 class GestorDeTarea{
+    - tareas: Array<Tarea>
     + crearTarea(tarea: Tarea): void
     + eliminarTarea(tarea: Tarea): void
     + editarTarea(tarea: Tarea): void
@@ -102,17 +81,15 @@ class GestorDeTarea{
     + buscarTareaPorTitulo(titulo: string): Tarea | null
     + getTareasCompletadas(): Tarea[]
     + getTareasPendientes(): Tarea[]
-    + notificarRecordatorio()
 }
 
-Aplicacion *-- Usuario
 Aplicacion <-- GestorDeTarea
 Aplicacion <-- GestorDeEstadisticas
-GestorDeEstadisticas *-- GestorDeTarea
-Tarea *-- Usuario
-Tarea o-- Etiqueta
-Tarea o-- Prioridad
-Tarea o-- Estado
-Tarea o-- Avance
-
+Aplicacion <-- GestorDeNotificaciones
+GestorDeEstadisticas --> Tarea
+GestorDeTarea --> Tarea
+Tarea -right-* Aplicacion
+Tarea o-up- Prioridad
+Tarea o-up- Estado
+Tarea o-up- Avance
 @enduml

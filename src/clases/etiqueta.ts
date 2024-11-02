@@ -1,6 +1,6 @@
-import Marcador from "./marcador";
+import Clasificador from "./clasificador";
 
-export default class Etiqueta extends Marcador{
+export default class Etiqueta extends Clasificador{
     constructor(nombre: string){
         super(nombre);
     }

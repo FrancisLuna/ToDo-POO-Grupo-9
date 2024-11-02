@@ -1,97 +1,108 @@
-import Etiqueta from "./etiqueta";
-import Categoria from "./categoria";
-import CreadorDeFecha from "../interfaces/creadorDeFecha";
+    import Etiqueta from "./etiqueta";
+    import Categoria from "./categoria";
+    import moment, { Moment } from "moment";
 
+    export default class Tarea{
+        private id: number = 0;
+        private titulo: string;
+        private descripcion: string = "";
+        private fechaCreacion: Moment = moment();
+        private fechaVencimiento: Moment;
+        private prioridad: Prioridad = Prioridad.Baja;
+        private avance: Avance = Avance.Cero;
+        private estados: Map<Estado,Moment>= new Map;
+        private estadoActual: Estado = Estado.Pendiente; 
+        private categoria: Categoria | undefined;
+        private etiquetas: Etiqueta[] = [];
 
-export default class Tarea{
-    private titulo: string;
-    private descripcion: string = "";
-    private fechaCreacion: Date;
-    private fechaVencimiento: Date;
-    private prioridad: Prioridad = Prioridad.Baja;
-    private avance: Avance = Avance.Cero;
-    private estado: Estado = Estado.Pendiente;
-    private categoria: Categoria | undefined;
-    private etiquetas: Etiqueta[] = [];
+        constructor(titulo: string,diasParaCompletar: number){
+            this.titulo = titulo;
+            this.fechaVencimiento = this.fechaCreacion.clone().add(diasParaCompletar,'days');
+            this.estados.set(Estado.Pendiente,this.fechaCreacion);
+        }
 
-    constructor(titulo: string, creadorDeFecha: CreadorDeFecha, diasParaCompletar: number){
-        this.titulo = titulo;
+        public setId(id:number): void{
+            this.id = id;
+        }
 
-        this.fechaCreacion = creadorDeFecha.getFechaActual();     // opcion 1
-        this.fechaVencimiento = creadorDeFecha.getFechaActual();  // opcion 1
+        public getId(): number{
+            return this.id;
+        }
 
-        this.fechaCreacion = new Date();    //opcion 2
-        this.fechaVencimiento = new Date(); //opcion 2
-        this.fechaVencimiento.setDate(this.fechaVencimiento.getDate()+diasParaCompletar)
+        public setTitulo(titulo: string): void{
+            this.titulo = titulo;
+        }
 
-        this.fechaVencimiento.setDate(this.fechaVencimiento.getDate()+diasParaCompletar)
+        public getTitulo(): string{
+            return this.titulo;
+        }
+
+        public setDescripcion(descripcion: string): void{
+            this.descripcion = descripcion;
+        }
+
+        public getDescripcion(): string{
+        return this.descripcion;
+        }
+
+        public getFechaCreacion(): Moment{
+            return this.fechaCreacion;
+        }
+
+        public setFechaVencimiento(fechaVencimiento: Moment){ // cualquier formato de fecha de moment
+            this.fechaVencimiento = fechaVencimiento;
+        }
+
+        public getFechaVencimiento(): Moment{
+            return this.fechaVencimiento;
+        }
+
+        public setPrioridad(prioridad: Prioridad): void{
+            this.prioridad = prioridad;
+        }
+
+        public getPrioridad(): Prioridad{
+            return this.prioridad;
+        }
+
+        public setAvance(avance: Avance): void{
+            this.avance = avance;
+        }
+
+        public getAvance(): Avance{
+            return this.avance;
+        }
+
+        public setEstado(estado: Estado): void{
+            if(!(this.estadoActual === estado)){
+                this.estadoActual = estado;        
+                const momentoActual:Moment = moment();
+                this.estados.set(estado,momentoActual)
+            } else {throw new Error(`La tarea ya se encuentra en el estado ${estado}.`);}
+        
+        }
+
+        public getEstadoActual(): Estado{
+            return this.estadoActual;
+        }
+
+        public getEstados(): Map<Estado,Moment>{
+            return this.estados;
+        }
+
+        public setCategoria(categoria: Categoria): void{
+            this.categoria = categoria;
+        }
+
+        public getCategoria(): Categoria | undefined{
+            return this.categoria;
+        }
+
+        public setEtiqueta(etiqueta: Etiqueta): void{  
+            this.etiquetas.push(etiqueta); //una tarea puede tener más de una etiqueta
+        }
+
+        public getEtiquetas(): Etiqueta[]{
+            return this.etiquetas;
+        }
     }
-
-    public setTitulo(titulo: string): void{
-        this.titulo = titulo;
-    }
-
-    public getTitulo(): string{
-        return this.titulo;
-    }
-
-    public setDescripcion(descripcion: string): void{
-        this.descripcion = descripcion;
-    }
-
-    public getDescripcion(): string{
-       return this.descripcion;
-    }
-
-    public getFechaCreacion(): Date{
-        return this.fechaCreacion;
-    }
-
-    public setFechaVencimiento(fechaVencimiento: Date){
-        this.fechaVencimiento = fechaVencimiento;
-    }
-
-    public getFechaVencimiento(): Date{
-        return this.fechaVencimiento;
-    }
-
-    public setPrioridad(prioridad: Prioridad): void{
-        this.prioridad = prioridad;
-    }
-
-    public getPrioridad(): Prioridad{
-        return this.prioridad;
-    }
-
-    public setAvance(avance: Avance): void{
-        this.avance = avance;
-    }
-
-    public getAvance(): Avance{
-        return this.avance;
-    }
-
-    public setEstado(estado: Estado): void{
-        this.estado = estado;
-    }
-
-    public getEstado(): Estado{
-        return this.estado;
-    }
-
-    public setCategoria(categoria: Categoria): void{
-        this.categoria = categoria;
-    }
-
-    public getCategoria(): Categoria | undefined{
-        return this.categoria;
-    }
-
-    public setEtiqueta(etiqueta: Etiqueta): void{  
-        this.etiquetas.push(etiqueta); //una tarea puede tener más de una etiqueta
-    }
-
-    public getEtiquetas(): Etiqueta[]{
-        return this.etiquetas;
-    }
-}

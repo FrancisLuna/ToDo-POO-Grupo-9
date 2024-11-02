@@ -1,15 +1,20 @@
-import Usuario from ""
-import GestorDeTarea from ""
-import GestorDeEstadisticas from ""
+import Etiqueta from "./etiqueta";
+import Categoria from "./categoria";
+import GestorDeEstadistica from "./gestorDeEstadistica";
+import GestorDeTarea from "./gestorDeTarea";
+import CreadorDeTarea from "./creadorDeTarea";
+import Tarea from "./tarea";
 
-export default class aplicacion{
-    private usuario: Usuario;
+export default class Aplicacion {
     private gestorDeTarea: GestorDeTarea;
-    private gestorDeEstadisticas: GestorDeEstadisticas;
+    private gestorDeEstadística: GestorDeEstadistica;
+    private creadorDeTarea: CreadorDeTarea;
+    private categorias: Array<Categoria>=[];
+    private etiquetas: Array<Etiqueta>=[];
 
-    constructor(usuario: Usuario, gestorDeTarea: GestorDeTarea, gestorDeEstadisticas: GestorDeEstadisticas){
-        this.usuario = usuario;
+    constructor(gestorDeTarea: GestorDeTarea, gestorDeEstadística: GestorDeEstadistica, creadorDeTarea: CreadorDeTarea){
         this.gestorDeTarea = gestorDeTarea;
-        this.gestorDeEstadisticas = gestorDeEstadisticas;
+        this.gestorDeEstadística = gestorDeEstadística;
+        this.creadorDeTarea = creadorDeTarea;
     }
 }

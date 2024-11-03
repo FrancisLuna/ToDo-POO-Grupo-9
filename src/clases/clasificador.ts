@@ -8,4 +8,8 @@ export default  abstract class Clasificador{
     public getNombre(): string{
         return this.nombre;
     }
+
+    public setNombre(nombre: string): void{
+        this.nombre = nombre;
+    }
 }

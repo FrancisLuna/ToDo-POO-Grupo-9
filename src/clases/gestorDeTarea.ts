@@ -1,21 +1,43 @@
 import CreadorDeTarea from "./creadorDeTarea";
+import CreadorDeClasificador from "./creadorDeClasificador";
 import moment from "moment";
 import Tarea from "./tarea"
+import Categoria from "./categoria";
+import Etiqueta from "./etiqueta";
 
 export default class GestorDeTarea{
 
-    private tareas: Tarea[] = [];
+    private tareas: Tarea[];
+    private categorias: Array<Categoria>;
+    private etiquetas: Array<Etiqueta>
     private creadorDeTareas: CreadorDeTarea;
+    private creadorDeClasificador: CreadorDeClasificador;
 
-    constructor(creadorDeTareas: CreadorDeTarea){
+    constructor(tareas: Array<Tarea>, categorias: Array<Categoria>, etiquetas: Array<Etiqueta>, creadorDeTareas: CreadorDeTarea, creadorDeClasificador: CreadorDeClasificador){
         this.creadorDeTareas = creadorDeTareas;
+        this.tareas = tareas;
+        this.categorias = categorias;
+        this.etiquetas = etiquetas;
+        this.creadorDeClasificador = creadorDeClasificador
     }
 
-    public agregarTarea(tarea: Tarea): void{
+    public agregarTarea(): void{
         const nuevaTarea: Tarea = this.creadorDeTareas.instanciarTarea();
         nuevaTarea.setId(this.tareas.length + 1);
         nuevaTarea.setTitulo(`Tarea${nuevaTarea.getId()}`);
         this.tareas.push(nuevaTarea);
+    }
+
+    public AgregarCategoria(): void{
+        const nuevaCategoria: Categoria = this.creadorDeClasificador.instanciarCategoria();
+        nuevaCategoria.setNombre(`categoria${this.categorias.length+1}`);
+        this.categorias.push(nuevaCategoria);
+    }
+
+    public AgregarEtiqueta(): void{
+        const nuevaEtiqueta: Etiqueta = this.creadorDeClasificador.instanciarEtiqueta();
+        nuevaEtiqueta.setNombre(`etiqueta${this.etiquetas.length+1}`)
+        this.etiquetas.push(nuevaEtiqueta);
     }
 
     public eliminarTarea(id: number): void{                      
@@ -23,29 +45,5 @@ export default class GestorDeTarea{
         if (index !== -1) {
             this.tareas.splice(index, 1);             
         }                       
-    }
-
-    public ordenarTareasPorPrioridad(): Tarea[]{
-        return this.tareas.sort((a, b) => a.getPrioridad() - b.getPrioridad());    
-    }
-
-    public ordenarTareasPorFecha(): Tarea[] {
-        return this.tareas.sort((a, b) => a.getFechaCreacion().valueOf() - b.getFechaCreacion().valueOf());
-    }
-    
-    public buscarTareaPorTitulo(titulo: string): Tarea | undefined{
-        return this.tareas.find(tarea => tarea.getTitulo() === titulo);
-    }
-
-    public getTareasCompletadas(): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getEstadoActual() === Estado.Completado);
-    }
-
-    public getTareasNoCompletadas(): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getEstadoActual() !== Estado.Completado);
-    }
-
-    public getTareasPendientes(): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getEstadoActual() === Estado.Pendiente);
-    }
+    }    
 }

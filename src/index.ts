@@ -2,7 +2,6 @@ import GestorDeTarea from "./clases/gestorDeTarea";
 import GestorDeEstadistica from "./clases/gestorDeEstadistica";
 import CreadorDeTarea from "./clases/creadorDeTarea";
 import Saver from './clases/saver';
-import Loader from "./clases/loader";
 import Tarea from "./clases/tarea";
 import CreadorDeClasificador from "./clases/creadorDeClasificador";
 import Categoria from "./clases/categoria";
@@ -24,13 +23,11 @@ function main(){
   const miGestorDeEstadisticas: GestorDeEstadistica = new GestorDeEstadistica();
 
   const miSaver: Saver = new Saver();
-  const miLoader: Loader = new Loader();
-
-  miGestorDeTareas.agregarTarea();
-  miGestorDeTareas.AgregarEtiqueta();
-  miGestorDeTareas.AgregarEtiqueta();
-  miGestorDeTareas.AgregarCategoria();
-  console.log(misTareas)
-}
   
+  miGestorDeTareas.agregarTarea();
+  miGestorDeTareas.agregarEtiqueta();
+  miGestorDeTareas.agregarEtiqueta();
+  miGestorDeTareas.agregarCategoria();
+  console.log(misTareas)
+}  
 main();

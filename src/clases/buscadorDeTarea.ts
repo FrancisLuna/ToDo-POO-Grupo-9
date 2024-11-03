@@ -11,14 +11,20 @@ export default class BuscadorDeTarea{
     }
 
     public getTareasCompletadas(): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getEstadoActual() === Estado.Completado);
+        return this.tareas.filter(tarea => tarea.getEstadoActual() === ESTADO.Completado);
     }
 
     public getTareasNoCompletadas(): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getEstadoActual() !== Estado.Completado);
+        return this.tareas.filter(tarea => tarea.getEstadoActual() !== ESTADO.Completado);
     }
 
     public getTareasPendientes(): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getEstadoActual() === Estado.Pendiente);
+        return this.tareas.filter(tarea => tarea.getEstadoActual() === ESTADO.Pendiente);
     }
+}
+
+enum ESTADO{
+    Pendiente,
+    EnProgreso,
+    Completado
 }

@@ -8,19 +8,19 @@
         private descripcion: string = "";
         private fechaCreacion: Moment = moment();
         private fechaVencimiento: Moment;
-        private prioridad: Prioridad;
-        private avance: Avance;
-        private estados: Map<Estado,Moment>= new Map;
-        private estadoActual: Estado; 
+        private prioridad: PRIORIDAD;
+        private avance: AVANCE;
+        private estados: Map<ESTADO,Moment>= new Map;
+        private estadoActual: ESTADO; 
         private categoria: Categoria | undefined;
         private etiquetas: Etiqueta[] = [];
 
         constructor(titulo: string,diasParaCompletar: number){
             this.titulo = titulo;
             this.fechaVencimiento = this.fechaCreacion.clone().add(diasParaCompletar,'days');
-            this.prioridad = Prioridad.Baja;
-            this.avance = Avance.Cero;
-            this.estadoActual = Estado.Pendiente;
+            this.prioridad = PRIORIDAD.Baja;
+            this.avance = AVANCE.Cero;
+            this.estadoActual = ESTADO.Pendiente;
         }
 
         public setId(id:number): void{
@@ -59,23 +59,23 @@
             return this.fechaVencimiento;
         }
 
-        public setPrioridad(prioridad: Prioridad): void{
+        public setPrioridad(prioridad: PRIORIDAD): void{
             this.prioridad = prioridad;
         }
 
-        public getPrioridad(): Prioridad{
+        public getPrioridad(): PRIORIDAD{
             return this.prioridad;
         }
 
-        public setAvance(avance: Avance): void{
+        public setAvance(avance: AVANCE): void{
             this.avance = avance;
         }
 
-        public getAvance(): Avance{
+        public getAvance(): AVANCE{
             return this.avance;
         }
 
-        public setEstado(estado: Estado): void{
+        public setEstado(estado: ESTADO): void{
             if(!(this.estadoActual === estado)){
                 this.estadoActual = estado;        
                 const momentoActual:Moment = moment();
@@ -84,11 +84,11 @@
         
         }
 
-        public getEstadoActual(): Estado{
+        public getEstadoActual(): ESTADO{
             return this.estadoActual;
         }
 
-        public getEstados(): Map<Estado,Moment>{
+        public getEstados(): Map<ESTADO,Moment>{
             return this.estados;
         }
 
@@ -107,4 +107,24 @@
         public getEtiquetas(): Etiqueta[]{
             return this.etiquetas;
         }
+    }
+
+    enum AVANCE {
+        Cero = 0,
+        Veinticinco = 25,
+        Cincuenta = 50,
+        SetentaYCinco = 75,
+        Cien = 100
+    }
+
+    enum ESTADO{
+        Pendiente,
+        EnProgreso,
+        Completado
+    }
+
+    enum PRIORIDAD{
+        Baja,
+        Media,
+        Alta
     }

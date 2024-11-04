@@ -28,13 +28,13 @@ export default class GestorDeTarea{
         this.tareas.push(nuevaTarea);
     }
 
-    public AgregarCategoria(): void{
+    public agregarCategoria(): void{
         const nuevaCategoria: Categoria = this.creadorDeClasificador.instanciarCategoria();
         nuevaCategoria.setNombre(`categoria${this.categorias.length+1}`);
         this.categorias.push(nuevaCategoria);
     }
 
-    public AgregarEtiqueta(): void{
+    public agregarEtiqueta(): void{
         const nuevaEtiqueta: Etiqueta = this.creadorDeClasificador.instanciarEtiqueta();
         nuevaEtiqueta.setNombre(`etiqueta${this.etiquetas.length+1}`)
         this.etiquetas.push(nuevaEtiqueta);

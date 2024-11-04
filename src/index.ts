@@ -21,15 +21,15 @@ function main(){
   const miOrganizadorDeTareas: OrganizadorDeTarea = new OrganizadorDeTarea(misTareas);
 
   const miGestorDeTareas: GestorDeTarea = new GestorDeTarea(misTareas,misCategorias,misEtiquetas,miCreadorDeTareas,miCreadorDeClasificador);
-  const miGestorDeEstadisticas: GestorDeEstadistica = new GestorDeEstadistica();
+  const miGestorDeEstadisticas: GestorDeEstadistica = new GestorDeEstadistica(miBuscadorDeTareas);
 
   const miSaver: Saver = new Saver();
   const miLoader: Loader = new Loader();
 
   miGestorDeTareas.agregarTarea();
-  miGestorDeTareas.AgregarEtiqueta();
-  miGestorDeTareas.AgregarEtiqueta();
-  miGestorDeTareas.AgregarCategoria();
+  miGestorDeTareas.agregarEtiqueta();
+  miGestorDeTareas.agregarEtiqueta();
+  miGestorDeTareas.agregarCategoria();
   console.log(misTareas)
 }
   

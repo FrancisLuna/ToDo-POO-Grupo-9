@@ -3,35 +3,21 @@
 title TP - TODO List - Grupo 9
 skinparam lineType ortho
 
-class Aplicacion{
-    - gestorDeTarea: GestorDeTarea
-    - gestorDeEstadisticas: GestorDeEstadisticas
-    - categorias: Array<Categoria>
-    - etiquetas: Array<Etiqueta>
-}
-
-class GestorDeEstadisticas{
-    - Array<Tarea>
-    + tiempoPromedioDedicadoALasTareas(tareas: Array<Tarea>): datetime
-    + cantidadDeTareasPorEstado(tareas: Array<Tarea>): Map<string, cantidad>
-    + CantidadDeTareasPorCategoría(tareas: Array<Tarea>): Map<string, cantidad>
-}
-
-class GestorDeNotificaciones{
-    + notificarRecordatorio()
-}
-
 class Tarea{
-    - titulo: string
-    - descripcion: string
-    - fechaVencimiento: Date
-    - fechaCreacion: Date
-    - prioridad: Prioridad
-    - avance: Avance
-    - estado: Estado
-    - categoría: Categoria
-    - etiquetas: Etiqueta[]
+   - id: number
+   - titulo: string
+   - descripcion: string
+   - fechaCreacion: Moment
+   - fechaVencimiento: Moment
+   - prioridad: Prioridad
+   - avance: Avance
+   - estados: Map<Estado,Moment>
+   - estadoActual: Estado
+   - categoria: Categoria | undefined
+   - etiquetas: Etiqueta[]
     
+    + setTitulo(): void
+    + getTitulo(): number
     + setTitulo(titulo: string): void
     + getTitulo(): string
     + setDescripcion(desc: string): void
@@ -44,11 +30,75 @@ class Tarea{
     + setAvance(avance: Avance): void
     + getAvance(): Avance
     + setEstado(estado: Estado): void
-    + getEstado(): Estado
+    + getEstadoActual(): Estado
+    + getEstados(): Map<Estado,Moment>
     + setCategoria(categoria: Categoria): void
-    + getCategoria(): Categoria
+    + getCategoria(): Categoria | undefined
     + setEtiqueta(etiqueta: Etiqueta): void
     + getEtiquetas(): Etiqueta[]
+}
+
+class CreadorDeTarea{
+    + instanciarTarea(): Tarea
+}
+
+class GestorDeTarea{
+    - tareas: Array<Tarea>
+    - categorias: Array<Categoria>
+    - etiquetas: Array<Etiqueta>
+    - creadorDeTareas: CreadorDeTarea
+    - creadorDeClasificador: CreadorDeClasificador
+
+    + agregarTarea(): void
+    + agregarCategoria(): void
+    + agregarEtiqueta(): void
+    + eliminarTarea(id: number): void
+}
+
+class BuscadorDeTarea{
+    - tareas: Array<Tarea>
+
+    + getTareaPorTitulo(titulo: string): Tarea | undefined
+    + getTareasCompletadas(): Tarea[]
+    + getTareasNoCompletadas(): Tarea[]
+    + getTareasPendientes(): Tarea[]
+}
+
+class OrganizadorDeTarea{
+    - tareas: Array<Tarea>
+
+    + ordenarTareasPorPrioridad(): Tarea[]
+    + ordenarTareasPorFecha(): Tarea[]
+}
+
+class GestorDeEstadisticas{
+    - tareas: Array<Tarea>
+    - buscadorDeTarea: BuscadorDeTarea
+
+    + obtenerTiempoDeFinalizacionDeUnaTarea(tarea: Tarea): number
+    + obtenerTiempoDedicadoPorTarea(): Map<number, number>
+    + obtenerTiempoDeFinalizacionDeTareas(): number
+    + obtenerTiempoPromedioDeFinalizacion(): number
+    + obtenercantidadDeTareasPorEstado(): Map<Estado, number>
+}
+
+class GestorDeNotificaciones{
+    + notificarRecordatorio()
+}
+
+abstract class Clasificador{
+    - nombre: string
+
+    + setNombre(nombre: string): void
+    + getNombre(): string
+}
+
+class Categoria extends Clasificador{}
+class Etiqueta extends Clasificador{}
+
+class CreadorDeClasificador{
+    + instanciarCategoria(): Categoria
+    + instanciarEtiqueta(): Etiqueta
 }
 
 ENUM Estado{
@@ -71,25 +121,20 @@ ENUM Prioridad{
     Baja
 }
 
-class GestorDeTarea{
-    - tareas: Array<Tarea>
-    + crearTarea(tarea: Tarea): void
-    + eliminarTarea(tarea: Tarea): void
-    + editarTarea(tarea: Tarea): void
-    + ordenarTareasPorPrioridad(): Tarea[]
-    + ordenarTareasPorFecha(): Tarea[]
-    + buscarTareaPorTitulo(titulo: string): Tarea | null
-    + getTareasCompletadas(): Tarea[]
-    + getTareasPendientes(): Tarea[]
-}
+GestorDeEstadisticas ..> Tarea
+GestorDeEstadisticas ..> BuscadorDeTarea
+GestorDeTarea *-right- Tarea
+Etiqueta --o GestorDeTarea
+Categoria --o GestorDeTarea
+CreadorDeTarea *-left- Tarea
+BuscadorDeTarea *-left- Tarea
+OrganizadorDeTarea *-- Tarea
 
-Aplicacion <-- GestorDeTarea
-Aplicacion <-- GestorDeEstadisticas
-Aplicacion <-- GestorDeNotificaciones
-GestorDeEstadisticas --> Tarea
-GestorDeTarea --> Tarea
-Tarea -right-* Aplicacion
-Tarea o-up- Prioridad
-Tarea o-up- Estado
-Tarea o-up- Avance
+/' CreadorDeClasificador *-- Etiqueta
+CreadorDeClasificador *-- Categoria '/
+
+Tarea o-- Prioridad
+Tarea o-- Estado
+Tarea o-- Avance
+
 @enduml

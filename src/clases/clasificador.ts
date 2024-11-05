@@ -5,6 +5,10 @@ export default  abstract class Clasificador{
         this.nombre = nombre;
     }
 
+    public setNombre(nombre: string): void{
+        this.nombre = nombre;
+    }
+
     public getNombre(): string{
         return this.nombre;
     }

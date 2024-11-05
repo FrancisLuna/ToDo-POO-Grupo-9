@@ -76,6 +76,8 @@ class BuscadorDeTarea{
     + getTareasCompletadas(): Tarea[]
     + getTareasNoCompletadas(): Tarea[]
     + getTareasPendientes(): Tarea[]
+    + getTareasXEtiquetas(etiqueta: Etiqueta): Tarea[]
+    + getTareasXFechaDeVencimiento(fechaVencimiento: Moment): Tarea[]
 }
 
 class OrganizadorDeTarea{
@@ -83,6 +85,7 @@ class OrganizadorDeTarea{
 
     + ordenarTareasPorPrioridad(): Tarea[]
     + ordenarTareasPorFecha(): Tarea[]
+    + public ordenarTareasPorTitulo(): Tarea[]
 }
 
 class GestorDeEstadisticas{

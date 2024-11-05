@@ -1,5 +1,6 @@
 import Tarea from "./tarea";
 export default class BuscadorDeTarea{
+    
     private tareas: Tarea[];
 
     constructor(tareas: Array<Tarea>){

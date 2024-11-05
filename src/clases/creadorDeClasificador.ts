@@ -1,11 +1,12 @@
 import Etiqueta from "./etiqueta"
 import Categoria from "./categoria"
 export default class CreadorDeClasificador{
-    public instanciarCategoria(): Categoria{
-        return new Categoria("");
+    
+    public instanciarCategoria(nombre: string): Categoria{
+        return new Categoria(nombre);
     }
 
-    public instanciarEtiqueta(): Etiqueta{
-        return new Etiqueta("");
+    public instanciarEtiqueta(nombre: string): Etiqueta{
+        return new Etiqueta(nombre);
     }
 }

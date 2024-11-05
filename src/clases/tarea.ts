@@ -3,6 +3,7 @@
     import moment, { Moment } from "moment";
 
     export default class Tarea{
+        
         private id: number = 0;
         private titulo: string;
         private descripcion: string = "";
@@ -80,8 +81,7 @@
                 this.estadoActual = estado;        
                 const momentoActual:Moment = moment();
                 this.estados.set(estado,momentoActual)
-            } else {throw new Error(`La tarea ya se encuentra en el estado ${estado}.`);}
-        
+            } else {throw new Error(`La tarea ya se encuentra en el estado ${estado}.`);}        
         }
 
         public getEstadoActual(): ESTADO{
@@ -106,6 +106,13 @@
 
         public getEtiquetas(): Etiqueta[]{
             return this.etiquetas;
+        }
+
+        public eliminarEtiquetaDeLista(nombre: string): void{
+            const index: number = this.etiquetas.findIndex(etiqueta => etiqueta.getNombre() === nombre);
+            if (index !== -1) {
+                this.etiquetas.splice(index, 1);
+            }
         }
     }
 

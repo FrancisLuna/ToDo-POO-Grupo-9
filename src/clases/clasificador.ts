@@ -1,4 +1,5 @@
 export default  abstract class Clasificador{
+    
     private nombre: string;
 
     constructor(nombre: string){

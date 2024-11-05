@@ -1,6 +1,7 @@
 import Tarea from "./tarea";
 
 export default class OrganizadorDeTarea{
+    
     private tareas: Array<Tarea>;
 
     constructor(tareas: Array<Tarea>){

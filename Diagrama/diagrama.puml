@@ -36,6 +36,7 @@ class Tarea{
     + getCategoria(): Categoria | undefined
     + setEtiqueta(etiqueta: Etiqueta): void
     + getEtiquetas(): Etiqueta[]
+    + eliminarEtiquetaDeLista(nombre: string): void
 }
 
 class CreadorDeTarea{
@@ -49,10 +50,23 @@ class GestorDeTarea{
     - creadorDeTareas: CreadorDeTarea
     - creadorDeClasificador: CreadorDeClasificador
 
-    + agregarTarea(): void
-    + agregarCategoria(): void
-    + agregarEtiqueta(): void
-    + eliminarTarea(id: number): void
+    - errorIdNoEncontrado(idTarea: number): void
+    - obtenerTareaPorId(idTarea: number): Tarea | undefined
+    + agregarTareaALista(): void
+    + agregarCategoriaALista(nombre: string): void
+    + agregarEtiquetaALista(nombre: string): void
+    + eliminarTareaDeLista(id: number): void
+    + eliminarCategoriaDeLista(nombre: string): void
+    + eliminarEtiquetaDeLista(nombre: string): void
+    + editarTituloDeTarea(idTarea: number, nuevoTitulo: string): void
+    + editarDescripcionDeTarea(idTarea: number, nuevaDescripcion: string): void
+    + editarFechaDeVencimientoDeTarea(idTarea: number, year: number, month: number, day: number): void
+    + editarPrioridadDeTarea(idTarea: number, prioridad: PRIORIDAD): void
+    + editarAvanceDeTarea(idTarea: number, avance: AVANCE): void
+    + editarEstadoDeTarea(idTarea: number, estado: ESTADO): void
+    + editarCategoriaDeTarea(idTarea: number, nombreDeCategoria: string): void
+    + agregarEtiquetaATarea(idTarea: number, nombreDeEtiqueta: string): void
+    + eliminarEtiquetaDeTarea(idTarea: number, nombreDeEtiqueta: string): void
 }
 
 class BuscadorDeTarea{
@@ -97,8 +111,8 @@ class Categoria {}
 class Etiqueta {}
 
 class CreadorDeClasificador{
-    + instanciarCategoria(): Categoria
-    + instanciarEtiqueta(): Etiqueta
+    + instanciarCategoria(nombre: string): Categoria
+    + instanciarEtiqueta(nombre: string): Etiqueta
 }
 
 ENUM Estado{

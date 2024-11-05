@@ -22,8 +22,16 @@ export default class GestorDeTarea{
         this.creadorDeClasificador = creadorDeClasificador
     }
 
-    private errorIdNoEncontrado(idTarea: number) {
+    private errorIdNoEncontrado(idTarea: number): void {
         throw new IdNoCorrespondeATareaVigente(`No se encontró una tarea con id = ${idTarea}.`);
+    }
+
+    private obtenerTareaPorId(idTarea: number): Tarea | undefined {
+        const tarea: Tarea | undefined = this.tareas.find(tarea => tarea.getId() === idTarea);
+        if (!tarea) {
+            this.errorIdNoEncontrado(idTarea);
+        }
+        return tarea;
     }
 
     public agregarTareaALista(): void{
@@ -62,14 +70,6 @@ export default class GestorDeTarea{
         if (index !== -1) {
             this.etiquetas.splice(index, 1);
         }
-    }
-
-    private obtenerTareaPorId(idTarea: number): Tarea | undefined {
-        const tarea: Tarea | undefined = this.tareas.find(tarea => tarea.getId() === idTarea);
-        if (!tarea) {
-            this.errorIdNoEncontrado(idTarea);
-        }
-        return tarea;
     }
     
     public editarTituloDeTarea(idTarea: number, nuevoTitulo: string): void {

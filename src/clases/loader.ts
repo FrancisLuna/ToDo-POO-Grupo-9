@@ -1,10 +1,25 @@
-import fs from 'fs'
-export default class Loader{
-    public async load(path: string): Promise<any> { //no funciona
-        try{
-            const datos = await fs.promises.readFile(path, 'utf8');
-            const datosReformateados = JSON.parse(datos);
-            return datosReformateados;
-        } catch (error) {console.error('Error al leer el archivo:', error);}
+import ColeccionDeTareas from "./coleccionDeTareas";
+import { CustomFileClass } from "stdio";
+import path from "path";
+
+export default class Loader {
+
+    public async CargarColeccionDeTareas() {
+
+        const file: CustomFileClass = new CustomFileClass();
+        try {
+            file.open(path.resolve("coleccionDeTareas.txt"), "r");
+
+            let i: number = 1
+            for await (const linea of file.readLine()) {
+                
+                console.log(`#${i} - ${linea}`);
+                i++;
+            }            
+        } catch (error) {
+            console.log("Error al intentar cargar el archivo <coleccionDeTareas.json>");
+        } finally {
+            file.close();
+        }
     }
 }

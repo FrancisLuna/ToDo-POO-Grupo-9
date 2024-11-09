@@ -4,6 +4,9 @@ import NoHayTareasCreadas from "./excepciones/noHayTareasCreadas";
 import TareaNoCompletada from "./excepciones/tareaNoCompletada";
 import moment from "moment";
 import BuscadorDeTarea from "./buscadorDeTarea";
+import { AVANCE } from "../enums/avance";
+import { ESTADO } from "../enums/estado";
+import { PRIORIDAD } from "../enums/prioridad";
 
 export default class GestorDeEstadistica{
 
@@ -16,10 +19,10 @@ export default class GestorDeEstadistica{
 
     public obtenerTiempoDeFinalizacionDeUnaTarea(tarea: Tarea): number{
 
-        if(tarea.getEstadoActual() == Estado.Completado){
+        if(tarea.getEstadoActual() === ESTADO.Completado){
 
-            const fechaInicio = tarea.getEstados().get(Estado.EnProgreso); //obtengo la fecha en la que la tarea pasó a "En Progreso"
-            const fechaFinalizacion = tarea.getEstados().get(Estado.Completado); //obtengo la fecha en la que la tarea pasó a "Completado"
+            const fechaInicio = tarea.getEstados().get(ESTADO.EnProgreso); //obtengo la fecha en la que la tarea pasó a "En Progreso"
+            const fechaFinalizacion = tarea.getEstados().get(ESTADO.Completado); //obtengo la fecha en la que la tarea pasó a "Completado"
             
             if(fechaInicio && fechaFinalizacion){
                 return fechaFinalizacion.diff(fechaInicio, 'hours'); //obtengo la diferencia en horas
@@ -28,16 +31,16 @@ export default class GestorDeEstadistica{
         return 0;
     }
     
-    public obtenerTiempoDedicadoPorTarea(): Map<number, number>{
+    public obtenerTiempoDedicadoPorTarea(): Map<string, number>{
 
-        const tiempoDedicadoPorTarea = new Map<number, number>();
+        const tiempoDedicadoPorTarea = new Map<string, number>();
 
         this.tareas.forEach(tarea => {
             const tiempoDedicado = this.obtenerTiempoDeFinalizacionDeUnaTarea(tarea);
             if(tiempoDedicado){
-                tiempoDedicadoPorTarea.set(tarea.getId(), tiempoDedicado);
+                tiempoDedicadoPorTarea.set(`id: ${tarea.getId()}, tarea: ${tarea.getTitulo()}.`, tiempoDedicado);
             } else {
-                tiempoDedicadoPorTarea.set(tarea.getId(), 0); // si la tarea no está completado el tiempo dedicado es 0
+                tiempoDedicadoPorTarea.set(`id: ${tarea.getId()}, tarea: ${tarea.getTitulo()}.`, 0); // si la tarea no está completado el tiempo dedicado es 0
             }
         });
     
@@ -48,7 +51,7 @@ export default class GestorDeEstadistica{
         const tareasCompletadas = this.buscadorDeTarea.getTareasCompletadas();
     
         if (tareasCompletadas.length === 0) {
-            throw new TareaNoCompletada("No hay tareas completadas.");
+            throw new TareaNoCompletada("No hay tareas completadas."); // considerar solo notificar en vez de enviar una excepción
         }
     
         return tareasCompletadas.reduce((total, tarea) => {    //El método reduce itera sobre el array tareasCompletadas y acumula el tiempo de finalización de cada tarea
@@ -61,23 +64,23 @@ export default class GestorDeEstadistica{
         const tareasCompletadas = this.buscadorDeTarea.getTareasCompletadas();
 
         if (tareasCompletadas.length === 0) {
-            throw new TareaNoCompletada("No hay tareas completadas.");
+            throw new TareaNoCompletada("No hay tareas completadas."); // considerar solo notificar en vez de enviar una excepción
         }
 
         let tiempoDeFinalizacionTotal = this.obtenerTiempoDeFinalizacionDeTareas();
         return tiempoDeFinalizacionTotal / tareasCompletadas.length;
     }
 
-    public obtenercantidadDeTareasPorEstado(): Map<Estado, number>{
+    public obtenercantidadDeTareasPorEstado(): Map<ESTADO, number>{
 
         if (this.tareas.length === 0) {
             throw new NoHayTareasCreadas("No hay tareas creadas que permitan saber la cantidad de tareas por estado.")
         }
 
-        const cantidadDeTareasPorEstado = new Map<Estado, number>([
-            [Estado.Pendiente, 0],
-            [Estado.EnProgreso, 0],
-            [Estado.Completado, 0],
+        const cantidadDeTareasPorEstado = new Map<ESTADO, number>([
+            [ESTADO.Pendiente, 0],
+            [ESTADO.EnProgreso, 0],
+            [ESTADO.Completado, 0],
         ]); // Inicializo la cantidad de cada estado
     
         this.tareas.forEach(tarea =>{                           
@@ -86,7 +89,6 @@ export default class GestorDeEstadistica{
                 cantidadDeTareasPorEstado.set(estadoActual, cantidadDeTareasPorEstado.get(estadoActual)! + 1);  //actualizo la cantidad para cada estado 
             }
         })
-
         return cantidadDeTareasPorEstado;
     }
 }

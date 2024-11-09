@@ -1,7 +1,7 @@
-enum Avance {
-    Cero = 0,
-    Veinticinco = 25,
-    Cincuenta = 50,
-    SetentaYCinco = 75,
-    Cien = 100
-}
+export enum AVANCE {
+    "0%" = 0,
+    "25%" = 25,
+    "50%" = 50,
+    "75%" = 75,
+    "100%" = 100
+};

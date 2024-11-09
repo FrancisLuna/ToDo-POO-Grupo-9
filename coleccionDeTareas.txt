@@ -1,0 +1,3 @@
+- id: 0, título: Completar el trabajo práctico, estado: En progreso, vencimiento: jueves 21º noviembre 2024.
+- id: 1, título: Crear tests unitarios, estado: En progreso, vencimiento: jueves 21º noviembre 2024.
+- id: 2, título: Crear patrón Observer, estado: En progreso, vencimiento: jueves 21º noviembre 2024.

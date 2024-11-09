@@ -1,4 +1,7 @@
 import Tarea from "./tarea";
+import { AVANCE } from "../enums/avance";
+import { ESTADO } from "../enums/estado";
+import { PRIORIDAD } from "../enums/prioridad";
 export default class BuscadorDeTarea{
     
     private tareas: Tarea[];
@@ -22,10 +25,4 @@ export default class BuscadorDeTarea{
     public getTareasPendientes(): Tarea[]{
         return this.tareas.filter(tarea => tarea.getEstadoActual() === ESTADO.Pendiente);
     }
-}
-
-enum ESTADO{
-    Pendiente,
-    EnProgreso,
-    Completado
 }

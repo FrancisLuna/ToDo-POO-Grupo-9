@@ -1,6 +1,9 @@
     import Etiqueta from "./etiqueta";
     import Categoria from "./categoria";
     import moment, { Moment } from "moment";
+    import { AVANCE } from "../enums/avance";
+    import { ESTADO } from "../enums/estado";
+    import { PRIORIDAD } from "../enums/prioridad";
 
     export default class Tarea{
         
@@ -20,7 +23,7 @@
             this.titulo = titulo;
             this.fechaVencimiento = this.fechaCreacion.clone().add(diasParaCompletar,'days');
             this.prioridad = PRIORIDAD.Baja;
-            this.avance = AVANCE.Cero;
+            this.avance = AVANCE["0%"];
             this.estadoActual = ESTADO.Pendiente;
         }
 
@@ -116,22 +119,3 @@
         }
     }
 
-    enum AVANCE {
-        Cero = 0,
-        Veinticinco = 25,
-        Cincuenta = 50,
-        SetentaYCinco = 75,
-        Cien = 100
-    }
-
-    enum ESTADO{
-        Pendiente,
-        EnProgreso,
-        Completado
-    }
-
-    enum PRIORIDAD{
-        Baja,
-        Media,
-        Alta
-    }

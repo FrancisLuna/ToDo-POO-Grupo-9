@@ -39,34 +39,23 @@ class Tarea{
     + eliminarEtiquetaDeLista(nombre: string): void
 }
 
-class CreadorDeTarea{
-    + instanciarTarea(): Tarea
+class ColeccionDeTareas{
+    - tareas: Array<Tarea>
+    - errorTareaNoEncontrada(idTarea: number, tituloDeTarea): void
+    + agregarTareaAColeccion(nuevaTarea: Tarea): void
+    + eliminarTareaDeColeccion(idTarea: number, TituloDeTarea: string): void
 }
 
-class GestorDeTarea{
-    - tareas: Array<Tarea>
-    - categorias: Array<Categoria>
+class ColeccionDeEtiquetas{
     - etiquetas: Array<Etiqueta>
-    - creadorDeTareas: CreadorDeTarea
-    - creadorDeClasificador: CreadorDeClasificador
+    + agregarEtiquetaAColeccion(nuevaEtiqueta: Etiqueta): void
+    + eliminarEtiquetaDeColeccion(nombreDeEtiqueta: string): void
+}
 
-    - errorIdNoEncontrado(idTarea: number): void
-    - obtenerTareaPorId(idTarea: number): Tarea | undefined
-    + agregarTareaALista(): void
-    + agregarCategoriaALista(nombre: string): void
-    + agregarEtiquetaALista(nombre: string): void
-    + eliminarTareaDeLista(id: number): void
-    + eliminarCategoriaDeLista(nombre: string): void
-    + eliminarEtiquetaDeLista(nombre: string): void
-    + editarTituloDeTarea(idTarea: number, nuevoTitulo: string): void
-    + editarDescripcionDeTarea(idTarea: number, nuevaDescripcion: string): void
-    + editarFechaDeVencimientoDeTarea(idTarea: number, year: number, month: number, day: number): void
-    + editarPrioridadDeTarea(idTarea: number, prioridad: PRIORIDAD): void
-    + editarAvanceDeTarea(idTarea: number, avance: AVANCE): void
-    + editarEstadoDeTarea(idTarea: number, estado: ESTADO): void
-    + editarCategoriaDeTarea(idTarea: number, nombreDeCategoria: string): void
-    + agregarEtiquetaATarea(idTarea: number, nombreDeEtiqueta: string): void
-    + eliminarEtiquetaDeTarea(idTarea: number, nombreDeEtiqueta: string): void
+class ColeccionDeCategorias{
+    - categorias: Array<Categoria>
+    + agregarCategoriaAColeccion(nuevaCategoria: Categoria): void
+    + eliminarCategoriaDeColeccion(nombreDeCategoria: string): void
 }
 
 class BuscadorDeTarea{
@@ -110,18 +99,13 @@ abstract class Clasificador{
 class Categoria {}
 class Etiqueta {}
 
-class CreadorDeClasificador{
-    + instanciarCategoria(nombre: string): Categoria
-    + instanciarEtiqueta(nombre: string): Etiqueta
-}
-
-ENUM Estado{
+ENUM ESTADO{
     Pendiente
     EnProgreso
     Completado
 }
 
-ENUM Avance{
+ENUM AVANCE{
     0
     25
     50
@@ -129,7 +113,7 @@ ENUM Avance{
     100
 }
 
-ENUM Prioridad{
+ENUM PRIORIDAD{
     Alta
     Media
     Baja
@@ -139,19 +123,15 @@ GestorDeEstadisticas <-- Tarea
 GestorDeNotificaciones <-- Tarea
 OrganizadorDeTarea <-- Tarea
 BuscadorDeTarea <-- Tarea
-CreadorDeTarea <-- Tarea
-GestorDeTarea <-right- Tarea
-GestorDeTarea o-up-CreadorDeTarea
-GestorDeTarea o-- CreadorDeClasificador
-Tarea *-- Categoria
-Tarea *-- Etiqueta
+Tarea *-- ColeccionDeCategorias
+Tarea *-- ColeccionDeEtiquetas
+Tarea -left-> ColeccionDeTareas
+ColeccionDeCategorias *-- Categoria
+ColeccionDeEtiquetas *-- Etiqueta
 Categoria --|> Clasificador
 Etiqueta --|> Clasificador
-Categoria --> CreadorDeClasificador
-Etiqueta --> CreadorDeClasificador
-Clasificador -[hidden]- CreadorDeClasificador
-Tarea o-right- Estado
-Tarea o-right- Avance
-Tarea o-right- Prioridad
+Tarea -right- ESTADO
+Tarea -right- AVANCE
+Tarea -right- PRIORIDAD
 GestorDeEstadisticas *-left- BuscadorDeTarea
 @enduml

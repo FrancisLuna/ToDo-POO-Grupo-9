@@ -4,6 +4,9 @@ import NoHayTareasCreadas from "./excepciones/noHayTareasCreadas";
 import TareaNoCompletada from "./excepciones/tareaNoCompletada";
 import moment from "moment";
 import BuscadorDeTarea from "./buscadorDeTarea";
+import { AVANCE } from "../enums/avance";
+import { ESTADO } from "../enums/estado";
+import { PRIORIDAD } from "../enums/prioridad";
 
 export default class GestorDeEstadistica{
 
@@ -28,16 +31,16 @@ export default class GestorDeEstadistica{
         return 0;
     }
     
-    public obtenerTiempoDedicadoPorTarea(): Map<number, number>{
+    public obtenerTiempoDedicadoPorTarea(): Map<string, number>{
 
-        const tiempoDedicadoPorTarea = new Map<number, number>();
+        const tiempoDedicadoPorTarea = new Map<string, number>();
 
         this.tareas.forEach(tarea => {
             const tiempoDedicado = this.obtenerTiempoDeFinalizacionDeUnaTarea(tarea);
             if(tiempoDedicado){
-                tiempoDedicadoPorTarea.set(tarea.getId(), tiempoDedicado);
+                tiempoDedicadoPorTarea.set(`id: ${tarea.getId()}, tarea: ${tarea.getTitulo()}.`, tiempoDedicado);
             } else {
-                tiempoDedicadoPorTarea.set(tarea.getId(), 0); // si la tarea no está completado el tiempo dedicado es 0
+                tiempoDedicadoPorTarea.set(`id: ${tarea.getId()}, tarea: ${tarea.getTitulo()}.`, 0); // si la tarea no está completado el tiempo dedicado es 0
             }
         });
     
@@ -86,13 +89,6 @@ export default class GestorDeEstadistica{
                 cantidadDeTareasPorEstado.set(estadoActual, cantidadDeTareasPorEstado.get(estadoActual)! + 1);  //actualizo la cantidad para cada estado 
             }
         })
-
         return cantidadDeTareasPorEstado;
     }
-}
-
-enum ESTADO{
-    Pendiente,
-    EnProgreso,
-    Completado
 }

@@ -9,10 +9,26 @@ export default class OrganizadorDeTarea{
     }
 
     public ordenarTareasPorPrioridad(): Tarea[]{
-        return this.tareas.sort((a, b) => a.getPrioridad() - b.getPrioridad());    
+        if (this.tareas.length > 1) { 
+            return this.tareas.sort();
+        } else {
+             return this.tareas;
+            }
     }
 
-    public ordenarTareasPorFecha(): Tarea[] {
-        return this.tareas.sort((a, b) => a.getFechaCreacion().valueOf() - b.getFechaCreacion().valueOf());
+    public ordenarTareasPorVencimiento(): Tarea[]{
+        if (this.tareas.length > 1) {
+            return this.tareas.sort((a, b) => a.getFechaVencimiento().valueOf() - b.getFechaVencimiento().valueOf());
+        } else {
+            return this.tareas;
+        }
+    }
+
+    public ordenarTareasPorTitulo(): Tarea[]{
+        if (this.tareas.length > 1) {
+            return this.tareas.sort();
+        } else {
+            return this.tareas;
+        }
     }
 }

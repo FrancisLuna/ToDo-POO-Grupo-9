@@ -51,7 +51,7 @@ export default class GestorDeEstadistica{
         const tareasCompletadas = this.buscadorDeTarea.getTareasCompletadas();
     
         if (tareasCompletadas.length === 0) {
-            throw new TareaNoCompletada("No hay tareas completadas.");
+            throw new TareaNoCompletada("No hay tareas completadas."); // considerar solo notificar en vez de enviar una excepción
         }
     
         return tareasCompletadas.reduce((total, tarea) => {    //El método reduce itera sobre el array tareasCompletadas y acumula el tiempo de finalización de cada tarea
@@ -64,7 +64,7 @@ export default class GestorDeEstadistica{
         const tareasCompletadas = this.buscadorDeTarea.getTareasCompletadas();
 
         if (tareasCompletadas.length === 0) {
-            throw new TareaNoCompletada("No hay tareas completadas.");
+            throw new TareaNoCompletada("No hay tareas completadas."); // considerar solo notificar en vez de enviar una excepción
         }
 
         let tiempoDeFinalizacionTotal = this.obtenerTiempoDeFinalizacionDeTareas();

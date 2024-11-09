@@ -41,21 +41,9 @@ class Tarea{
 
 class ColeccionDeTareas{
     - tareas: Array<Tarea>
-    - errorTareaNoEncontrada(idTarea: number, tituloDeTarea): void
     + agregarTareaAColeccion(nuevaTarea: Tarea): void
     + eliminarTareaDeColeccion(idTarea: number, TituloDeTarea: string): void
-}
-
-class ColeccionDeEtiquetas{
-    - etiquetas: Array<Etiqueta>
-    + agregarEtiquetaAColeccion(nuevaEtiqueta: Etiqueta): void
-    + eliminarEtiquetaDeColeccion(nombreDeEtiqueta: string): void
-}
-
-class ColeccionDeCategorias{
-    - categorias: Array<Categoria>
-    + agregarCategoriaAColeccion(nuevaCategoria: Categoria): void
-    + eliminarCategoriaDeColeccion(nombreDeCategoria: string): void
+    + getTareas(): Tarea[]
 }
 
 class BuscadorDeTarea{
@@ -63,15 +51,19 @@ class BuscadorDeTarea{
 
     + getTareaPorTitulo(titulo: string): Tarea | undefined
     + getTareasCompletadas(): Tarea[]
-    + getTareasNoCompletadas(): Tarea[]
+    + getTareasPorVencimiento(): Tarea[]
     + getTareasPendientes(): Tarea[]
+    + getTareasEnProgreso(): Tarea[]
+    + getTareasPorEtiqueta(etiqueta: Etiqueta): Tarea[]
+    + getTareasPorCategoria(categoria: Categoria): Tarea[]
 }
 
 class OrganizadorDeTarea{
     - tareas: Array<Tarea>
 
     + ordenarTareasPorPrioridad(): Tarea[]
-    + ordenarTareasPorFecha(): Tarea[]
+    + ordenarTareasPorVencimiento(): Tarea[]
+    + ordenarTareasPorTitulo(): Tarea[]
 }
 
 class GestorDeEstadisticas{
@@ -123,11 +115,9 @@ GestorDeEstadisticas <-- Tarea
 GestorDeNotificaciones <-- Tarea
 OrganizadorDeTarea <-- Tarea
 BuscadorDeTarea <-- Tarea
-Tarea *-- ColeccionDeCategorias
-Tarea *-- ColeccionDeEtiquetas
+Tarea *-- Categoria
+Tarea *-- Etiqueta
 Tarea -left-> ColeccionDeTareas
-ColeccionDeCategorias *-- Categoria
-ColeccionDeEtiquetas *-- Etiqueta
 Categoria --|> Clasificador
 Etiqueta --|> Clasificador
 Tarea -right- ESTADO

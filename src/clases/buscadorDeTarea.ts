@@ -1,14 +1,12 @@
 import Tarea from "./tarea";
-import { AVANCE } from "../enums/avance";
 import { ESTADO } from "../enums/estado";
-import { PRIORIDAD } from "../enums/prioridad";
 import Etiqueta from "./etiqueta";
 import Categoria from "./categoria";
 export default class BuscadorDeTarea{
     
     private tareas: Tarea[];
 
-    constructor(tareas: Array<Tarea>){
+    constructor(tareas: Tarea[]){
         this.tareas = tareas;
     }
 

@@ -1,4 +1,4 @@
-import GestorDeEstadistica from "./clases/gestorDeEstadistica";
+import GestorDeEstadistica from "./clases/contadorDeTareas";
 import Tarea from "./clases/tarea";
 import Categoria from "./clases/categoria";
 import Etiqueta from "./clases/etiqueta";

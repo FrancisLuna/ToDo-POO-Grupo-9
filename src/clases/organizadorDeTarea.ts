@@ -2,9 +2,9 @@ import Tarea from "./tarea";
 
 export default class OrganizadorDeTarea{
     
-    private tareas: Array<Tarea>;
+    private tareas: Tarea[];
 
-    constructor(tareas: Array<Tarea>){
+    constructor(tareas: Tarea[]){
         this.tareas = tareas;
     }
 

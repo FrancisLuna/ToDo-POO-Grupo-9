@@ -6,21 +6,54 @@ import { ESTADO } from "../enums/estado";
 import { PRIORIDAD } from "../enums/prioridad";
 moment.locale('es');
 
+/**
+ * Representa una tarea dentro de la aplicación.
+ */
+
 export default class Tarea {
     
-    private id: number = 0;
+    /**Identificador único de solo lectura de la tarea.*/
+    private readonly id: number = 0;
+
+    /**Título de la tarea.*/
     private titulo: string;
+
+    /**Descripción de la tarea.*/
     private descripcion: string = "";
+
+    /**Fecha de creación de la tarea, establecida automáticamente al crear la instancia.*/
     private fechaCreacion: Moment = moment();
+
+    /**Fecha de vencimiento de la tarea, definida por el usuario.*/
     private fechaVencimiento: Moment;
+
+    /**Prioridad de la tarea. Establecida automáticamente como Pendiente al crear la instancia de la tarea.*/
     private prioridad: PRIORIDAD;
+
+    /**Nivel de avance de la tarea. Establecido automáticamente como 0 al crear la instancia de la tarea. */
     private avance: AVANCE;
+
+    /**
+     * Mapa que guarda el historial de estados de la tarea junto con sus respectivas fechas de cambio.
+     * La clave es el estado y el valor es la fecha en la que se asignó ese estado.
+     */
     private estados: Map<ESTADO,Moment>;
-    private estadoActual: ESTADO; 
+
+    /**Estado actual de la tarea.*/
+    private estadoActual: ESTADO;
+
+    /**Categoría a la cual pertenece la tarea.*/
     private categoria: Categoria | undefined;
+
+    /**Etiquetas asignadas a la tarea.*/
     private etiquetas: Etiqueta[] = [];
 
-    constructor(titulo: string,diasParaCompletar: number){
+    /**
+     * Crea una instancia de Tarea.
+     * @param titulo - Título de la tarea.
+     * @param diasParaCompletar - Cantidad de días para completar la tarea.
+     */
+    constructor(titulo: string, diasParaCompletar: number){
         this.titulo = titulo;
         this.fechaVencimiento = this.fechaCreacion.clone().add(diasParaCompletar,'days');
         this.prioridad = PRIORIDAD.Baja;
@@ -29,58 +62,107 @@ export default class Tarea {
         this.estadoActual = this.setEstado(ESTADO.Pendiente);
     }
 
-    public setId(id:number): void{
-        this.id = id;
-    }
-
+    /**
+     * Permite obtener el identificador único de la tarea.
+     * @returns El ID de la tarea.
+     */
     public getId(): number{
         return this.id;
     }
 
+    /**
+     * Permite actualizar el título de la tarea con un nuevo valor.
+     * @param titulo - El nuevo título de la tarea.
+     */
     public setTitulo(titulo: string): void{
         this.titulo = titulo;
     }
 
+    /**
+     * Permite obtener el título de la tarea.
+     * @returns El título de la tarea.
+     */
     public getTitulo(): string{
         return this.titulo;
     }
 
+    /**
+     * Permite actualizar la descripción de la tarea con un nuevo valor.
+     * @param descripcion - La nueva descripción de la tarea.
+     */
     public setDescripcion(descripcion: string): void{
         this.descripcion = descripcion;
     }
 
+    /**
+     * Permite obtener la descripçión de la tarea.
+     * @returns La descripción de la tarea.
+     */
     public getDescripcion(): string{
     return this.descripcion;
     }
 
+    /**
+     * Permite obtener la fecha de creación de la tarea.
+     * @returns La fecha de creación de la tarea.
+     */
     public getFechaCreacion(): Moment{
         return this.fechaCreacion;
     }
 
+    /**
+     * Permite actualizar la fecha de vencimiento de la tarea con una nueva fecha.
+     * @param fechaVencimiento - La nueva fecha de vencimiento de la tarea.
+     */
     public setFechaVencimiento(fechaVencimiento: Moment): void{
         this.fechaVencimiento = fechaVencimiento;
     }
 
+    /**
+     * Permite obtener la fecha de vencimiento de la tarea.
+     * @returns La fecha de vencimiento de la tarea.
+     */
     public getFechaVencimiento(): Moment{
         return this.fechaVencimiento;
     }
 
+    /**
+     * Permite actualizar el nivel de prioridad de la tarea.
+     * @param prioridad - La nueva prioridad de la tarea, que debe ser un valor del tipo `PRIORIDAD`.
+     */
     public setPrioridad(prioridad: PRIORIDAD): void{
         this.prioridad = prioridad;
     }
 
+    /**
+     * Permite obtener el nivel de prioridad que tiene la tarea.
+     * @returns La prioridad de la tarea.
+     */
     public getPrioridad(): PRIORIDAD{
         return this.prioridad;
     }
 
+    /**
+     * Permite actualizar el nivel de avance de la tarea.
+     * @param avance - El nuevo nivel de avance de la tarea, que debe ser un valor del tipo `AVANCE`.
+     */
     public setAvance(avance: AVANCE): void{
         this.avance = avance;
     }
 
+    /**
+     * Permite obtener el nivel de avance de la tarea. 
+     * @returns El nivel de avance de la tarea.
+     */
     public getAvance(): AVANCE{
         return this.avance;
     }
 
+    /**
+     * Permite establecer el estado de la tarea y actualiza el historial de cambios.
+     * @param estado - El nuevo estado que se va a asignar a la tarea.
+     * @returns El nuevo estado que se va a asignar a la tarea.
+     */
     public setEstado(estado: ESTADO): ESTADO{
         if(!(this.estadoActual === estado)){
             this.estadoActual = estado;        
@@ -90,30 +172,58 @@ export default class Tarea {
         return estado;        
     }
 
+    /**
+     * Permite obtener el estado actual de la tarea.
+     * @returns El estado actual de la tarea.
+     */
     public getEstadoActual(): ESTADO{
         return this.estadoActual;
     }
 
+    /**
+     * Permite obtener el historial de cambios de estado de la tarea.
+     * @returns Un mapa con los estados de la tarea y sus respectivas fechas de cambio.
+     */
     public getEstados(): Map<ESTADO,Moment>{
         return this.estados;
     }
 
+    /**
+     * Permite actualizar la categoria a la tarea.
+     * @param categoria - La nueva categoria de la tarea.
+     */
     public setCategoria(categoria: Categoria): void{
         this.categoria = categoria;
     }
 
+    /**
+     * Permite obtener la categoría de la tarea.
+     * @returns La categoría de la tarea.
+     */
     public getCategoria(): Categoria | undefined{
         return this.categoria;
     }
 
+    /**
+     * Permite agregar una nueva etiqueta al listado de etiquetas que puede tener la tarea.
+     * @param etiqueta - La nueva etiqueta a agregar.
+     */
     public setEtiqueta(etiqueta: Etiqueta): void{  
         this.etiquetas.push(etiqueta);
     }
 
+    /**
+     * Permite obtener las etiquetas asignadas a la tarea.
+     * @returns Las etiquetas asignadas a la tarea.
+     */
     public getEtiquetas(): Etiqueta[]{
         return this.etiquetas;
     }
 
+    /**
+     * Permite eliminar una etiqueta del listado de etiquetas de la tarea.
+     * @param nombre - El nombre de la etiqueta que se desea eliminar.
+     */
     public eliminarEtiqueta(nombre: string): void{
         const index: number = this.etiquetas.findIndex(etiqueta => etiqueta.getNombre() === nombre);
         if (index !== -1) {

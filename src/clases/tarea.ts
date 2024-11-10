@@ -71,7 +71,7 @@ export default class Tarea {
     }
 
     /**
-     * Permite actualizar el título de la tarea con un nuevo valor.
+     * Permite asignar y actualizar el título de la tarea con un nuevo valor.
      * @param titulo - El nuevo título de la tarea.
      */
     public setTitulo(titulo: string): void{
@@ -87,7 +87,7 @@ export default class Tarea {
     }
 
     /**
-     * Permite actualizar la descripción de la tarea con un nuevo valor.
+     * Permite asignar y actualizar la descripción de la tarea con un nuevo valor.
      * @param descripcion - La nueva descripción de la tarea.
      */
     public setDescripcion(descripcion: string): void{
@@ -111,7 +111,7 @@ export default class Tarea {
     }
 
     /**
-     * Permite actualizar la fecha de vencimiento de la tarea con una nueva fecha.
+     * Permite asignar y actualizar la fecha de vencimiento de la tarea con una nueva fecha.
      * @param fechaVencimiento - La nueva fecha de vencimiento de la tarea.
      */
     public setFechaVencimiento(fechaVencimiento: Moment): void{
@@ -127,7 +127,7 @@ export default class Tarea {
     }
 
     /**
-     * Permite actualizar el nivel de prioridad de la tarea.
+     * Permite asignar y actualizar el nivel de prioridad de la tarea.
      * @param prioridad - La nueva prioridad de la tarea, que debe ser un valor del tipo `PRIORIDAD`.
      */
     public setPrioridad(prioridad: PRIORIDAD): void{
@@ -143,7 +143,7 @@ export default class Tarea {
     }
 
     /**
-     * Permite actualizar el nivel de avance de la tarea.
+     * Permite asignar y actualizar el nivel de avance de la tarea.
      * @param avance - El nuevo nivel de avance de la tarea, que debe ser un valor del tipo `AVANCE`.
      */
     public setAvance(avance: AVANCE): void{
@@ -189,7 +189,7 @@ export default class Tarea {
     }
 
     /**
-     * Permite actualizar la categoria a la tarea.
+     * Permite asignar y actualizar la categoria a la tarea.
      * @param categoria - La nueva categoria de la tarea.
      */
     public setCategoria(categoria: Categoria): void{

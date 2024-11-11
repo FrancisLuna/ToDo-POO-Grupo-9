@@ -71,7 +71,7 @@
 
 El objetivo de este proyecto es desarrollar una aplicación que permita a los usuarios gestionar eficazmente sus tareas, mejorar la productividad y mantenerse organizados. La aplicación ofrecerá funciones de creación de tareas, priorización, fechas de vencimiento, recordatorios, categorización y seguimiento del progreso.
 
-### Built With
+<!-- ### Built With
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
 * [![Vue][Vue.js]][Vue-url]
@@ -79,7 +79,7 @@ El objetivo de este proyecto es desarrollar una aplicación que permita a los us
 * [![Svelte][Svelte.dev]][Svelte-url]
 * [![Laravel][Laravel.com]][Laravel-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![JQuery][JQuery.com]][JQuery-url] -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

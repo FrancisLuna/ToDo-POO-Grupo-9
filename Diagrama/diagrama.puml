@@ -66,18 +66,20 @@ class OrganizadorDeTarea{
     + ordenarTareasPorTitulo(): Tarea[]
 }
 
-class GestorDeEstadisticas{
-    - tareas: Array<Tarea>
+class CalculadoraDeTiempoDeTareas{
     - buscadorDeTarea: BuscadorDeTarea
 
     + obtenerTiempoDeFinalizacionDeUnaTarea(tarea: Tarea): number
-    + obtenerTiempoDedicadoPorTarea(): Map<number, number>
-    + obtenerTiempoDeFinalizacionDeTareas(): number
+    + obtenerTiempoDeFinalizacionPorTarea(tareas: Tarea[]): Map<number, number>
+    + obtenerTiempoDeFinalizacionDeTareasCompletadas(): number
     + obtenerTiempoPromedioDeFinalizacion(): number
-    + obtenercantidadDeTareasPorEstado(): Map<Estado, number>
 }
 
-class GestorDeNotificaciones{
+class ContadorDeTareas{
+    + obtenerCantidadDeTareasPorEstado(): Map<Estado, number>
+}
+
+class ServicioDeNotificaciones{
     + notificarRecordatorio()
 }
 
@@ -111,8 +113,9 @@ ENUM PRIORIDAD{
     Baja
 }
 
-GestorDeEstadisticas <-- Tarea
-GestorDeNotificaciones <-- Tarea
+CalculadoraDeTiempoDeTareas <-- Tarea
+ContadorDeTareas <-- Tarea
+ServicioDeNotificaciones <-- Tarea
 OrganizadorDeTarea <-- Tarea
 BuscadorDeTarea <-- Tarea
 Tarea *-- Categoria
@@ -123,5 +126,5 @@ Etiqueta --|> Clasificador
 Tarea -right- ESTADO
 Tarea -right- AVANCE
 Tarea -right- PRIORIDAD
-GestorDeEstadisticas *-left- BuscadorDeTarea
+CalculadoraDeTiempoDeTareas *-left- BuscadorDeTarea
 @enduml

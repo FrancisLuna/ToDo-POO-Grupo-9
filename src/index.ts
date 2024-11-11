@@ -1,10 +1,10 @@
-import GestorDeEstadistica from "./clases/gestorDeEstadistica";
+import GestorDeEstadistica from "./clases/contadorDeTareas";
 import Tarea from "./clases/tarea";
 import Categoria from "./clases/categoria";
 import Etiqueta from "./clases/etiqueta";
 import BuscadorDeTarea from "./clases/buscadorDeTarea";
 import OrganizadorDeTarea from "./clases/organizadorDeTarea";
-import ColeccionDeTareas from "./clases/coleccionDeTareas";
+import ColeccionDeTareas from "./clases/ListadoDeTareas";
 import coleccionDeEtiquetas from "./clases/coleccionDeEtiquetas";
 import coleccionDeCategorias from "./clases/coleccionDeCategorias";
 import { AVANCE } from "./enums/avance";

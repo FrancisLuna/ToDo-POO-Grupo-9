@@ -1,4 +1,4 @@
-import ColeccionDeTareas from "./coleccionDeTareas";
+import ColeccionDeTareas from "./ListadoDeTareas";
 import { CustomFileClass } from "stdio";
 import path from "path";
 

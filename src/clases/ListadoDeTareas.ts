@@ -1,3 +1,4 @@
+import ErrorTareaNoEncontrada from "../excepciones/errorTareaNoEncontrada";
 import Tarea from "./tarea"
 
 /** 
@@ -34,7 +35,7 @@ export default class ListadoDeTareas{
         if (index !== -1 && tareaAEliminar && this.tareas[index].getTitulo() === tituloDeTarea) {
             this.tareas.splice(index, 1);
         } else {
-            throw new Error(`No se encontró una tarea con id = ${idTarea}, título = ${tituloDeTarea}.`);
+            throw new ErrorTareaNoEncontrada(`No se encontró una tarea con id = ${idTarea}, título = ${tituloDeTarea}.`);
         }
     }
 

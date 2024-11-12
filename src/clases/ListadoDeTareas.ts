@@ -28,13 +28,14 @@ export default class ListadoDeTareas{
      */
     public eliminarTarea(idTarea: number, tituloDeTarea: string): void{                      
         const index: number = this.tareas.findIndex(tarea => tarea.getId() === idTarea);
+
         const tareaAEliminar: Tarea | undefined = this.tareas.find(tarea => tarea.getTitulo() === tituloDeTarea);
 
         if (index !== -1 && tareaAEliminar && this.tareas[index].getTitulo() === tituloDeTarea) {
-            this.tareas.splice(index, 1);             
+            this.tareas.splice(index, 1);
         } else {
             throw new Error(`No se encontró una tarea con id = ${idTarea}, título = ${tituloDeTarea}.`);
-        }                       
+        }
     }
 
     /**

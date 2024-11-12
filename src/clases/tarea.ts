@@ -9,7 +9,6 @@ moment.locale('es');
 /**
  * Representa una tarea dentro de la aplicación.
  */
-
 export default class Tarea {
     
     /**Identificador único de solo lectura de la tarea.*/
@@ -168,7 +167,9 @@ export default class Tarea {
             this.estadoActual = estado;        
             const momentoActual:Moment = moment();
             this.estados.set(estado,momentoActual)
-        } else {throw new Error(`La tarea ya se encuentra en el estado ${estado}.`);}
+        }else {
+            throw new Error(`La tarea ya se encuentra en el estado ${estado}.`);
+        }
         return estado;        
     }
 

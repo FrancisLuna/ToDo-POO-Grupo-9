@@ -1,12 +1,10 @@
 import { CustomFileClass } from "stdio";
 import path from "path";
-import ColeccionDeTareas from "./ListadoDeTareas";
-import Tarea from "./tarea";
-import moment, { Moment } from "moment";
+import ListadoDeTarea from "./ListadoDeTareas";
 export default class Saver{
 
     
-    public GuardarColeccionDeTareasJson(coleccionDeTareas: ColeccionDeTareas): void {
+    public GuardarColeccionDeTareasJson(coleccionDeTareas: ListadoDeTarea): void {
 
         const file: CustomFileClass = new CustomFileClass();
         try {
@@ -19,7 +17,7 @@ export default class Saver{
         }
     }
 
-    public GuardarColeccionDeTareasPlainText(coleccionDeTareas: ColeccionDeTareas): void {
+    public GuardarColeccionDeTareasPlainText(coleccionDeTareas: ListadoDeTarea): void {
         
         const file: CustomFileClass = new CustomFileClass();
         try {

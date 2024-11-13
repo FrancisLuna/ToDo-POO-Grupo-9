@@ -1,10 +1,10 @@
 {
   "tareas": [
     {
-      "id": 0,
+      "id": 1,
       "titulo": "Completar el trabajo práctico",
       "descripcion": "Debemos completar exitosamente el trabajo práctico para la materia Programación 2.",
-      "fechaCreacion": "2024-11-09T15:54:30.400Z",
+      "fechaCreacion": "2024-11-13T02:16:00.538Z",
       "fechaVencimiento": "2024-11-21T03:00:00.000Z",
       "prioridad": "Alta",
       "avance": 25,
@@ -26,10 +26,10 @@
       ]
     },
     {
-      "id": 1,
+      "id": 2,
       "titulo": "Crear tests unitarios",
       "descripcion": "Debemos realizar los tests unitarios para todas las clases del sistema con una cobertura de al menos el 80%.",
-      "fechaCreacion": "2024-11-09T15:54:30.403Z",
+      "fechaCreacion": "2024-11-13T02:16:00.545Z",
       "fechaVencimiento": "2024-11-21T03:00:00.000Z",
       "prioridad": "Alta",
       "avance": 0,
@@ -45,10 +45,10 @@
       ]
     },
     {
-      "id": 2,
+      "id": 3,
       "titulo": "Crear patrón Observer",
       "descripcion": "Debemos crear un patrón Observer para la clase Tarea que informe al gestor de notificaciones que queda poco tiempo para que se cumpla el vencimiento y por lo tanto debe notificar.",
-      "fechaCreacion": "2024-11-09T15:54:30.403Z",
+      "fechaCreacion": "2024-11-13T02:16:00.545Z",
       "fechaVencimiento": "2024-11-21T03:00:00.000Z",
       "prioridad": "Alta",
       "avance": 0,

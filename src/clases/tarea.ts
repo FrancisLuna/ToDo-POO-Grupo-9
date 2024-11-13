@@ -9,11 +9,13 @@ moment.locale('es');
 /**
  * Representa una tarea dentro de la aplicación.
  */
-
 export default class Tarea {
     
-    /**Identificador único de solo lectura de la tarea.*/
-    private readonly id: number = 0;
+    /**Contador estático para generar un ID único para cada tarea.*/
+    private static constadorId: number = 1;
+
+    /**Identificador único de la tarea.*/
+    private id: number = 0;
 
     /**Título de la tarea.*/
     private titulo: string;
@@ -54,6 +56,7 @@ export default class Tarea {
      * @param diasParaCompletar - Cantidad de días para completar la tarea.
      */
     constructor(titulo: string, diasParaCompletar: number){
+        this.id = Tarea.constadorId++;
         this.titulo = titulo;
         this.fechaVencimiento = this.fechaCreacion.clone().add(diasParaCompletar,'days');
         this.prioridad = PRIORIDAD.Baja;
@@ -168,7 +171,9 @@ export default class Tarea {
             this.estadoActual = estado;        
             const momentoActual:Moment = moment();
             this.estados.set(estado,momentoActual)
-        } else {throw new Error(`La tarea ya se encuentra en el estado ${estado}.`);}
+        }else {
+            throw new Error(`La tarea ya se encuentra en el estado ${estado}.`);
+        }
         return estado;        
     }
 

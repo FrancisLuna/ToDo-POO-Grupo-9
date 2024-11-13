@@ -39,7 +39,7 @@ class Tarea{
     + eliminarEtiqueta(nombre: string): void
 }
 
-class ColeccionDeTareas{
+class ListadoDeTareas{
     - tareas: Array<Tarea>
     + agregarTarea(nuevaTarea: Tarea): void
     + eliminarTarea(idTarea: number, TituloDeTarea: string): void
@@ -79,10 +79,6 @@ class ContadorDeTareas{
     + obtenerCantidadDeTareasPorEstado(): Map<Estado, number>
 }
 
-class ServicioDeNotificaciones{
-    + notificarRecordatorio()
-}
-
 abstract class Clasificador{
     - nombre: string
 
@@ -115,12 +111,11 @@ ENUM PRIORIDAD{
 
 CalculadoraDeTiempoDeTareas <-- Tarea
 ContadorDeTareas <-- Tarea
-ServicioDeNotificaciones <-- Tarea
 OrganizadorDeTarea <-- Tarea
 BuscadorDeTarea <-- Tarea
 Tarea *-- Categoria
 Tarea *-- Etiqueta
-Tarea -left-> ColeccionDeTareas
+Tarea -left-> ListadoDeTareas
 Categoria --|> Clasificador
 Etiqueta --|> Clasificador
 Tarea -right- ESTADO

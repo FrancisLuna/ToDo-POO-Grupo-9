@@ -38,7 +38,6 @@ export default class ListadoDeTareas{
             throw new ErrorTareaNoEncontrada(`No se encontró una tarea con id = ${idTarea}, título = ${tituloDeTarea}.`);
         }
     }
-
     /**
      * Permite obtener todas las tareas del listado.
      * 

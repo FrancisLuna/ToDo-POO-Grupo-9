@@ -36,37 +36,14 @@ class Tarea{
     + getCategoria(): Categoria | undefined
     + setEtiqueta(etiqueta: Etiqueta): void
     + getEtiquetas(): Etiqueta[]
-    + eliminarEtiquetaDeLista(nombre: string): void
+    + eliminarEtiqueta(nombre: string): void
 }
 
-class CreadorDeTarea{
-    + instanciarTarea(): Tarea
-}
-
-class GestorDeTarea{
+class ListadoDeTareas{
     - tareas: Array<Tarea>
-    - categorias: Array<Categoria>
-    - etiquetas: Array<Etiqueta>
-    - creadorDeTareas: CreadorDeTarea
-    - creadorDeClasificador: CreadorDeClasificador
-
-    - errorIdNoEncontrado(idTarea: number): void
-    - obtenerTareaPorId(idTarea: number): Tarea | undefined
-    + agregarTareaALista(): void
-    + agregarCategoriaALista(nombre: string): void
-    + agregarEtiquetaALista(nombre: string): void
-    + eliminarTareaDeLista(id: number): void
-    + eliminarCategoriaDeLista(nombre: string): void
-    + eliminarEtiquetaDeLista(nombre: string): void
-    + editarTituloDeTarea(idTarea: number, nuevoTitulo: string): void
-    + editarDescripcionDeTarea(idTarea: number, nuevaDescripcion: string): void
-    + editarFechaDeVencimientoDeTarea(idTarea: number, year: number, month: number, day: number): void
-    + editarPrioridadDeTarea(idTarea: number, prioridad: PRIORIDAD): void
-    + editarAvanceDeTarea(idTarea: number, avance: AVANCE): void
-    + editarEstadoDeTarea(idTarea: number, estado: ESTADO): void
-    + editarCategoriaDeTarea(idTarea: number, nombreDeCategoria: string): void
-    + agregarEtiquetaATarea(idTarea: number, nombreDeEtiqueta: string): void
-    + eliminarEtiquetaDeTarea(idTarea: number, nombreDeEtiqueta: string): void
+    + agregarTarea(nuevaTarea: Tarea): void
+    + eliminarTarea(idTarea: number, TituloDeTarea: string): void
+    + getTareas(): Tarea[]
 }
 
 class BuscadorDeTarea{
@@ -74,33 +51,32 @@ class BuscadorDeTarea{
 
     + getTareaPorTitulo(titulo: string): Tarea | undefined
     + getTareasCompletadas(): Tarea[]
-    + getTareasNoCompletadas(): Tarea[]
+    + getTareasPorVencimiento(): Tarea[]
     + getTareasPendientes(): Tarea[]
-    + getTareasXEtiquetas(etiqueta: Etiqueta): Tarea[]
-    + getTareasXFechaDeVencimiento(fechaVencimiento: Moment): Tarea[]
+    + getTareasEnProgreso(): Tarea[]
+    + getTareasPorEtiqueta(etiqueta: Etiqueta): Tarea[]
+    + getTareasPorCategoria(categoria: Categoria): Tarea[]
 }
 
 class OrganizadorDeTarea{
     - tareas: Array<Tarea>
 
     + ordenarTareasPorPrioridad(): Tarea[]
-    + ordenarTareasPorFecha(): Tarea[]
-    + public ordenarTareasPorTitulo(): Tarea[]
+    + ordenarTareasPorVencimiento(): Tarea[]
+    + ordenarTareasPorTitulo(): Tarea[]
 }
 
-class GestorDeEstadisticas{
-    - tareas: Array<Tarea>
+class CalculadoraDeTiempoDeTareas{
     - buscadorDeTarea: BuscadorDeTarea
 
     + obtenerTiempoDeFinalizacionDeUnaTarea(tarea: Tarea): number
-    + obtenerTiempoDedicadoPorTarea(): Map<number, number>
-    + obtenerTiempoDeFinalizacionDeTareas(): number
+    + obtenerTiempoDeFinalizacionPorTarea(tareas: Tarea[]): Map<number, number>
+    + obtenerTiempoDeFinalizacionDeTareasCompletadas(): number
     + obtenerTiempoPromedioDeFinalizacion(): number
-    + obtenercantidadDeTareasPorEstado(): Map<Estado, number>
 }
 
-class GestorDeNotificaciones{
-    + notificarRecordatorio()
+class ContadorDeTareas{
+    + obtenerCantidadDeTareasPorEstado(): Map<Estado, number>
 }
 
 abstract class Clasificador{
@@ -113,18 +89,13 @@ abstract class Clasificador{
 class Categoria {}
 class Etiqueta {}
 
-class CreadorDeClasificador{
-    + instanciarCategoria(nombre: string): Categoria
-    + instanciarEtiqueta(nombre: string): Etiqueta
-}
-
-ENUM Estado{
+ENUM ESTADO{
     Pendiente
     EnProgreso
     Completado
 }
 
-ENUM Avance{
+ENUM AVANCE{
     0
     25
     50
@@ -132,29 +103,23 @@ ENUM Avance{
     100
 }
 
-ENUM Prioridad{
+ENUM PRIORIDAD{
     Alta
     Media
     Baja
 }
 
-GestorDeEstadisticas <-- Tarea
-GestorDeNotificaciones <-- Tarea
+CalculadoraDeTiempoDeTareas <-- Tarea
+ContadorDeTareas <-- Tarea
 OrganizadorDeTarea <-- Tarea
 BuscadorDeTarea <-- Tarea
-CreadorDeTarea <-- Tarea
-GestorDeTarea <-right- Tarea
-GestorDeTarea o-up-CreadorDeTarea
-GestorDeTarea o-- CreadorDeClasificador
 Tarea *-- Categoria
 Tarea *-- Etiqueta
+Tarea -left-> ListadoDeTareas
 Categoria --|> Clasificador
 Etiqueta --|> Clasificador
-Categoria --> CreadorDeClasificador
-Etiqueta --> CreadorDeClasificador
-Clasificador -[hidden]- CreadorDeClasificador
-Tarea o-right- Estado
-Tarea o-right- Avance
-Tarea o-right- Prioridad
-GestorDeEstadisticas *-left- BuscadorDeTarea
+Tarea -right- ESTADO
+Tarea -right- AVANCE
+Tarea -right- PRIORIDAD
+CalculadoraDeTiempoDeTareas *-left- BuscadorDeTarea
 @enduml

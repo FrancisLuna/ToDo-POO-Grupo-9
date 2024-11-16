@@ -1,19 +1,55 @@
 import { Moment } from "moment";
 import Etiqueta from "./etiqueta";
 import Tarea from "./tarea";
-
 export default class BuscadorDeTarea{
     
+    /**
+     *  Array de tareas.
+     */
     private tareas: Tarea[];
 
-    constructor(tareas: Array<Tarea>){
+    /**
+     * Crea un nuevo objeto de BuscadorDeTarea
+     * @param tareas - Array de tareas sobre el cual se realizarán las búsquedas.
+     */
+    constructor(tareas: Tarea[]){
         this.tareas = tareas;
     }
 
-    public getTareaPorTitulo(titulo: string): Tarea | undefined{
-        return this.tareas.find(tarea => tarea.getTitulo() === titulo);
+    /**
+     * Permite obtener un listado de tareas con el estado 'Pendiente'.
+     * 
+     * @returns Un Array de tareas con el estado 'Pendiente'.
+     * @throws {ErrorTareaNoEncontrada} Si no hay tareas pendientes lanza una excepción. 
+     */
+    public getTareasPendientes(): Tarea[]{
+        const tareasPendientes: Tarea[] = this.tareas.filter(tarea => tarea.getEstadoActual() === ESTADO.Pendiente);
+        if (tareasPendientes.length === 0) {
+            throw new ErrorTareaNoEncontrada("No hay tareas pendientes.");
+        }        
+        return tareasPendientes;
     }
 
+    /**
+     * Permite obtener un listado de tareas con el estado 'EnProgreso'.
+     * 
+     * @returns Un Array de tareas con el estado 'EnProgreso'.
+     * @throws {ErrorTareaNoEncontrada} Si no hay tareas en progreso lanza una excepción. 
+     */
+    public getTareasEnProgreso(): Tarea[]{
+        const tareasEnProgreso: Tarea[] = this.tareas.filter(tarea => tarea.getEstadoActual() === ESTADO.EnProgreso);
+        if (tareasEnProgreso.length === 0) {
+            throw new ErrorTareaNoEncontrada("No hay tareas en progreso.");
+        }        
+        return tareasEnProgreso;
+    }
+
+     /**
+     * Permite obtener un listado de tareas con el estado 'Completado'.
+     * 
+     * @returns Un Array de tareas con el estado 'Completado'.
+     * @throws {ErrorTareaNoEncontrada} Si no hay tareas completadas lanza una excepción. 
+     */
     public getTareasCompletadas(): Tarea[]{
         return this.tareas.filter(tarea => tarea.getEstadoActual() === ESTADO.Completado);
     }
@@ -24,14 +60,6 @@ export default class BuscadorDeTarea{
 
     public getTareasPendientes(): Tarea[]{
         return this.tareas.filter(tarea => tarea.getEstadoActual() === ESTADO.Pendiente);
-    }
-
-    public getTareasXEtiquetas(etiqueta: Etiqueta): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getEtiquetas().some(etiquetaTarea => etiquetaTarea.getNombre() === etiqueta.getNombre()))
-    }
-
-    public getTareasXFechaDeVencimiento(fechaVencimiento: Moment): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getFechaVencimiento() === fechaVencimiento)
     }
 }
 

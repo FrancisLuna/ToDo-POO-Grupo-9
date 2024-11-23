@@ -1,15 +1,24 @@
 import ErrorTareaNoEncontrada from "../excepciones/errorTareaNoEncontrada";
-import Tarea from "./tarea"
-
+import Tarea from "./tarea";
 /** 
  * Representa un listado de tareas.
 */
 export default class ListadoDeTareas{
 
+
+    
     /**
      * Array de tareas.
+    */
+   private tareas: Tarea[];
+
+      /**
+     * Crea una instancia de ListadoDeTareas.
+     * @param tareas - Array de tareas.
      */
-    private tareas: Tarea[] = [];
+   constructor(tareas: Tarea[]){
+    this.tareas = tareas;
+   }
 
     /**
      * Permite agregar una instancia de la clase `Tarea` al listado de de tareas.

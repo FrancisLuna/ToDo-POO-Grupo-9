@@ -5,7 +5,7 @@ module.exports = {
   automock: false,
   collectCoverage: true,
   coverageProvider: 'v8', //v8 seems to be really precise. and give us more accurate coverage on sonar
-  coverageReporters: ["clover", "json", "lcov", ["text", { "skipFull": true }]],
+  coverageReporters: ["clover", "json", "lcov", ["text", { "skipFull": false }]],
   preset: "ts-jest",
   testEnvironment: "node",
   testMatch: ["<rootDir>/tests/**/*.test.ts"],

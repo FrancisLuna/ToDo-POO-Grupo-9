@@ -1,3 +1,3 @@
-- id: 1, título: Completar el trabajo práctico, estado: En progreso, vencimiento: jueves 21º noviembre 2024.
-- id: 2, título: Crear tests unitarios, estado: En progreso, vencimiento: jueves 21º noviembre 2024.
-- id: 3, título: Crear patrón Observer, estado: En progreso, vencimiento: jueves 21º noviembre 2024.
+1 Completar el trabajo práctico Debemos completar exitosamente el trabajo práctico para la materia Programación 2. Tue Nov 19 2024 09:29:07 GMT-0300 Thu Nov 21 2024 00:00:00 GMT-0300 Alta 25 En progreso [object Map] TSSI undefined
+2 Crear tests unitarios Debemos realizar los tests unitarios para todas las clases del sistema con una cobertura de al menos el 80%. Tue Nov 19 2024 09:29:07 GMT-0300 Thu Nov 21 2024 00:00:00 GMT-0300 Alta 0 En progreso [object Map] TSSI undefined
+3 Crear patrón Observer Debemos crear un patrón Observer para la clase Tarea que informe al gestor de notificaciones que queda poco tiempo para que se cumpla el vencimiento y por lo tanto debe notificar. Tue Nov 19 2024 09:29:07 GMT-0300 Thu Nov 21 2024 00:00:00 GMT-0300 Alta 0 En progreso [object Map] TSSI undefined

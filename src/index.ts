@@ -20,7 +20,7 @@ function main(){
 
     tarea1.setAvance(AVANCE["25%"]);
     tarea1.setCategoria(categoria1);
-    tarea1.setEtiqueta(etiqueta1);tarea1.setEtiqueta(etiqueta2),tarea1.setEtiqueta(etiqueta3);
+    tarea1.setEtiqueta(etiqueta1);tarea1.setEtiqueta(etiqueta2);tarea1.setEtiqueta(etiqueta3);
     tarea1.setDescripcion("Debemos completar exitosamente el trabajo práctico para la materia Programación 2.")
     let fechaDeVencimiento: Moment = moment("2024-11-21");
     tarea1.setFechaVencimiento(fechaDeVencimiento);
@@ -44,6 +44,7 @@ function main(){
     tarea3.setPrioridad(PRIORIDAD.Alta);
 
     const miListadoDeTareas: ListadoDeTareas = new ListadoDeTareas();
+
     miListadoDeTareas.agregarTarea(tarea1);
     miListadoDeTareas.agregarTarea(tarea2);
     miListadoDeTareas.agregarTarea(tarea3);

@@ -102,7 +102,7 @@ export default class BuscadorDeTarea{
      * @throws {ErrorTareaNoEncontrada} Si no se encuentran tareas con la etiqueta dada se lanza una excepción.
      */
     public getTareasPorEtiqueta(etiqueta: Etiqueta): Tarea[]{
-        const tareasEtiquetadas: Tarea[] = this.tareas.filter(tarea => tarea.getEtiquetas().includes(etiqueta) === true);
+        const tareasEtiquetadas: Tarea[] = this.tareas.filter(tarea => tarea.getEtiquetas().includes(etiqueta));
         if (tareasEtiquetadas.length === 0) {
             throw new ErrorTareaNoEncontrada("No existen tareas con la etiqueta especificada");
             

@@ -43,9 +43,8 @@ function main(){
     tarea3.setEstado(ESTADO.EnProgreso);
     tarea3.setPrioridad(PRIORIDAD.Alta);
 
-    const arrayDeTareas: Tarea[] = [];
+    const miListadoDeTareas: ListadoDeTareas = new ListadoDeTareas();
 
-    const miListadoDeTareas: ListadoDeTareas = new ListadoDeTareas(arrayDeTareas);
     miListadoDeTareas.agregarTarea(tarea1);
     miListadoDeTareas.agregarTarea(tarea2);
     miListadoDeTareas.agregarTarea(tarea3);

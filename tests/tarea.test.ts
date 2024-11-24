@@ -19,7 +19,7 @@ describe('Tarea', () =>{
         expect(tarea).toBeInstanceOf(Tarea);
     });
 
-    it('debe que un objeto de Tarea se crea con todos sus atributos inicializados', () => {
+    it('debe asegurar que un objeto de Tarea se cree con todos sus atributos inicializados', () => {
         expect(tarea.getId()).toBe(2);
         expect(tarea.getTitulo()).toBe('Desarrollar una aplicación para crear tareas');
         expect(tarea.getFechaCreacion().isSame(moment(), 'day')).toBe(true);

@@ -10,15 +10,7 @@ export default class ListadoDeTareas{
     /**
      * Array de tareas.
     */
-   private tareas: Tarea[];
-
-      /**
-     * Crea una instancia de ListadoDeTareas.
-     * @param tareas - Array de tareas.
-     */
-   constructor(tareas: Tarea[]){
-    this.tareas = tareas;
-   }
+   private tareas: Tarea[] = [];
 
     /**
      * Permite agregar una instancia de la clase `Tarea` al listado de de tareas.

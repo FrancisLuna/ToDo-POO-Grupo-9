@@ -30,7 +30,7 @@ describe('BuscadorDeTarea', () => {
     buscador = new BuscadorDeTarea(mockTareas);
   });
 
-  it("debe obtenerse una instancia de un BuscadorDeTarea", () => {
+  it('debe obtenerse una instancia de un BuscadorDeTarea', () => {
     expect(buscador).toBeInstanceOf(BuscadorDeTarea);
   });
 

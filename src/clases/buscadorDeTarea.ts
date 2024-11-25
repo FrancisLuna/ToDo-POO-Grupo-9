@@ -51,20 +51,69 @@ export default class BuscadorDeTarea{
      * @throws {ErrorTareaNoEncontrada} Si no hay tareas completadas lanza una excepción. 
      */
     public getTareasCompletadas(): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getEstadoActual() === ESTADO.Completado);
+        const tareasCompletadas: Tarea[] = this.tareas.filter(tarea => tarea.getEstadoActual() === ESTADO.Completado);
+        if (tareasCompletadas.length === 0) {
+            throw new ErrorTareaNoEncontrada("No hay tareas completadas.");
+        }
+        return tareasCompletadas;
     }
 
-    public getTareasNoCompletadas(): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getEstadoActual() !== ESTADO.Completado);
+    /**
+     * Permite obtener todas las tareas no completadas, ordenadas por fecha de vencimiento ascendente.
+     * 
+     * @returns Un array de tareas no completadas, ordenadas por fecha de vencimiento.
+     */
+    public getTareasPorVencimiento(): Tarea[]{
+        const tareasNoCompletadas: Tarea[] = this.tareas.filter(tarea => tarea.getEstadoActual() !== ESTADO.Completado);
+        if (tareasNoCompletadas.length > 0) {
+            tareasNoCompletadas.sort((a, b) => a.getFechaVencimiento().valueOf() - b.getFechaVencimiento().valueOf());
+        }
+        return tareasNoCompletadas;
     }
 
-    public getTareasPendientes(): Tarea[]{
-        return this.tareas.filter(tarea => tarea.getEstadoActual() === ESTADO.Pendiente);
+    /**
+     * Permite obtener una tarea del listado de tareas que contiene un título especificado.
+     * 
+     * @param titulo - El título de la tarea a buscar.
+     * @returns La tarea encontrada con el título especificado.
+     * @throws {ErrorTareaNoEncontrada} Si no se encuentra una tarea con el título dado se lanza una excepción.
+     */
+    public getTareaPorTitulo(titulo: string): Tarea | undefined{
+        const tareaBuscada: Tarea | undefined = this.tareas.find(tarea => tarea.getTitulo() === titulo);
+        if (!tareaBuscada) {
+            throw new ErrorTareaNoEncontrada("No existen tareas con el título especificado");
+        }
+        return tareaBuscada;
     }
-}
 
-enum ESTADO{
-    Pendiente,
-    EnProgreso,
-    Completado
+    /**
+     * Permite obtener un listado de tareas que contienen una etiqueta específica.
+     * 
+     * @param etiqueta - La etiqueta que deben tener las tareas.
+     * @returns Un array de tareas con la etiqueta especificada.
+     * @throws {ErrorTareaNoEncontrada} Si no se encuentran tareas con la etiqueta dada se lanza una excepción.
+     */
+    public getTareasPorEtiqueta(etiqueta: Etiqueta): Tarea[]{
+        const tareasEtiquetadas: Tarea[] = this.tareas.filter(tarea => tarea.getEtiquetas().includes(etiqueta));
+        if (tareasEtiquetadas.length === 0) {
+            throw new ErrorTareaNoEncontrada("No existen tareas con la etiqueta especificada");
+            
+        }
+        return tareasEtiquetadas;
+    }
+
+    /**
+     * Permite obtener un listado de tareas que contienen una categoría específica.
+     * 
+     * @param categoria - La categoría que deben tener las tareas.
+     * @returns Un array de tareas con la categoría especificada.
+     * @throws {ErrorTareaNoEncontrada} Si no se encuentran tareas con la categoría dada se lanza una excepción.
+     */
+    public getTareasPorCategoria(categoria: Categoria): Tarea[]{
+        const tareasCategorizadas: Tarea[] = this.tareas.filter(tarea => tarea.getCategoria() === categoria);
+        if (tareasCategorizadas.length === 0) {
+            throw new ErrorTareaNoEncontrada("No existen tareas con la categoria especificada")
+        }
+        return tareasCategorizadas;
+    }
 }

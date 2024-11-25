@@ -21,11 +21,11 @@ describe('ContadorDeTareas', () => {
 
     describe('obtenerCantidadDeTareasPorEstado', () => {
 
-        it('debería lanzar una excepción si el listado de tareas está vacío', () => {
+        it('Debe lanzar una excepción si el listado de tareas está vacío', () => {
             expect(() => contadorDeTareas.obtenerCantidadDeTareasPorEstado(mockTareas)).toThrow(NoHayTareasCreadas);
         });       
         
-        it('debería contar correctamente las tareas agrupadas por estado', () => {
+        it('Debe contar correctamente las tareas agrupadas por estado', () => {
             mockTarea1.getEstadoActual.mockReturnValue(ESTADO.Pendiente);
             mockTarea2.getEstadoActual.mockReturnValue(ESTADO.EnProgreso);
             mockTarea3.getEstadoActual.mockReturnValue(ESTADO.Completado);

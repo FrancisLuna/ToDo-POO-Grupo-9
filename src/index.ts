@@ -8,9 +8,12 @@ import { AVANCE } from "./enums/avance";
 import moment, { Moment } from "moment";
 import { ESTADO } from "./enums/estado";
 import { PRIORIDAD } from "./enums/prioridad";
-import Saver from "./clases/saver";
-import Loader from "./clases/loader";
+import SaverJson from "./clases/saverJson";
+import SaverPlainText from "./clases/saverPlainText";
+import LoaderPlainText from "./clases/loaderPlainText";
+import LoaderJson from "./clases/loaderJson";
 import TareaBuilder from "./clases/tareaBuilder";
+import ITarea from "./interfaces/iTarea";
 
 function main(){
     const tarea1: Tarea = new Tarea("Completar el trabajo práctico", 1);
@@ -50,19 +53,20 @@ function main(){
     miListadoDeTareas.agregarTarea(tarea2);
     miListadoDeTareas.agregarTarea(tarea3);
 
-    const saver: Saver = new Saver();
-    saver.guardarColeccionDeTareasJson(miListadoDeTareas);
-    saver.guardarColeccionDeTareasPlainText(miListadoDeTareas);
+    const saverTxt: SaverPlainText = new SaverPlainText();
+    const saverJson: SaverJson = new SaverJson();
+    saverJson.guardarColeccionDeTareasJson(miListadoDeTareas);
+    saverTxt.guardarColeccionDeTareasPlainText(miListadoDeTareas);
 
     tarea1.getEstados().forEach((value,key) => {console.log(`estado: ${key}, fecha: ${value}`)});
 }
 async function main2() {
     const miBuilder: TareaBuilder = new TareaBuilder();
-    const miLoader: Loader = new Loader(miBuilder);
+    const miLoader: LoaderJson = new LoaderJson(miBuilder);
 
-    const miListaDeTareasCargadas: Tarea[] = await miLoader.cargarColeccionDeTareasJson();
+    const miListaDeTareasCargadas: ITarea[] = await miLoader.cargarColeccionDeTareasJson();
 
-    for (let task of miListaDeTareasCargadas) {
+    for (let task of miListaDeTareasCargadas as Tarea[]) {
         console.log(`${task.getId()}`);
         console.log(`${task.getTitulo()}`);
         console.log(`${task.getDescripcion()}`);

@@ -4,12 +4,12 @@ import moment, { Moment } from "moment";
 import { AVANCE } from "../enums/avance";
 import { ESTADO } from "../enums/estado";
 import { PRIORIDAD } from "../enums/prioridad";
-moment.locale('es');
+import ITarea from "../interfaces/iTarea";
 
 /**
  * Representa una tarea dentro de la aplicación.
  */
-export default class Tarea {
+export default class Tarea implements ITarea{
     
     /**Contador estático para generar un ID único para cada tarea.*/
     private static constadorId: number = 1;

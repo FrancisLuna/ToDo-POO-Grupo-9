@@ -2,36 +2,36 @@
 ID: 1
 Título: Completar el trabajo práctico
 Descripción: Debemos completar exitosamente el trabajo práctico para la materia Programación 2.
-Fecha de creación: Sun Nov 24 2024 23:41:32 GMT-0300
+Fecha de creación: Mon Nov 25 2024 16:11:02 GMT-0300
 Fecha de vencimiento: Thu Nov 21 2024 00:00:00 GMT-0300
 Prioridad: Alta
 Avance: 25
 Estado actual: En progreso
-Historial de estados: Pendiente,Sun Nov 24 2024 23:41:32 GMT-0300,En progreso,Sun Nov 24 2024 23:41:32 GMT-0300
+Historial de estados: Pendiente,Mon Nov 25 2024 16:11:02 GMT-0300,En progreso,Mon Nov 25 2024 16:11:02 GMT-0300
 Categoría: TSSI
 Etiquetas: Programación II,CUVL,2do cuatrimestre
 
 ID: 2
 Título: Crear tests unitarios
 Descripción: Debemos realizar los tests unitarios para todas las clases del sistema con una cobertura de al menos el 80%.
-Fecha de creación: Sun Nov 24 2024 23:41:32 GMT-0300
+Fecha de creación: Mon Nov 25 2024 16:11:02 GMT-0300
 Fecha de vencimiento: Thu Nov 21 2024 00:00:00 GMT-0300
 Prioridad: Alta
 Avance: 0
 Estado actual: En progreso
-Historial de estados: Pendiente,Sun Nov 24 2024 23:41:32 GMT-0300,En progreso,Sun Nov 24 2024 23:41:32 GMT-0300
+Historial de estados: Pendiente,Mon Nov 25 2024 16:11:02 GMT-0300,En progreso,Mon Nov 25 2024 16:11:02 GMT-0300
 Categoría: TSSI
 Etiquetas: CUVL
 
 ID: 3
 Título: Crear patrón Observer
 Descripción: Debemos crear un patrón Observer para la clase Tarea que informe al gestor de notificaciones que queda poco tiempo para que se cumpla el vencimiento y por lo tanto debe notificar.
-Fecha de creación: Sun Nov 24 2024 23:41:32 GMT-0300
+Fecha de creación: Mon Nov 25 2024 16:11:02 GMT-0300
 Fecha de vencimiento: Thu Nov 21 2024 00:00:00 GMT-0300
 Prioridad: Alta
 Avance: 0
 Estado actual: En progreso
-Historial de estados: Pendiente,Sun Nov 24 2024 23:41:32 GMT-0300,En progreso,Sun Nov 24 2024 23:41:32 GMT-0300
+Historial de estados: Pendiente,Mon Nov 25 2024 16:11:02 GMT-0300,En progreso,Mon Nov 25 2024 16:11:02 GMT-0300
 Categoría: TSSI
 Etiquetas: CUVL
 

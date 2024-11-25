@@ -8,19 +8,36 @@ import Categoria from "./categoria";
 import Etiqueta from "./etiqueta";
 import moment from "moment";
 import Tarea from "./tarea";
+import ITarea from "../interfaces/iTarea";
 
-moment.locale("es");
-
-export default class Loader {
+/**
+ * Clase encargada de cargar colecciones de tareas desde un archivo de texto plano.
+ */
+export default class LoaderPlainText {
     private builder: TareaBuilder;
 
+    /**
+     * Constructor de la clase LoaderPlainText.
+     * 
+     * @param builder - Instancia de TareaBuilder utilizada para construir objetos `Tarea`.
+     */
     constructor(builder: TareaBuilder) {
         this.builder = builder;
     }
 
-    public async cargarColeccionDeTareasPlainText(): Promise<Tarea[]> {
+    /**
+     * Carga una colección de tareas desde un archivo de texto plano.
+     * 
+     * El archivo debe estar estructurado con líneas que representen propiedades de cada tarea.
+     * Cada tarea termina con una línea en blanco.
+     * 
+     * @returns Una promesa que se resuelve con un array de tareas (`ITarea[]`) cargadas desde el archivo.
+     * 
+     * @throws Error - Si ocurre un problema al abrir o leer el archivo.
+     */
+    public async cargarColeccionDeTareasPlainText(): Promise<ITarea[]> {
         const file = new CustomFileClass();
-        const tareas: Tarea[] = [];
+        const tareas: ITarea[] = [];
 
         try {
             file.open(path.resolve("coleccionDeTareas.txt"), "r");
@@ -29,6 +46,7 @@ export default class Loader {
             while (!itLine.done) {
                 const line = itLine.value.trim();
 
+                // Procesa cada línea para construir una tarea utilizando el builder.
                 if (line.startsWith("ID: ")) {
                     this.builder.reset();
                     this.builder.buildId(Number(this.extraerValor(line, "ID: ")));
@@ -70,6 +88,7 @@ export default class Loader {
                         this.builder.buildEtiqueta(new Etiqueta(etiqueta))
                     );
                 } else if (line.length === 0) {
+                    // Cuando se encuentra una línea vacía, agrega la tarea construida a la colección.
                     if (this.builder.construido()) {
                         const nuevaTarea = this.builder.getResult();
                         if (nuevaTarea) tareas.push(nuevaTarea);
@@ -81,92 +100,21 @@ export default class Loader {
         } catch (error) {
             console.error("Error al intentar cargar el archivo <coleccionDeTareas.txt>", error);
         } finally {
+            // Cierra el archivo, independientemente de si ocurrió un error.
             file.close();
         }
 
         return tareas;
     }
 
+    /**
+     * Extrae el valor asociado a una clave en una línea de texto.
+     * 
+     * @param line - Línea de texto de la cual se extraerá el valor.
+     * @param key - Clave que precede al valor en la línea.
+     * @returns El valor asociado a la clave en la línea.
+     */
     private extraerValor(line: string, key: string): string {
         return line.replace(key, "").trim();
-    }
-
-    public async cargarColeccionDeTareasJson(): Promise<Tarea[]> {
-        const tareas: Tarea[] = [];
-        const file: CustomFileClass = new CustomFileClass();
-
-        try {
-            file.open(path.resolve("coleccionDeTareas.json"), "r");
-
-            let itLine = await file.readLine().next();
-            let fileContent = "";
-            while (!itLine.done) {
-                fileContent += itLine.value; 
-                itLine = await file.readLine().next();
-            }
-
-            const data: any[][][] = JSON.parse(fileContent);
-
-            for (const tareaData of data) {
-                this.builder.reset();
-
-                for (const [key, value] of tareaData) {
-                    switch (key) {
-                        case "ID":
-                            this.builder.buildId(Number(value));
-                            break;
-                        case "Título":
-                            this.builder.buildTitulo(value);
-                            break;
-                        case "Descripción":
-                            this.builder.buildDescripcion(value);
-                            break;
-                        case "Fecha de creación":
-                            this.builder.buildFechaCreacion(moment(value));
-                            break;
-                        case "Fecha de vencimiento":
-                            this.builder.buildFechaVencimiento(moment(value));
-                            break;
-                        case "Prioridad":
-                            this.builder.buildPrioridad(value as PRIORIDAD);
-                            break;
-                        case "Avance":
-                            this.builder.buildAvance(Number(value) as AVANCE);
-                            break;
-                        case "Estado actual":
-                            this.builder.buildEstado(value as ESTADO);
-                            break;
-                        case "Historial de estados":
-                            const historialArray = value.split(",");
-                            for (let i = 0; i < historialArray.length; i += 2) {
-                                const estado = historialArray[i] as ESTADO;
-                                const fecha = moment(historialArray[i + 1]);
-                                this.builder.buildEstados(estado, fecha);
-                            }
-                            break;
-                        case "Categoría":
-                            this.builder.buildCategoria(new Categoria(value));
-                            break;
-                        case "Etiquetas":
-                            const etiquetas: string[] = value.split(",");
-                            etiquetas.forEach((etiqueta) =>
-                                this.builder.buildEtiqueta(new Etiqueta(`${etiqueta}`))
-                            );
-                            break;
-                    }
-                }
-
-                if (this.builder.construido()) {
-                    const nuevaTarea = this.builder.getResult();
-                    if (nuevaTarea) tareas.push(nuevaTarea);
-                }
-            }
-        } catch (error) {
-            console.error("Error al cargar el archivo JSON:", error);
-        } finally {
-            file.close();
-        }
-
-        return tareas;
     }
 }

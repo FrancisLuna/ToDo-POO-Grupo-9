@@ -1,0 +1,79 @@
+@startuml ToDoList
+
+title TP - TODO List - Grupo 9
+skinparam lineType ortho
+
+
+class Tarea{
+    - titulo: string
+    - descripcion: string
+    - fechaVencimiento: Date
+    - fechaCreacion: Date
+    - prioridad: Prioridad
+    - avance: Avance
+    - estado: Estado
+    - categoría: Categoria
+    - etiquetas: Etiqueta[]
+    
+    + setTitulo(titulo: string): void
+    + getTitulo(): string
+    + setDescripcion(desc: string): void
+    + getDescripcion(): string
+    + getFechaCreacion(): Date
+    + setFechaVencimiento(fecha: Date): void
+    + getFechaVencimiento(): Date
+    + setPrioridad(prioridad: Prioridad): void
+    + getPrioridad(): Prioridad
+    + setAvance(avance: Avance): void
+    + getAvance(): Avance
+    + setEstado(estado: Estado): void
+    + getEstado(): Estado
+    + setCategoria(categoria: Categoria): void
+    + getCategoria(): Categoria
+    + setEtiqueta(etiqueta: Etiqueta): void
+    + getEtiquetas(): Etiqueta[]
+}
+
+
+class GestorDeTarea{
+    - tareas: Array<Tarea>
+    + crearTarea(tarea: Tarea): void
+    + eliminarTarea(tarea: Tarea): void
+    + editarTarea(tarea: Tarea): void
+    + OrdenarTareas(strategy: OrdenarEstrategia): void
+    + BuscarTarea(strategy: BuscarEstrategia): void
+
+}
+
+interface OrdenarEstrategia{
+    + ordenar(tareas: Tarea[]): Tarea[]
+}
+
+interface BuscarEstrategia{
+    + buscar(tareas: Tarea[], titulo: string): Tarea | null
+}
+
+class ordenarTareasPorPrioridad{
+    + ordenar(tareas: Tarea[]): Tarea[]
+}
+class ordenarTareasPorFecha{
+    + ordenar(tareas: Tarea[]): Tarea[]
+}
+class buscarTareaPorTitulo{
+    + buscar(tareas: Tarea[], titulo: string): Tarea | null
+}
+class getTareasCompletadas{
+    + getTareasCompletadas(): Tarea[]
+}
+class getTareasPendientes{
+    + getTareasPendientes(): Tarea[]
+}
+
+GestorDeTarea o-down- OrdenarEstrategia
+GestorDeTarea o-down- BuscarEstrategia
+OrdenarEstrategia <|.down. ordenarTareasPorPrioridad
+OrdenarEstrategia <|.down. ordenarTareasPorFecha
+BuscarEstrategia <|.down. buscarTareaPorTitulo
+BuscarEstrategia <|.down. getTareasCompletadas
+BuscarEstrategia <|.down. getTareasPendientes
+@enduml

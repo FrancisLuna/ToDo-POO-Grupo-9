@@ -4,7 +4,6 @@ import Etiqueta from "./etiqueta";
 import Categoria from "./categoria";
 import ErrorTareaNoEncontrada from "../excepciones/errorTareaNoEncontrada";
 
-
 /**
  * Representa un buscador de tareas y permite obtener tareas según su estado, fecha de vencimiento,
  * título, etiqueta y categoría.

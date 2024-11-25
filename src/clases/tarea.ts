@@ -72,6 +72,14 @@ export default class Tarea {
     public getId(): number{
         return this.id;
     }
+    
+    /**
+     * Permite establecer el ID de una tarea
+     * @param id el nuevo ID de la tarea
+     */
+    public setId(id: number):void{
+        this.id = id;
+    }
 
     /**
      * Permite asignar y actualizar el título de la tarea con un nuevo valor.
@@ -111,6 +119,14 @@ export default class Tarea {
      */
     public getFechaCreacion(): Moment{
         return this.fechaCreacion;
+    }
+
+    /**
+     * Permite asignar y actualizar la fecha de creación de la tarea con una nueva fecha.
+     * @param fechaCreacion - La nueva fecha de creación de la tarea.
+     */
+    public setFechaCreacion(fechaCreacion: Moment): void{
+        this.fechaCreacion = fechaCreacion;
     }
 
     /**
@@ -175,6 +191,15 @@ export default class Tarea {
             throw new Error(`La tarea ya se encuentra en el estado ${estado}.`);
         }
         return estado;        
+    }
+
+    /**
+     * Permite establecer los estados guardados de la tarea
+     * @param key - El estado que se desea modificar
+     * @param value - el momento que se desea asignar al estado
+     */
+    public setEstados(key: ESTADO, value: Moment): void{
+        this.estados.set(key,value);
     }
 
     /**

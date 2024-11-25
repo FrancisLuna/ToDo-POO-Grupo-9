@@ -3,46 +3,66 @@ import path from "path";
 import ListadoDeTarea from "./ListadoDeTareas";
 import Tarea from "./tarea";
 import Etiqueta from "./etiqueta";
-export default class Saver{
 
-    
-    public GuardarColeccionDeTareasJson(coleccionDeTareas: ListadoDeTarea): void {
+export default class Saver {
 
+    public guardarColeccionDeTareasJson(coleccionDeTareas: ListadoDeTarea): void {
         const file: CustomFileClass = new CustomFileClass();
+        const tareasData = [];
         try {
             file.open(path.resolve("coleccionDeTareas.json"), "w");
-            file.writeToFile(JSON.stringify(coleccionDeTareas,null,2));
+
+            for (const tarea of coleccionDeTareas.getTareas()) {
+                const tareaData: Map<string,string> = new Map([
+                    ["ID",`${tarea.getId()}`],
+                    ["Título",`${tarea.getTitulo()}`],
+                    ["Descripción",`${tarea.getDescripcion()}`],
+                    ["Fecha de creación", `${tarea.getFechaCreacion()}`],
+                    ["Fecha de vencimiento",`${tarea.getFechaVencimiento()}`],
+                    ["Prioridad",`${tarea.getPrioridad()}`],
+                    ["Avance",`${tarea.getAvance()}`],
+                    ["Estado actual",`${tarea.getEstadoActual()}`],
+                    ["Historial de estados",`${Array.from(tarea.getEstados())}`],
+                    ["Categoría",`${tarea.getCategoria()?.getNombre()}`],
+                    ["Etiquetas",`${tarea.getEtiquetas().map(etiqueta => etiqueta.getNombre())}`]
+                ]);
+                tareasData.push(Array.from(tareaData));
+            }
+
+            file.writeToFile(JSON.stringify(tareasData, null, 2));
             
         } catch (error) {
             console.log("Error al intentar guardar.")
         } finally {
             file.close();
         }
+    
     }
 
-    public GuardarColeccionDeTareasPlainText(coleccionDeTareas: ListadoDeTarea): void {
+    public guardarColeccionDeTareasPlainText(coleccionDeTareas: ListadoDeTarea): void {
         
         const file: CustomFileClass = new CustomFileClass();
         try {
             file.open(path.resolve("coleccionDeTareas.txt"),"w");
+            file.writeToFile("");
             for(const tarea of coleccionDeTareas.getTareas()){
-                file.writeToFile(`${tarea.getId()}`);
-                file.writeToFile(`${tarea.getTitulo()}`);
-                file.writeToFile(`${tarea.getDescripcion()}`);
-                file.writeToFile(`${tarea.getFechaCreacion()}`);
-                file.writeToFile(`${tarea.getFechaVencimiento()}`);
-                file.writeToFile(`${tarea.getPrioridad()}`);
-                file.writeToFile(`${tarea.getAvance()}`);
-                file.writeToFile(`${tarea.getEstadoActual()}`);
-                tarea.getEstados().forEach((value, key) => {
-                    file.writeToFile(`key:${key}, value:${value}`);
-                });
-                file.writeToFile(`${tarea.getCategoria()?.getNombre()}`);
-                for(const etiqueta of tarea.getEtiquetas()){
-                    file.writeToFile(`${etiqueta.getNombre()}`);
-                }
-                file.writeToFile("");
+                const tareaData: Map<string,string> = new Map([
+                    ["ID",`${tarea.getId()}`],
+                    ["Título",`${tarea.getTitulo()}`],
+                    ["Descripción",`${tarea.getDescripcion()}`],
+                    ["Fecha de creación", `${tarea.getFechaCreacion()}`],
+                    ["Fecha de vencimiento",`${tarea.getFechaVencimiento()}`],
+                    ["Prioridad",`${tarea.getPrioridad()}`],
+                    ["Avance",`${tarea.getAvance()}`],
+                    ["Estado actual",`${tarea.getEstadoActual()}`],
+                    ["Historial de estados",`${Array.from(tarea.getEstados())}`],
+                    ["Categoría",`${tarea.getCategoria()?.getNombre()}`],
+                    ["Etiquetas",`${tarea.getEtiquetas().map(etiqueta => etiqueta.getNombre())}`]
+                ]);
+                tareaData.forEach((value,key) => file.writeToFile(`${key}: ${value}`) );
+                file.writeToFile("");             
             }
+            file.writeToFile("END OF FILE");
         } catch (error) {
             console.log("Error al intentar guardar.")
         } finally {

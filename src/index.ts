@@ -10,6 +10,7 @@ import { ESTADO } from "./enums/estado";
 import { PRIORIDAD } from "./enums/prioridad";
 import Saver from "./clases/saver";
 import Loader from "./clases/loader";
+import TareaBuilder from "./clases/tareaBuilder";
 
 function main(){
     const tarea1: Tarea = new Tarea("Completar el trabajo práctico", 1);
@@ -50,11 +51,29 @@ function main(){
     miListadoDeTareas.agregarTarea(tarea3);
 
     const saver: Saver = new Saver();
-    saver.GuardarColeccionDeTareasJson(miListadoDeTareas);
-    saver.GuardarColeccionDeTareasPlainText(miListadoDeTareas);
-    const loader: Loader = new Loader();
-    loader.CargarColeccionDeTareas();
+    saver.guardarColeccionDeTareasJson(miListadoDeTareas);
+    saver.guardarColeccionDeTareasPlainText(miListadoDeTareas);
 
     tarea1.getEstados().forEach((value,key) => {console.log(`estado: ${key}, fecha: ${value}`)});
-} 
-main();
+}
+async function main2() {
+    const miBuilder: TareaBuilder = new TareaBuilder();
+    const miLoader: Loader = new Loader(miBuilder);
+
+    const miListaDeTareasCargadas: Tarea[] = await miLoader.cargarColeccionDeTareasJson();
+
+    for (let task of miListaDeTareasCargadas) {
+        console.log(`${task.getId()}`);
+        console.log(`${task.getTitulo()}`);
+        console.log(`${task.getDescripcion()}`);
+        console.log(`${task.getFechaCreacion()}`);
+        console.log(`${task.getFechaVencimiento()}`);
+        console.log(`${task.getPrioridad()}`);
+        console.log(`${task.getAvance()}`);
+        console.log(`${task.getEstadoActual()}`);
+        console.log(`${Array.from(task.getEstados())}`);
+        console.log(`${task.getCategoria()?.getNombre()}`);
+        console.log(`${task.getEtiquetas().map(etiqueta => etiqueta.getNombre())}`);
+    }
+}
+main2();

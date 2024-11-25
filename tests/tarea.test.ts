@@ -6,6 +6,7 @@ import { PRIORIDAD } from "../src/enums/prioridad";
 import { AVANCE } from "../src/enums/avance";
 import {mock} from "jest-mock-extended";
 import Categoria from "../src/clases/categoria";
+import EstadoInvalido from "../src/excepciones/estadoInvalido";
 
 describe('Tarea', () =>{
     
@@ -15,11 +16,11 @@ describe('Tarea', () =>{
         tarea = new Tarea('Desarrollar una aplicación para crear tareas', 10);
     });
 
-    it('debe obtener una instancia de Tarea', () => {
+    it('Debe obtener una instancia de Tarea', () => {
         expect(tarea).toBeInstanceOf(Tarea);
     });
 
-    it('debe asegurar que un objeto de Tarea se cree con todos sus atributos inicializados', () => {
+    it('Debe asegurar que un objeto de Tarea se cree con todos sus atributos inicializados', () => {
         expect(tarea.getId()).toBe(2);
         expect(tarea.getTitulo()).toBe('Desarrollar una aplicación para crear tareas');
         expect(tarea.getFechaCreacion().isSame(moment(), 'day')).toBe(true);
@@ -32,57 +33,57 @@ describe('Tarea', () =>{
         expect(tarea.getEtiquetas()).toBeNull;
     });
 
-    it('debe que se pueda cambiar el titulo de la tarea', () => {
+    it('Debe asegurar que se pueda cambiar el titulo de la tarea', () => {
         tarea.setTitulo('Crear diagrama de clase de la aplicación');
         expect(tarea.getTitulo()).toBe('Crear diagrama de clase de la aplicación');
     });
 
-    it('debe que se pueda asignar una descripción a la tarea', () => {
+    it('Debe asegurar que se pueda asignar una descripción a la tarea', () => {
         tarea.setDescripcion('Se debe crear el diagrama de clase y el diagrama se secuencia');
         expect(tarea.getDescripcion()).toBe('Se debe crear el diagrama de clase y el diagrama se secuencia');
     });
 
-    it('debe que se pueda acceder al historial de estados de la tarea', () => {
+    it('Debe asegurar que se pueda acceder al historial de estados de la tarea', () => {
         const historialDeEstados = tarea.getEstados();
         expect(historialDeEstados.size).toBe(1);
         expect(historialDeEstados.has(ESTADO.Pendiente)).toBe(true);
         expect(historialDeEstados.get(ESTADO.Pendiente)?.isSame(tarea.getFechaCreacion()));
     });
 
-    it('debe que se pueda cambiar el estado actual de la tarea', () => {
+    it('Debe asegurar que se pueda cambiar el estado actual de la tarea', () => {
         tarea.setEstado(ESTADO.EnProgreso);
         expect(tarea.getEstadoActual()).toBe(ESTADO.EnProgreso);
     });
 
-    it('verificar que se lance una excepción cuando la tarea ya se encuentre en el estado al que se pretende cambiar', () => {
+    it('Debe verificar que se lance una excepción cuando la tarea ya se encuentre en el estado al que se pretende cambiar', () => {
         tarea.setEstado(ESTADO.EnProgreso);
-        expect(() => tarea.setEstado(ESTADO.EnProgreso)).toThrow();
+        expect(() => tarea.setEstado(ESTADO.EnProgreso)).toThrow(EstadoInvalido);
     });
 
-    it('debe que se pueda cambiar la prioridad de la tarea', () => {
+    it('Debe asegurar que se pueda cambiar la prioridad de la tarea', () => {
         tarea.setPrioridad(PRIORIDAD.Alta);
         expect(tarea.getPrioridad()).toBe(PRIORIDAD.Alta);
     });
 
-    it('debe que se pueda actualizar el avance de la tarea', () => {
+    it('Debe asegurar que se pueda actualizar el avance de la tarea', () => {
         tarea.setAvance(AVANCE['50%']);
         expect(tarea.getAvance()).toBe(AVANCE['50%']);
     });
 
-    it('debe que se pueda cambiar la fecha de vencimiento a la tarea', () => {
+    it('Debe asegurar que se pueda cambiar la fecha de vencimiento a la tarea', () => {
         const fechaVencimiento = moment().add(7, 'days');
         tarea.setFechaVencimiento(fechaVencimiento);
         expect(tarea.getFechaVencimiento().isSame(fechaVencimiento)).toBe(true);
     });
 
-    it('debe que se pueda asignar una categoría a la tarea', () => {
+    it('Debe asegurar que se pueda asignar una categoría a la tarea', () => {
         const categoria1 = mock<Categoria>();
         categoria1.setNombre('Estudio');
         tarea.setCategoria(categoria1);
         expect(tarea.getCategoria()).toBe(categoria1);
     });
 
-    it('debe que se puedan asignar etiquetas a la tarea', () => {
+    it('Debe asegurar que se puedan asignar etiquetas a la tarea', () => {
         const etiqueta1 = mock<Etiqueta>();
         const etiqueta2 = mock<Etiqueta>();
 
@@ -99,7 +100,7 @@ describe('Tarea', () =>{
         expect(etiquetas.length).toBe(2);
     });
 
-    it('debe que se pueda eliminar una etiqueta existente de la tarea por su nombre', () => {
+    it('Debe asegurar que se pueda eliminar una etiqueta existente de la tarea por su nombre', () => {
         const etiqueta1 = mock<Etiqueta>();
         const etiqueta2 = mock<Etiqueta>();
 

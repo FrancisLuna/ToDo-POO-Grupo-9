@@ -79,15 +79,22 @@ class ContadorDeTareas{
     + obtenerCantidadDeTareasPorEstado(): Map<Estado, number>
 }
 
-abstract class Clasificador{
-    - nombre: string
-
-    + getNombre(): string
+interface Clasificador{
     + setNombre(nombre: string): void
+    + getNombre(): string
 }
 
-class Categoria {}
-class Etiqueta {}
+class Categoria{
+    - nombre: string
+    + setNombre(nombre: string): void
+    + getNombre(): string
+}
+
+class Etiqueta{
+    - nombre: string
+    + setNombre(nombre: string): void
+    + getNombre(): string
+}
 
 ENUM ESTADO{
     Pendiente
@@ -113,11 +120,12 @@ CalculadoraDeTiempoDeTareas <-- Tarea
 ContadorDeTareas <-- Tarea
 OrganizadorDeTarea <-- Tarea
 BuscadorDeTarea <-- Tarea
+
+Categoria ..|> Clasificador
+Etiqueta ..|> Clasificador
 Tarea *-- Categoria
 Tarea *-- Etiqueta
 Tarea -left-> ListadoDeTareas
-Categoria --|> Clasificador
-Etiqueta --|> Clasificador
 Tarea -right- ESTADO
 Tarea -right- AVANCE
 Tarea -right- PRIORIDAD

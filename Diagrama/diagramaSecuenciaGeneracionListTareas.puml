@@ -1,0 +1,19 @@
+@startuml
+actor Usuario
+participant "ListadoDeTareas" as ListadoDeTareas
+participant "Tarea" as Tarea
+
+Usuario -> ListadoDeTareas : agregarTarea(nuevaTarea)
+ListadoDeTareas -> Tarea : crearNuevaTarea()
+Tarea -> Tarea : establecerDatos()
+Tarea -> ListadoDeTareas : devolverInstancia()
+
+Usuario -> ListadoDeTareas : agregarTarea(otraTarea)
+ListadoDeTareas -> Tarea : crearNuevaTarea()
+Tarea -> Tarea : establecerDatos()
+Tarea -> ListadoDeTareas : devolverInstancia()
+
+Usuario -> ListadoDeTareas : getTareas()
+ListadoDeTareas -> Usuario : devolverListadoDeTareas()
+
+@enduml

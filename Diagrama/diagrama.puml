@@ -84,13 +84,13 @@ interface Clasificador{
     + getNombre(): string
 }
 
-class Categoria implements Clasificador{
+class Categoria{
     - nombre: string
     + setNombre(nombre: string): void
     + getNombre(): string
 }
 
-class Etiqueta implements Clasificador{
+class Etiqueta{
     - nombre: string
     + setNombre(nombre: string): void
     + getNombre(): string
@@ -120,7 +120,9 @@ CalculadoraDeTiempoDeTareas <-- Tarea
 ContadorDeTareas <-- Tarea
 OrganizadorDeTarea <-- Tarea
 BuscadorDeTarea <-- Tarea
-Tarea -[hidden]-> Clasificador
+
+Categoria ..|> Clasificador
+Etiqueta ..|> Clasificador
 Tarea *-- Categoria
 Tarea *-- Etiqueta
 Tarea -left-> ListadoDeTareas

@@ -67,17 +67,17 @@ async function main2() {
     const miListaDeTareasCargadas: ITarea[] = await miLoader.cargar();
 
     for (let task of miListaDeTareasCargadas as Tarea[]) {
-        console.log(`${task.getId()}`);
-        console.log(`${task.getTitulo()}`);
-        console.log(`${task.getDescripcion()}`);
-        console.log(`${task.getFechaCreacion()}`);
-        console.log(`${task.getFechaVencimiento()}`);
-        console.log(`${task.getPrioridad()}`);
-        console.log(`${task.getAvance()}`);
-        console.log(`${task.getEstadoActual()}`);
-        console.log(`${Array.from(task.getEstados())}`);
-        console.log(`${task.getCategoria()?.getNombre()}`);
-        console.log(`${task.getEtiquetas().map(etiqueta => etiqueta.getNombre())}`);
+        console.log(`ID: ${task.getId()}`);
+        console.log(`Título: ${task.getTitulo()}`);
+        console.log(`Descripción: ${task.getDescripcion()}`);
+        console.log(`Fecha de creación: ${task.getFechaCreacion()}`);
+        console.log(`Fecha de Vencimiento: ${task.getFechaVencimiento()}`);
+        console.log(`Prioridad: ${task.getPrioridad()}`);
+        console.log(`Avance: ${task.getAvance()}`);
+        console.log(`Estado actual: ${task.getEstadoActual()}`);
+        console.log(`Historial de estados: ${Array.from(task.getEstados())}`);
+        console.log(`Categoría: ${task.getCategoria()?.getNombre()}`);
+        console.log(`Etiquetas: ${task.getEtiquetas().map(etiqueta => etiqueta.getNombre())}`);
     }
 }
 main();

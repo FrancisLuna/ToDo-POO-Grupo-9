@@ -55,12 +55,13 @@ describe('Tarea', () =>{
         expect(tarea.getEstadoActual()).toBe(ESTADO.EnProgreso);
     });
 
-    it('Debe lanzar una excepción cuando la tarea ya se encuentre en el estado al que se pretende cambiar', () => {
-        tarea.setEstado(ESTADO.EnProgreso);
-        expect(() => tarea.setEstado(ESTADO.EnProgreso)).toThrow(EstadoInvalido);
+    it('Debe verificar que se lance una excepción cuando la tarea ya se encuentre en el estado al que se pretende cambiar', () => {
+        tarea.setEstado(ESTADO.EnProgreso); 
+        expect(() => tarea.setEstado(ESTADO.EnProgreso)).toThrow(new EstadoInvalido(`La tarea ya se encuentra en el estado ${ESTADO.EnProgreso}.`));
     });
+    
 
-    it('Debe cambiar la prioridad de la tarea', () => {
+    it('Debe asegurar que se pueda cambiar la prioridad de la tarea', () => {
         tarea.setPrioridad(PRIORIDAD.Alta);
         expect(tarea.getPrioridad()).toBe(PRIORIDAD.Alta);
     });

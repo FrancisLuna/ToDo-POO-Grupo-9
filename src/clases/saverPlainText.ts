@@ -51,5 +51,4 @@ export default class SaverPlainText implements Saver {
             file.close();
         }
     }
-
 }

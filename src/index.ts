@@ -14,6 +14,7 @@ import LoaderPlainText from "./clases/loaderPlainText";
 import LoaderJson from "./clases/loaderJson";
 import TareaBuilder from "./clases/tareaBuilder";
 import ITarea from "./interfaces/iTarea";
+import { CustomFileClass } from "stdio";
 
 function main(){
     const tarea1: Tarea = new Tarea("Completar el trabajo práctico", 1);
@@ -53,8 +54,9 @@ function main(){
     miListadoDeTareas.agregarTarea(tarea2);
     miListadoDeTareas.agregarTarea(tarea3);
 
-    const saverTxt: SaverPlainText = new SaverPlainText();
-    const saverJson: SaverJson = new SaverJson();
+    const customfile: CustomFileClass = new CustomFileClass();
+    const saverTxt: SaverPlainText = new SaverPlainText(customfile);
+    const saverJson: SaverJson = new SaverJson(customfile);
     saverJson.guardar(miListadoDeTareas);
     saverTxt.guardar(miListadoDeTareas);
 

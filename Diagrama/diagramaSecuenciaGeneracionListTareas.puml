@@ -1,19 +1,36 @@
 @startuml
-actor Usuario
-participant "ListadoDeTareas" as ListadoDeTareas
-participant "Tarea" as Tarea
+title Creación de Tareas
 
-Usuario -> ListadoDeTareas : agregarTarea(nuevaTarea)
-ListadoDeTareas -> Tarea : crearNuevaTarea()
-Tarea -> Tarea : establecerDatos()
-Tarea -> ListadoDeTareas : devolverInstancia()
+actor Cliente
+participant "ListadoDeTareas" as listado
+participant "Tarea" as tarea
+participant "Categoria" as categoria
+participant "Etiqueta" as etiqueta
 
-Usuario -> ListadoDeTareas : agregarTarea(otraTarea)
-ListadoDeTareas -> Tarea : crearNuevaTarea()
-Tarea -> Tarea : establecerDatos()
-Tarea -> ListadoDeTareas : devolverInstancia()
+alt Se requiere categoría o etiquetas
+  Cliente -> categoria ++: 1: new Categoria(nombre)
+  categoria --> Cliente: nuevaCategoria
 
-Usuario -> ListadoDeTareas : getTareas()
-ListadoDeTareas -> Usuario : devolverListadoDeTareas()
+  Cliente -> etiqueta ++: 2: new Etiqueta(nombre)
+  etiqueta --> Cliente: nuevaEtiqueta
+end
 
+Cliente -> listado ++: 3: new ListadoDeTareas()
+listado --> Cliente: nuevoListado
+
+Cliente -> tarea ++: 4: new Tarea(titulo, id)
+
+Cliente -> tarea: 5: Definir atributos
+Cliente -> categoria ++: 6: setCategoria
+categoria --> tarea: categoriaAsignada
+deactivate categoria
+
+Cliente -> etiqueta ++: 7: setEtiqueta
+etiqueta --> tarea: etiquetaAsignada
+deactivate etiqueta
+
+tarea --> Cliente --: 8: nueva tarea
+
+Cliente -> listado: 9: agregarTarea(tarea)
+listado --> Cliente --: void
 @enduml

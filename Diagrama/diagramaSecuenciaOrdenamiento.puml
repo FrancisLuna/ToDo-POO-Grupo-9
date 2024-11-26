@@ -1,4 +1,4 @@
-@startuml
+@startuml Secuencia2
 actor Usuario
 participant "OrganizadorDeTarea" as OrganizadorDeTarea
 participant "Tarea" as Tarea

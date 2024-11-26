@@ -33,6 +33,11 @@ describe('Tarea', () =>{
         expect(tarea.getEtiquetas()).toBeNull;
     });
 
+    it('Debe permitir cambiar el id de la tarea', () => {
+        tarea.setId(10);
+        expect(tarea.getId()).toBe(10);
+    });
+
     it('Debe cambiar el titulo de la tarea', () => {
         tarea.setTitulo('Crear diagrama de clase de la aplicación');
         expect(tarea.getTitulo()).toBe('Crear diagrama de clase de la aplicación');
@@ -41,6 +46,11 @@ describe('Tarea', () =>{
     it('Debe asignar una descripción a la tarea', () => {
         tarea.setDescripcion('Se debe crear el diagrama de clase y el diagrama se secuencia');
         expect(tarea.getDescripcion()).toBe('Se debe crear el diagrama de clase y el diagrama se secuencia');
+    });
+
+    it('Debe permitir modificar la fecha de creación de la tarea', () => {
+        tarea.setFechaCreacion(moment('2024-11-24'));
+        expect(tarea.getFechaCreacion()).toEqual(moment('2024-11-24'));
     });
 
     it('Debe poder acceder al historial de estados de la tarea', () => {
@@ -58,6 +68,11 @@ describe('Tarea', () =>{
     it('Debe verificar que se lance una excepción cuando la tarea ya se encuentre en el estado al que se pretende cambiar', () => {
         tarea.setEstado(ESTADO.EnProgreso); 
         expect(() => tarea.setEstado(ESTADO.EnProgreso)).toThrow(new EstadoInvalido(`La tarea ya se encuentra en el estado ${ESTADO.EnProgreso}.`));
+    });
+
+    it('Debe permitir modificar el registro de estados', () => {
+        tarea.setEstados(ESTADO.Pendiente,moment('2024-11-24'));
+        expect(tarea.getEstados().get(ESTADO.Pendiente)).toEqual(moment('2024-11-24'));
     });
     
 

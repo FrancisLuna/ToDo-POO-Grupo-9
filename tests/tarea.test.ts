@@ -56,9 +56,10 @@ describe('Tarea', () =>{
     });
 
     it('Debe verificar que se lance una excepción cuando la tarea ya se encuentre en el estado al que se pretende cambiar', () => {
-        tarea.setEstado(ESTADO.EnProgreso);
-        expect(() => tarea.setEstado(ESTADO.EnProgreso)).toThrow(EstadoInvalido);
+        tarea.setEstado(ESTADO.EnProgreso); 
+        expect(() => tarea.setEstado(ESTADO.EnProgreso)).toThrow(new EstadoInvalido(`La tarea ya se encuentra en el estado ${ESTADO.EnProgreso}.`));
     });
+    
 
     it('Debe asegurar que se pueda cambiar la prioridad de la tarea', () => {
         tarea.setPrioridad(PRIORIDAD.Alta);

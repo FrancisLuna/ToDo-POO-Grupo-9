@@ -29,14 +29,14 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Trabajo Práctico - TODO List 📝</h3>
 
   <p align="center"> Accede a la documentación
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href=""><strong>Explore the docs »</strong></a>
   </p>
 </div>
 
@@ -88,11 +88,10 @@ El objetivo de este proyecto es desarrollar una aplicación que permita a los us
 
 <ul>
   <li>Creación, edición y eliminación de tareas.</li>
-  <li>Priorización de tareas y recordatorios por fechas de vencimiento.</li>
+  <li>Priorización de tareas.</li>
   <li>Categorización y etiquetado de tareas.</li>
   <li>Seguimiento del progreso y tasas de finalización de tareas.</li>
   <li>Búsqueda y organización de tareas por fecha de vencimiento, prioridad y más.</li>
-  <li></li>
 </ul>
 
 ### Persistencia de Datos

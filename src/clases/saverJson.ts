@@ -19,10 +19,10 @@ export default class SaverJson implements Saver {
         const file: CustomFileClass = new CustomFileClass();
         const tareasData = [];
         try {
-            // Abre el archivo en modo escritura.
+            
             file.open(path.resolve("coleccionDeTareas.json"), "w");
 
-            // Itera sobre las tareas y las transforma a un formato serializable.
+            
             for (const tarea of coleccionDeTareas.getTareas()) {
                 const tareaData: Map<string, string> = new Map([
                     ["ID", `${tarea.getId()}`],
@@ -40,12 +40,12 @@ export default class SaverJson implements Saver {
                 tareasData.push(Array.from(tareaData));
             }
 
-            // Escribe el archivo JSON.
+            
             file.writeToFile(JSON.stringify(tareasData, null, 2));
         } catch (error) {
             console.log("Error al intentar guardar.");
         } finally {
-            // Cierra el archivo, independientemente de si hubo un error o no.
+            
             file.close();
         }
     }

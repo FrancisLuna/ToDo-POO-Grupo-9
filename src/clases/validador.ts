@@ -1,5 +1,4 @@
 import TextoInvalido from "../excepciones/textoInvalido";
-import NombreInvalido from "../excepciones/textoInvalido";
 
 export default class Validador{
 

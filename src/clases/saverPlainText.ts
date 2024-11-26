@@ -18,9 +18,11 @@ export default class SaverPlainText implements Saver {
     public guardar(coleccionDeTareas: ListadoDeTareas): void {
         const file: CustomFileClass = new CustomFileClass();
         try {
+            
             file.open(path.resolve("coleccionDeTareas.txt"), "w");
             file.writeToFile("");
 
+            
             for (const tarea of coleccionDeTareas.getTareas()) {
                 const tareaData: Map<string, string> = new Map([
                     ["ID", `${tarea.getId()}`],
@@ -35,14 +37,17 @@ export default class SaverPlainText implements Saver {
                     ["Categoría", `${tarea.getCategoria()?.getNombre()}`],
                     ["Etiquetas", `${tarea.getEtiquetas().map(etiqueta => etiqueta.getNombre())}`]
                 ]);
+                
                 tareaData.forEach((value, key) => file.writeToFile(`${key}: ${value}`));
                 file.writeToFile("");
             }
 
+            
             file.writeToFile("END OF FILE");
         } catch (error) {
             console.log("Error al intentar guardar.");
         } finally {
+            
             file.close();
         }
     }

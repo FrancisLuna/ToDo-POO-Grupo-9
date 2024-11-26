@@ -25,7 +25,7 @@ export default class TareaBuilder {
      * @returns {ITarea} Una nueva instancia de `ITarea`.
      */
     public reset(): ITarea {
-        return this.tarea = new Tarea("Sin título", 1) as ITarea;
+        return this.tarea = new Tarea("Predeterminado", 30) as ITarea;
     }
 
     /**

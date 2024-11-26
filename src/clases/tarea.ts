@@ -58,6 +58,7 @@ export default class Tarea implements ITarea{
      * @param diasParaCompletar - Cantidad de días para completar la tarea.
      */
     constructor(titulo: string, diasParaCompletar: number){
+        Validador.validarTexto(titulo);
         this.id = Tarea.constadorId++;
         Validador.validarTexto(titulo);
         this.titulo = titulo;
@@ -106,7 +107,7 @@ export default class Tarea implements ITarea{
      * @param descripcion - La nueva descripción de la tarea.
      */
     public setDescripcion(descripcion: string): void{
-        Validador.validarTexto(descripcion)
+        Validador.validarTexto(descripcion);
         this.descripcion = descripcion;
     }
 

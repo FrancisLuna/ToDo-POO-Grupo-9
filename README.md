@@ -103,7 +103,8 @@ La aplicación persiste la información de las tareas de dos formas:
   <li><b>Archivos de Texto Plano</b>.</li>
 </ol>
 <!-- COLABORADORES -->
-## Colaboradores
+
+### Colaboradores
 
 <ul>
   <li>Luna, Francisco Alan - lunafranciscoalan@gmail.com</li>

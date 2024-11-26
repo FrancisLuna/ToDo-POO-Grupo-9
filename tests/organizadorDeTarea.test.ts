@@ -20,11 +20,11 @@ describe('OrganizadorDeTarea', () => {
 
     });
 
-    it('debe obtenerse una instancia de OrganizadorDeTarea', () => {
+    it('Debe obtener una instancia de OrganizadorDeTarea', () => {
         expect(organizador).toBeInstanceOf(OrganizadorDeTarea);
     });
 
-    it('debe ordenar las tareas según su prioridad en el orden ¨Alta¨, ¨Media¨, ¨Baja¨', () => {
+    it('Debe ordenar las tareas según su prioridad en el orden ¨Alta¨, ¨Media¨, ¨Baja¨', () => {
         mockTarea1.getPrioridad.mockReturnValue(PRIORIDAD.Baja);
         mockTarea2.getPrioridad.mockReturnValue(PRIORIDAD.Alta);
         mockTarea3.getPrioridad.mockReturnValue(PRIORIDAD.Media);
@@ -32,7 +32,7 @@ describe('OrganizadorDeTarea', () => {
         expect(tareasOrdenadas).toEqual([mockTarea2,mockTarea3,mockTarea1]);
     });
 
-    it('debe ordenar las tareas según su fecha de vencimiento', () => {        
+    it('Debe ordenar las tareas según su fecha de vencimiento', () => {        
         const fechaMock1 = moment('2024-11-24');
         const fechaMock2 = moment('2024-11-22');
         const fechaMock3 = moment('2024-11-23');
@@ -46,7 +46,7 @@ describe('OrganizadorDeTarea', () => {
         expect(tareasOrdenadas).toEqual([mockTarea2,mockTarea3,mockTarea1])
     });
 
-    it('debe ordenar las tareas según su título', () => {
+    it('Debe ordenar las tareas según su título', () => {
         mockTarea1.getTitulo.mockReturnValue('Z');
         mockTarea2.getTitulo.mockReturnValue('B');
         mockTarea3.getTitulo.mockReturnValue('A');

@@ -1,6 +1,12 @@
 import { Moment } from "moment";
 import Etiqueta from "./etiqueta";
-import Tarea from "./tarea";
+import Categoria from "./categoria";
+import ErrorTareaNoEncontrada from "../excepciones/errorTareaNoEncontrada";
+
+/**
+ * Representa un buscador de tareas y permite obtener tareas según su estado, fecha de vencimiento,
+ * título, etiqueta y categoría.
+ */
 export default class BuscadorDeTarea{
     
     /**

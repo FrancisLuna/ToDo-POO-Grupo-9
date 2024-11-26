@@ -4,6 +4,7 @@ import moment, { Moment } from "moment";
 import { AVANCE } from "../enums/avance";
 import { ESTADO } from "../enums/estado";
 import { PRIORIDAD } from "../enums/prioridad";
+import EstadoInvalido from "../excepciones/estadoInvalido";
 moment.locale('es');
 
 /**
@@ -172,7 +173,7 @@ export default class Tarea {
             const momentoActual:Moment = moment();
             this.estados.set(estado,momentoActual)
         }else {
-            throw new Error(`La tarea ya se encuentra en el estado ${estado}.`);
+            throw new EstadoInvalido(`La tarea ya se encuentra en el estado ${estado}.`);
         }
         return estado;        
     }

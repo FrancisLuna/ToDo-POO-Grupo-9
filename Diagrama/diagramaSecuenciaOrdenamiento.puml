@@ -1,0 +1,23 @@
+@startuml
+actor Usuario
+participant "OrganizadorDeTarea" as OrganizadorDeTarea
+participant "Tarea" as Tarea
+
+Usuario -> OrganizadorDeTarea : ordenarTareasPorPrioridad()
+OrganizadorDeTarea -> OrganizadorDeTarea : ordenarTareasPorPrioridad()
+OrganizadorDeTarea -> Tarea : getPrioridad()
+OrganizadorDeTarea -> OrganizadorDeTarea : devolverTareasOrdenadas()
+
+Usuario -> OrganizadorDeTarea : ordenarTareasPorVencimiento()
+OrganizadorDeTarea -> OrganizadorDeTarea : ordenarTareasPorVencimiento()
+OrganizadorDeTarea -> Tarea : getVencimiento()
+OrganizadorDeTarea -> OrganizadorDeTarea : devolverTareasOrdenadas()
+
+Usuario -> OrganizadorDeTarea : ordenarTareasPorTitulo()
+OrganizadorDeTarea -> OrganizadorDeTarea : ordenarTareasPorTitulo()
+OrganizadorDeTarea -> Tarea : getTitulo()
+OrganizadorDeTarea -> OrganizadorDeTarea : devolverTareasOrdenadas()
+
+@enduml
+
+

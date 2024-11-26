@@ -4,6 +4,11 @@ import { AVANCE } from "../enums/avance";
 import { ESTADO } from "../enums/estado";
 import Categoria from "../clases/categoria";
 import Etiqueta from "../clases/etiqueta";
+
+/**
+ * Interfaz constructora que declara los pasos de construcción de un objeto Tarea.
+ */
+
 export default interface ITarea{
 
     setId(id: number): void;

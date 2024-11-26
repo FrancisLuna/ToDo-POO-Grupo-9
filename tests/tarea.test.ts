@@ -33,24 +33,24 @@ describe('Tarea', () =>{
         expect(tarea.getEtiquetas()).toBeNull;
     });
 
-    it('Debe asegurar que se pueda cambiar el titulo de la tarea', () => {
+    it('Debe cambiar el titulo de la tarea', () => {
         tarea.setTitulo('Crear diagrama de clase de la aplicación');
         expect(tarea.getTitulo()).toBe('Crear diagrama de clase de la aplicación');
     });
 
-    it('Debe asegurar que se pueda asignar una descripción a la tarea', () => {
+    it('Debe asignar una descripción a la tarea', () => {
         tarea.setDescripcion('Se debe crear el diagrama de clase y el diagrama se secuencia');
         expect(tarea.getDescripcion()).toBe('Se debe crear el diagrama de clase y el diagrama se secuencia');
     });
 
-    it('Debe asegurar que se pueda acceder al historial de estados de la tarea', () => {
+    it('Debe poder acceder al historial de estados de la tarea', () => {
         const historialDeEstados = tarea.getEstados();
         expect(historialDeEstados.size).toBe(1);
         expect(historialDeEstados.has(ESTADO.Pendiente)).toBe(true);
         expect(historialDeEstados.get(ESTADO.Pendiente)?.isSame(tarea.getFechaCreacion()));
     });
 
-    it('Debe asegurar que se pueda cambiar el estado actual de la tarea', () => {
+    it('Debe permitir cambiar el estado de la tarea si el estado es diferente al actual', () => {
         tarea.setEstado(ESTADO.EnProgreso);
         expect(tarea.getEstadoActual()).toBe(ESTADO.EnProgreso);
     });
@@ -66,25 +66,25 @@ describe('Tarea', () =>{
         expect(tarea.getPrioridad()).toBe(PRIORIDAD.Alta);
     });
 
-    it('Debe asegurar que se pueda actualizar el avance de la tarea', () => {
+    it('Debe actualizar el avance de la tarea', () => {
         tarea.setAvance(AVANCE['50%']);
         expect(tarea.getAvance()).toBe(AVANCE['50%']);
     });
 
-    it('Debe asegurar que se pueda cambiar la fecha de vencimiento a la tarea', () => {
+    it('Debe cambiar la fecha de vencimiento a la tarea', () => {
         const fechaVencimiento = moment().add(7, 'days');
         tarea.setFechaVencimiento(fechaVencimiento);
         expect(tarea.getFechaVencimiento().isSame(fechaVencimiento)).toBe(true);
     });
 
-    it('Debe asegurar que se pueda asignar una categoría a la tarea', () => {
+    it('Debe asignar una categoría a la tarea', () => {
         const categoria1 = mock<Categoria>();
         categoria1.setNombre('Estudio');
         tarea.setCategoria(categoria1);
         expect(tarea.getCategoria()).toBe(categoria1);
     });
 
-    it('Debe asegurar que se puedan asignar etiquetas a la tarea', () => {
+    it('Debe asignar etiquetas a la tarea', () => {
         const etiqueta1 = mock<Etiqueta>();
         const etiqueta2 = mock<Etiqueta>();
 
@@ -101,7 +101,7 @@ describe('Tarea', () =>{
         expect(etiquetas.length).toBe(2);
     });
 
-    it('Debe asegurar que se pueda eliminar una etiqueta existente de la tarea por su nombre', () => {
+    it('Debe eliminar una etiqueta existente de la tarea por su nombre', () => {
         const etiqueta1 = mock<Etiqueta>();
         const etiqueta2 = mock<Etiqueta>();
 

@@ -14,6 +14,7 @@ import Loader from "../interfaces/loader";
  * Clase encargada de cargar colecciones de tareas desde un archivo JSON.
  */
 export default class LoaderJson implements Loader{
+
     private builder: TareaBuilder;
 
     /**
@@ -45,11 +46,9 @@ export default class LoaderJson implements Loader{
             let itLine = await file.readLine().next();
             let fileContent = "";
 
-            // Lee y procesa el archivo línea por línea.
             while (!itLine.done) {
                 fileContent += itLine.value;
 
-                // Verifica si se ha completado un fragmento de datos JSON válido.
                 if (fileContent.trim().endsWith("],") || fileContent.trim().endsWith("]]")) {
                     try {
                         const cleanContent = fileContent.endsWith(",") 
@@ -71,7 +70,7 @@ export default class LoaderJson implements Loader{
         } catch (error) {
             console.error("Error al cargar el archivo JSON:", error);
         } finally {
-            // Asegura el cierre del archivo incluso si ocurre un error.
+            
             file.close();
         }
 
@@ -87,7 +86,6 @@ export default class LoaderJson implements Loader{
     private procesarTarea(tareaData: any[][], tareas: ITarea[]): void {
         this.builder.reset();
 
-        // Itera sobre los pares clave-valor y construye la tarea.
         for (const [key, value] of tareaData) {
             switch (key) {
                 case "ID":
@@ -133,8 +131,6 @@ export default class LoaderJson implements Loader{
                     break;
             }
         }
-
-        // Si la tarea está completa, la añade al arreglo.
         if (this.builder.construido()) {
             const nuevaTarea = this.builder.getResult();
             if (nuevaTarea) tareas.push(nuevaTarea);

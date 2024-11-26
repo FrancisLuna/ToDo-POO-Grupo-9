@@ -30,8 +30,8 @@ export default class LoaderPlainText implements Loader{
      * Carga una colección de tareas desde un archivo de texto plano.
      * 
      * El archivo debe estar estructurado con líneas que representen propiedades de cada tarea.
-     * Cada tarea termina con una línea en blanco.
-     * 
+     * Los datos de una tarea termina con un salto de línea. Cuando se encuentra un salto de línea, se 
+     * agrega la tarea construida a la colección.
      * @returns Una promesa que se resuelve con un array de tareas (`ITarea[]`) cargadas desde el archivo.
      * 
      * @throws Error - Si ocurre un problema al abrir o leer el archivo.
@@ -47,7 +47,6 @@ export default class LoaderPlainText implements Loader{
             while (!itLine.done) {
                 const line = itLine.value.trim();
 
-                // Procesa cada línea para construir una tarea utilizando el builder.
                 if (line.startsWith("ID: ")) {
                     this.builder.reset();
                     this.builder.buildId(Number(this.extraerValor(line, "ID: ")));
@@ -89,19 +88,16 @@ export default class LoaderPlainText implements Loader{
                         this.builder.buildEtiqueta(new Etiqueta(etiqueta))
                     );
                 } else if (line.length === 0) {
-                    // Cuando se encuentra una línea vacía, agrega la tarea construida a la colección.
                     if (this.builder.construido()) {
                         const nuevaTarea = this.builder.getResult();
                         if (nuevaTarea) tareas.push(nuevaTarea);
                     }
                 }
-
                 itLine = await file.readLine().next();
             }
         } catch (error) {
             console.error("Error al intentar cargar el archivo <coleccionDeTareas.txt>", error);
         } finally {
-            // Cierra el archivo, independientemente de si ocurrió un error.
             file.close();
         }
 

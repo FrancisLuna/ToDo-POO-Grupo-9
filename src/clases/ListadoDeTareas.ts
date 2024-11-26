@@ -4,8 +4,6 @@ import Tarea from "./tarea";
  * Representa un listado de tareas.
 */
 export default class ListadoDeTareas{
-
-
     
     /**
      * Array de tareas.

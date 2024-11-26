@@ -4,12 +4,13 @@ import moment, { Moment } from "moment";
 import { AVANCE } from "../enums/avance";
 import { ESTADO } from "../enums/estado";
 import { PRIORIDAD } from "../enums/prioridad";
-moment.locale('es');
+import EstadoInvalido from "../excepciones/estadoInvalido";
+import ITarea from "../interfaces/iTarea";
 
 /**
  * Representa una tarea dentro de la aplicación.
  */
-export default class Tarea {
+export default class Tarea implements ITarea{
     
     /**Contador estático para generar un ID único para cada tarea.*/
     private static constadorId: number = 1;
@@ -72,6 +73,14 @@ export default class Tarea {
     public getId(): number{
         return this.id;
     }
+    
+    /**
+     * Permite establecer el ID de una tarea
+     * @param id el nuevo ID de la tarea
+     */
+    public setId(id: number):void{
+        this.id = id;
+    }
 
     /**
      * Permite asignar y actualizar el título de la tarea con un nuevo valor.
@@ -103,6 +112,14 @@ export default class Tarea {
      */
     public getDescripcion(): string{
     return this.descripcion;
+    }
+
+    /**
+     * Permite asignar y actualizar la fecha de creación de la tarea con una nueva fecha.
+     * @param fechaCreacion - La nueva fecha de creación de la tarea.
+     */
+    public setFechaCreacion(fechaCreacion: Moment): void{
+        this.fechaCreacion = fechaCreacion;
     }
 
     /**
@@ -172,9 +189,18 @@ export default class Tarea {
             const momentoActual:Moment = moment();
             this.estados.set(estado,momentoActual)
         }else {
-            throw new Error(`La tarea ya se encuentra en el estado ${estado}.`);
+            throw new EstadoInvalido(`La tarea ya se encuentra en el estado ${estado}.`);
         }
         return estado;        
+    }
+
+    /**
+     * Permite establecer los estados guardados de la tarea
+     * @param key - El estado que se desea modificar
+     * @param value - el momento que se desea asignar al estado
+     */
+    public setEstados(key: ESTADO, value: Moment): void{
+        this.estados.set(key,value);
     }
 
     /**

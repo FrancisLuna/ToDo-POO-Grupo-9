@@ -17,7 +17,7 @@ describe('CalculadoraDeTiempoDeTareas', () => {
 
     describe('obtenerTiempoDeFinalizacionDeUnaTarea', () => {
 
-        it('debe retornar la diferencia en horas entre En Progreso y Completado si la tarea está completada', () => {
+        it('Debe retornar la diferencia en horas entre el estado EnProgreso y Completado si la tarea está completada', () => {
         const tareaMock = mock<Tarea>();
         tareaMock.getEstadoActual.mockReturnValue(ESTADO.Completado);
         tareaMock.getEstados.mockReturnValue(
@@ -31,7 +31,7 @@ describe('CalculadoraDeTiempoDeTareas', () => {
             expect(resultado).toBe(4);
         });
         
-        it('debe retornar 0 si la tarea no está en estado Completado', () => {
+        it('Debe retornar 0 si la tarea no está en estado Completado', () => {
             const tareaMock = mock<Tarea>();
             tareaMock.getEstadoActual.mockReturnValue(ESTADO.EnProgreso);
     
@@ -40,7 +40,7 @@ describe('CalculadoraDeTiempoDeTareas', () => {
             expect(resultado).toBe(0);
         });            
 
-        it('debe retornar 0 si no hay fechas válidas en los estados', () => {
+        it('Debe retornar 0 si no hay fechas válidas en los estados', () => {
             const tareaMock = mock<Tarea>();
             tareaMock.getEstadoActual.mockReturnValue(ESTADO.Completado);
             tareaMock.getEstados.mockReturnValue(new Map());
@@ -53,7 +53,7 @@ describe('CalculadoraDeTiempoDeTareas', () => {
 
     describe('obtenerTiempoDeFinalizacionPorTarea', () => {
 
-        it('debe retornar un Map con los tiempos de finalización para cada tarea', () => {
+        it('Debe retornar un Map con el tiempo de finalización de cada tarea', () => {
             const tareaMock1 = mock<Tarea>();
             const tareaMock2 = mock<Tarea>();
 
@@ -79,7 +79,7 @@ describe('CalculadoraDeTiempoDeTareas', () => {
 
     describe('obtenerTiempoDeFinalizacionDeTareasCompletadas', () => {
 
-        it('debe retornar el tiempo total de finalización de todas las tareas completadas', () => {
+        it('Debe retornar el tiempo total de finalización de todas las tareas completadas', () => {
             const tareaMock1 = mock<Tarea>();
             const tareaMock2 = mock<Tarea>();
 
@@ -104,7 +104,7 @@ describe('CalculadoraDeTiempoDeTareas', () => {
             expect(resultado).toBe(10);
         });
 
-        it('debe lanzar una excepción si no hay tareas completadas', () => {
+        it('Debe lanzar una excepción si no hay tareas completadas', () => {
             mockBuscadorDeTarea.getTareasCompletadas.mockReturnValue([]);
 
             expect(() => calculadora.obtenerTiempoDeFinalizacionDeTareasCompletadas()).toThrow(TareaNoCompletada);
@@ -113,7 +113,7 @@ describe('CalculadoraDeTiempoDeTareas', () => {
 
     describe('obtenerTiempoPromedioDeFinalizacion', () => {
 
-        it('debe retornar el tiempo promedio de finalización', () => {
+        it('Debe retornar el tiempo promedio de finalización', () => {
             const tareaMock1 = mock<Tarea>();
             const tareaMock2 = mock<Tarea>();
 
@@ -138,7 +138,7 @@ describe('CalculadoraDeTiempoDeTareas', () => {
             expect(resultado).toBe(5);
         });
 
-        it('debe lanzar una excepción si no hay tareas completadas', () => {
+        it('Debe lanzar una excepción si no hay tareas completadas', () => {
             mockBuscadorDeTarea.getTareasCompletadas.mockReturnValue([]);
 
             expect(() => calculadora.obtenerTiempoPromedioDeFinalizacion()).toThrow(TareaNoCompletada);

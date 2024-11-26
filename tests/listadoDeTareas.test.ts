@@ -17,25 +17,25 @@ describe('ListadoDeTareas', () => {
         listado = new ListadoDeTareas();
     });
 
-    it('debe obtenerse una instancia de un ListadoDeTareas.', () => {
+    it('Debe obtener una instancia de un ListadoDeTareas.', () => {
         expect(listado).toBeInstanceOf(ListadoDeTareas);
     });
 
-    it('debe agregar una tarea al listado', () => {
+    it('Debe agregar una tarea al listado', () => {
         listado.agregarTarea(mockTarea1);  
         const tareas = listado.getTareas();
         expect(tareas).toContain(mockTarea1);
         expect(tareas.length).toBe(1);
     });
 
-    it('debe devolver todas las tareas actuales del listado', () => {
+    it('Debe devolver todas las tareas actuales del listado', () => {
         listado.agregarTarea(mockTarea1);
         listado.agregarTarea(mockTarea2)
         const tareas = listado.getTareas();
         expect(tareas).toEqual([mockTarea1, mockTarea2]);
     });
 
-    it('debe poder eliminar una tarea del listado', () => {
+    it('Debe poder eliminar una tarea del listado', () => {
         mockTarea1.getId.mockReturnValue(1);
         mockTarea1.getTitulo.mockReturnValue('Tarea1')
         listado.agregarTarea(mockTarea1);
@@ -45,7 +45,7 @@ describe('ListadoDeTareas', () => {
         expect(tareas).toEqual([mockTarea2]);
     })
 
-    it('debe lanzar error si el id o el nombre no se corresponden', () => {
+    it('Debe lanzar error si el ID o el nombre no se corresponden', () => {
         mockTarea1.getId.mockReturnValue(1);
         mockTarea1.getTitulo.mockReturnValue('Tarea1')
         listado.agregarTarea(mockTarea1);

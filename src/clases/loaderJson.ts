@@ -8,11 +8,12 @@ import Categoria from "./categoria";
 import Etiqueta from "./etiqueta";
 import moment from "moment";
 import ITarea from "../interfaces/iTarea";
+import Loader from "../interfaces/loader";
 
 /**
  * Clase encargada de cargar colecciones de tareas desde un archivo JSON.
  */
-export default class LoaderJson {
+export default class LoaderJson implements Loader{
     private builder: TareaBuilder;
 
     /**
@@ -34,7 +35,7 @@ export default class LoaderJson {
      *
      * @throws Error - Si ocurre un problema al abrir, leer o parsear el archivo JSON.
      */
-    public async cargarColeccionDeTareasJson(): Promise<ITarea[]> {
+    public async cargar(): Promise<ITarea[]> {
         const tareas: ITarea[] = [];
         const file: CustomFileClass = new CustomFileClass();
 

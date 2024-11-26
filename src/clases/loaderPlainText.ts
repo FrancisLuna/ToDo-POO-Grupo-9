@@ -9,11 +9,12 @@ import Etiqueta from "./etiqueta";
 import moment from "moment";
 import Tarea from "./tarea";
 import ITarea from "../interfaces/iTarea";
+import Loader from "../interfaces/loader";
 
 /**
  * Clase encargada de cargar colecciones de tareas desde un archivo de texto plano.
  */
-export default class LoaderPlainText {
+export default class LoaderPlainText implements Loader{
     private builder: TareaBuilder;
 
     /**
@@ -35,7 +36,7 @@ export default class LoaderPlainText {
      * 
      * @throws Error - Si ocurre un problema al abrir o leer el archivo.
      */
-    public async cargarColeccionDeTareasPlainText(): Promise<ITarea[]> {
+    public async cargar(): Promise<ITarea[]> {
         const file = new CustomFileClass();
         const tareas: ITarea[] = [];
 

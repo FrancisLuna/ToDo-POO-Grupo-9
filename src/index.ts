@@ -55,8 +55,8 @@ function main(){
 
     const saverTxt: SaverPlainText = new SaverPlainText();
     const saverJson: SaverJson = new SaverJson();
-    saverJson.guardarColeccionDeTareasJson(miListadoDeTareas);
-    saverTxt.guardarColeccionDeTareasPlainText(miListadoDeTareas);
+    saverJson.guardar(miListadoDeTareas);
+    saverTxt.guardar(miListadoDeTareas);
 
     tarea1.getEstados().forEach((value,key) => {console.log(`estado: ${key}, fecha: ${value}`)});
 }
@@ -64,7 +64,7 @@ async function main2() {
     const miBuilder: TareaBuilder = new TareaBuilder();
     const miLoader: LoaderJson = new LoaderJson(miBuilder);
 
-    const miListaDeTareasCargadas: ITarea[] = await miLoader.cargarColeccionDeTareasJson();
+    const miListaDeTareasCargadas: ITarea[] = await miLoader.cargar();
 
     for (let task of miListaDeTareasCargadas as Tarea[]) {
         console.log(`${task.getId()}`);

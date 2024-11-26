@@ -1,20 +1,21 @@
 import { CustomFileClass } from "stdio";
 import path from "path";
-import ListadoDeTarea from "./ListadoDeTareas";
+import ListadoDeTareas from "./ListadoDeTareas";
+import Saver from "../interfaces/saver";
 
 /**
  * Clase encargada de guardar colecciones de tareas en formato texto plano.
  */
-export default class SaverPlainText {
+export default class SaverPlainText implements Saver {
 
     /**
      * Guarda una colección de tareas en un archivo de texto plano.
      * 
-     * @param coleccionDeTareas - Instancia de ListadoDeTarea que contiene las tareas a guardar.
+     * @param coleccionDeTareas - Instancia de ListadoDeTareas que contiene las tareas a guardar.
      * 
      * @throws Error - Si ocurre un problema al abrir o escribir en el archivo.
      */
-    public guardarColeccionDeTareasPlainText(coleccionDeTareas: ListadoDeTarea): void {
+    public guardar(coleccionDeTareas: ListadoDeTareas): void {
         const file: CustomFileClass = new CustomFileClass();
         try {
             // Abre el archivo en modo escritura y limpia su contenido.

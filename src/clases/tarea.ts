@@ -115,19 +115,19 @@ export default class Tarea implements ITarea{
     }
 
     /**
-     * Permite obtener la fecha de creación de la tarea.
-     * @returns La fecha de creación de la tarea.
-     */
-    public getFechaCreacion(): Moment{
-        return this.fechaCreacion;
-    }
-
-    /**
      * Permite asignar y actualizar la fecha de creación de la tarea con una nueva fecha.
      * @param fechaCreacion - La nueva fecha de creación de la tarea.
      */
     public setFechaCreacion(fechaCreacion: Moment): void{
         this.fechaCreacion = fechaCreacion;
+    }
+
+    /**
+     * Permite obtener la fecha de creación de la tarea.
+     * @returns La fecha de creación de la tarea.
+     */
+    public getFechaCreacion(): Moment{
+        return this.fechaCreacion;
     }
 
     /**

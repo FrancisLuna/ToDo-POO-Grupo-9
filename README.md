@@ -102,23 +102,9 @@ La aplicación persiste la información de las tareas de dos formas:
   <li><b>Formato JSON</b>.</li>
   <li><b>Archivos de Texto Plano</b>.</li>
 </ol>
-
-<!-- Diagrama de clases -->
-## Diagrama de clases del proyecto
-
-_please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- Diagrama de secuencia -->
-## Diagrama de secuencia del proyecto
-
-_please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- COLABORADORES -->
-## Colaboradores
+
+### Colaboradores
 
 <ul>
   <li>Luna, Francisco Alan - lunafranciscoalan@gmail.com</li>

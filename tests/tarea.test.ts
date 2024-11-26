@@ -7,6 +7,7 @@ import { AVANCE } from "../src/enums/avance";
 import {mock} from "jest-mock-extended";
 import Categoria from "../src/clases/categoria";
 import EstadoInvalido from "../src/excepciones/estadoInvalido";
+import TextoInvalido from "../src/excepciones/textoInvalido";
 
 describe('Tarea', () =>{
     
@@ -136,3 +137,35 @@ describe('Tarea', () =>{
         expect(etiquetas).toContain(etiqueta2);
     });
 })
+
+describe("Título de la tarea con validaciones externas", () => {
+
+    it("Debe lanzar una excepción si se intenta crear una tarea con un título vacío", () => {
+      expect(() => new Tarea("", 7)).toThrow(TextoInvalido);
+    });
+  
+    it("Debe lanzar una excepción si se intenta asignar un título vacío a una tarea existente", () => {
+      const tarea = new Tarea("Cocinar", 5);
+      expect(() => tarea.setTitulo("")).toThrow(TextoInvalido);
+    });
+  
+    it("Debe permitir crear y actualizar títulos válidos", () => {
+      const tarea = new Tarea("Lavar la ropa", 3);
+      tarea.setTitulo("Salir de shopping");
+      expect(tarea.getTitulo()).toBe("Salir de shopping");
+    });
+});
+
+describe("Descripción de la tarea con validaciones externas", () => {
+  
+    it("Debe lanzar una excepción si se intenta asignar una descripción vacía a una tarea existente", () => {
+      const tarea = new Tarea("Estudiar", 10);
+      expect(() => tarea.setDescripcion("")).toThrow(TextoInvalido);
+    });
+  
+    it("Debe permitir asignar y actualizar descripciones válidas", () => {
+      const tarea = new Tarea("Dormir", 1);
+      tarea.setDescripcion("Soñar que apruebo programación II");
+      expect(tarea.getDescripcion()).toBe("Soñar que apruebo programación II");
+    });
+});

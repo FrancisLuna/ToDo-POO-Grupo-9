@@ -60,6 +60,7 @@ export default class Tarea implements ITarea{
     constructor(titulo: string, diasParaCompletar: number){
         Validador.validarTexto(titulo);
         this.id = Tarea.constadorId++;
+        Validador.validarTexto(titulo);
         this.titulo = titulo;
         this.fechaVencimiento = this.fechaCreacion.clone().add(diasParaCompletar,'days');
         this.prioridad = PRIORIDAD.Baja;

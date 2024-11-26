@@ -80,4 +80,5 @@ async function main2() {
         console.log(`${task.getEtiquetas().map(etiqueta => etiqueta.getNombre())}`);
     }
 }
+main();
 main2();

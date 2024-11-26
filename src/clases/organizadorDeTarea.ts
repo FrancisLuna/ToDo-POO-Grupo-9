@@ -48,8 +48,6 @@ export default class OrganizadorDeTarea {
     return this.tareas.sort(this.compararPrioridad);
     }
 
-
-
     /**
      * Permite ordenar el listado de tareas por fecha de vencimiento en orden ascendente.
      * 

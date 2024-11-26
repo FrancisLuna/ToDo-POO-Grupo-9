@@ -8,8 +8,12 @@ import { AVANCE } from "./enums/avance";
 import moment, { Moment } from "moment";
 import { ESTADO } from "./enums/estado";
 import { PRIORIDAD } from "./enums/prioridad";
-import Saver from "./clases/saver";
-import Loader from "./clases/loader";
+import SaverJson from "./clases/saverJson";
+import SaverPlainText from "./clases/saverPlainText";
+import LoaderPlainText from "./clases/loaderPlainText";
+import LoaderJson from "./clases/loaderJson";
+import TareaBuilder from "./clases/tareaBuilder";
+import ITarea from "./interfaces/iTarea";
 
 function main(){
     const tarea1: Tarea = new Tarea("Completar el trabajo práctico", 1);
@@ -49,12 +53,32 @@ function main(){
     miListadoDeTareas.agregarTarea(tarea2);
     miListadoDeTareas.agregarTarea(tarea3);
 
-    const saver: Saver = new Saver();
-    saver.GuardarColeccionDeTareasJson(miListadoDeTareas);
-    saver.GuardarColeccionDeTareasPlainText(miListadoDeTareas);
-    const loader: Loader = new Loader();
-    loader.CargarColeccionDeTareas();
+    const saverTxt: SaverPlainText = new SaverPlainText();
+    const saverJson: SaverJson = new SaverJson();
+    saverJson.guardar(miListadoDeTareas);
+    saverTxt.guardar(miListadoDeTareas);
 
     tarea1.getEstados().forEach((value,key) => {console.log(`estado: ${key}, fecha: ${value}`)});
-} 
+}
+async function main2() {
+    const miBuilder: TareaBuilder = new TareaBuilder();
+    const miLoader: LoaderJson = new LoaderJson(miBuilder);
+
+    const miListaDeTareasCargadas: ITarea[] = await miLoader.cargar();
+
+    for (let task of miListaDeTareasCargadas as Tarea[]) {
+        console.log(`ID: ${task.getId()}`);
+        console.log(`Título: ${task.getTitulo()}`);
+        console.log(`Descripción: ${task.getDescripcion()}`);
+        console.log(`Fecha de creación: ${task.getFechaCreacion()}`);
+        console.log(`Fecha de Vencimiento: ${task.getFechaVencimiento()}`);
+        console.log(`Prioridad: ${task.getPrioridad()}`);
+        console.log(`Avance: ${task.getAvance()}`);
+        console.log(`Estado actual: ${task.getEstadoActual()}`);
+        console.log(`Historial de estados: ${Array.from(task.getEstados())}`);
+        console.log(`Categoría: ${task.getCategoria()?.getNombre()}`);
+        console.log(`Etiquetas: ${task.getEtiquetas().map(etiqueta => etiqueta.getNombre())}`);
+    }
+}
 main();
+main2();

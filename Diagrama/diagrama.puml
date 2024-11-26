@@ -1,0 +1,191 @@
+@startuml ToDoList
+
+title TP - TODO List - Grupo 9
+skinparam lineType ortho
+
+class Tarea{
+   - id: number
+   - titulo: string
+   - descripcion: string
+   - fechaCreacion: Moment
+   - fechaVencimiento: Moment
+   - prioridad: Prioridad
+   - avance: Avance
+   - estados: Map<Estado,Moment>
+   - estadoActual: Estado
+   - categoria: Categoria | undefined
+   - etiquetas: Etiqueta[]
+    
+    + getId(): number
+    + setId(id: number):void
+    + setTitulo(): void
+    + setTitulo(titulo: string): void
+    + getTitulo(): string
+    + setDescripcion(desc: string): void
+    + getDescripcion(): string
+    + setFechaCreacion(fechaCreacion: Moment): void
+    + getFechaCreacion(): Date
+    + setFechaVencimiento(fecha: Date): void
+    + getFechaVencimiento(): Date
+    + setPrioridad(prioridad: Prioridad): void
+    + getPrioridad(): Prioridad
+    + setAvance(avance: Avance): void
+    + getAvance(): Avance
+    + setEstado(estado: Estado): void
+    + setEstados(key: ESTADO, value: Moment): void
+    + getEstadoActual(): Estado
+    + getEstados(): Map<Estado,Moment>
+    + setCategoria(categoria: Categoria): void
+    + getCategoria(): Categoria | undefined
+    + setEtiqueta(etiqueta: Etiqueta): void
+    + getEtiquetas(): Etiqueta[]
+    + eliminarEtiqueta(nombre: string): void
+}
+
+class ListadoDeTareas{
+    - tareas: Array<Tarea>
+    + agregarTarea(nuevaTarea: Tarea): void
+    + eliminarTarea(idTarea: number, TituloDeTarea: string): void
+    + getTareas(): Tarea[]
+}
+
+class BuscadorDeTarea{
+    - tareas: Array<Tarea>
+
+    + getTareasPendientes(): Tarea[]
+    + getTareasEnProgreso(): Tarea[]
+    + getTareasCompletadas(): Tarea[]
+    + getTareasPorVencimiento(): Tarea[]
+    + getTareaPorTitulo(titulo: string): Tarea | undefined
+    + getTareasPorEtiqueta(etiqueta: Etiqueta): Tarea[]
+    + getTareasPorCategoria(categoria: Categoria): Tarea[]
+}
+
+class OrganizadorDeTarea{
+    - tareas: Array<Tarea>
+    - static readonly prioridades: { [key: string]: number }
+
+    - compararPrioridad(a: Tarea, b: Tarea): number
+    + ordenarTareasPorPrioridad(): Tarea[]
+    + ordenarTareasPorVencimiento(): Tarea[]
+    + ordenarTareasPorTitulo(): Tarea[]
+}
+
+class CalculadoraDeTiempoDeTareas{
+    - buscadorDeTarea: BuscadorDeTarea
+
+    + obtenerTiempoDeFinalizacionDeUnaTarea(tarea: Tarea): number
+    + obtenerTiempoDeFinalizacionPorTarea(tareas: Tarea[]): Map<number, number>
+    + obtenerTiempoDeFinalizacionDeTareasCompletadas(): number
+    + obtenerTiempoPromedioDeFinalizacion(): number
+}
+
+class ContadorDeTareas{
+    + obtenerCantidadDeTareasPorEstado(): Map<Estado, number>
+}
+
+interface Clasificador{
+    + setNombre(nombre: string): void
+    + getNombre(): string
+}
+
+class Categoria{
+    - nombre: string
+    + setNombre(nombre: string): void
+    + getNombre(): string
+}
+
+class Etiqueta{
+    - nombre: string
+    + setNombre(nombre: string): void
+    + getNombre(): string
+}
+
+ENUM ESTADO{
+    Pendiente
+    EnProgreso
+    Completado
+}
+
+ENUM AVANCE{
+    0
+    25
+    50
+    75
+    100
+}
+
+ENUM PRIORIDAD{
+    Alta
+    Media
+    Baja
+}
+
+interface Saver{
+    guardar(coleccionDeTareas: ListadoDeTareas): void
+}
+
+class SaverJson{
+    + guardar(coleccionDeTareas: ListadoDeTareas): void
+}
+
+class SaverPlainText{
+    + guardar(coleccionDeTareas: ListadoDeTareas): void
+}
+
+class TareaBuilder{
+    - tarea: ITarea | undefined
+
+    + reset(): ITarea
+    + buildId(id: number): void
+    + buildTitulo(titulo: string): void
+    + buildDescripcion(descripcion: string): void
+    + buildFechaCreacion(fecha: Moment): void
+    + buildFechaVencimiento(fecha: Moment): void
+    + buildPrioridad(prioridad: PRIORIDAD): void
+    + buildAvance(avance: AVANCE): void
+    + buildEstado(estado: ESTADO): void
+    + buildEstados(key: ESTADO, value: Moment): void
+    + buildCategoria(categoria: Categoria): void
+    + buildEtiqueta(etiqueta: Etiqueta): void
+    + getResult(): ITarea | undefined
+    + construido(): boolean
+}
+
+interface Loader{
+    cargar(): Promise<ITarea[]>
+}
+
+class LoaderJson{
+    + async cargar(): Promise<ITarea[]>
+}
+
+class LoaderPlainText{
+    + async cargar(): Promise<ITarea[]>
+}
+
+CalculadoraDeTiempoDeTareas <-- Tarea
+ContadorDeTareas <-- Tarea
+OrganizadorDeTarea <-- Tarea
+BuscadorDeTarea <-- Tarea
+
+Categoria ..|> Clasificador
+Etiqueta ..|> Clasificador
+Tarea *-- Categoria
+Tarea *-- Etiqueta
+Tarea -left-> ListadoDeTareas
+Tarea -right- ESTADO
+Tarea -right- AVANCE
+Tarea -right- PRIORIDAD
+CalculadoraDeTiempoDeTareas *-left- BuscadorDeTarea
+ListadoDeTareas --> SaverJson
+ListadoDeTareas --> SaverPlainText
+SaverJson --|> Saver
+SaverPlainText --|> Saver
+TareaBuilder *-right- Tarea
+LoaderJson *-- TareaBuilder
+LoaderPlainText *-- TareaBuilder
+Loader <|-- LoaderJson
+Loader <|-- LoaderPlainText
+
+@enduml

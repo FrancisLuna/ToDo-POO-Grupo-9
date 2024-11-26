@@ -9,6 +9,19 @@ import Saver from "../interfaces/saver";
 export default class SaverPlainText implements Saver {
 
     /**
+     * Objeto CustomFileClass
+     */
+    private file : CustomFileClass;
+
+    /**
+     * Crea un nuevo objeto de SaverPlainText.
+     * @param file - Objeto CustomFileClass que se utilizará para crear y escribir documentos de texto.
+     */
+    constructor(file: CustomFileClass){
+        this.file = file;
+    }
+
+    /**
      * Guarda una colección de tareas en un archivo de texto plano.
      * 
      * @param coleccionDeTareas - Instancia de ListadoDeTareas que contiene las tareas a guardar.
@@ -16,11 +29,10 @@ export default class SaverPlainText implements Saver {
      * @throws Error - Si ocurre un problema al abrir o escribir en el archivo.
      */
     public guardar(coleccionDeTareas: ListadoDeTareas): void {
-        const file: CustomFileClass = new CustomFileClass();
         try {
             
-            file.open(path.resolve("coleccionDeTareas.txt"), "w");
-            file.writeToFile("");
+            this.file.open(path.resolve("coleccionDeTareas.txt"), "w");
+            this.file.writeToFile("");
 
             
             for (const tarea of coleccionDeTareas.getTareas()) {
@@ -38,17 +50,17 @@ export default class SaverPlainText implements Saver {
                     ["Etiquetas", `${tarea.getEtiquetas().map(etiqueta => etiqueta.getNombre())}`]
                 ]);
                 
-                tareaData.forEach((value, key) => file.writeToFile(`${key}: ${value}`));
-                file.writeToFile("");
+                tareaData.forEach((value, key) => this.file.writeToFile(`${key}: ${value}`));
+                this.file.writeToFile("");
             }
 
             
-            file.writeToFile("END OF FILE");
+            this.file.writeToFile("END OF FILE");
         } catch (error) {
             console.log("Error al intentar guardar.");
         } finally {
             
-            file.close();
+            this.file.close();
         }
     }
 }

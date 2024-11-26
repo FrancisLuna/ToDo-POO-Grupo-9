@@ -9,6 +9,19 @@ import Saver from "../interfaces/saver"
 export default class SaverJson implements Saver {
 
     /**
+     * Objeto CustomFileClass
+     */
+    private file : CustomFileClass;
+
+    /**
+     * Crea un nuevo objeto de SaverPlainText.
+     * @param file - Objeto CustomFileClass que se utilizará para crear y escribir documentos de texto.
+     */
+    constructor(file: CustomFileClass){
+        this.file = file;
+    }
+
+    /**
      * Guarda una colección de tareas en un archivo JSON.
      * 
      * @param coleccionDeTareas - Instancia de ListadoDeTareas que contiene las tareas a guardar.
@@ -16,11 +29,10 @@ export default class SaverJson implements Saver {
      * @throws Error - Si ocurre un problema al abrir o escribir en el archivo.
      */
     public guardar(coleccionDeTareas: ListadoDeTareas): void {
-        const file: CustomFileClass = new CustomFileClass();
         const tareasData = [];
         try {
             
-            file.open(path.resolve("coleccionDeTareas.json"), "w");
+            this.file.open(path.resolve("coleccionDeTareas.json"), "w");
 
             
             for (const tarea of coleccionDeTareas.getTareas()) {
@@ -41,12 +53,12 @@ export default class SaverJson implements Saver {
             }
 
             
-            file.writeToFile(JSON.stringify(tareasData, null, 2));
+            this.file.writeToFile(JSON.stringify(tareasData, null, 2));
         } catch (error) {
             console.log("Error al intentar guardar.");
         } finally {
             
-            file.close();
+            this.file.close();
         }
     }
 

@@ -1,3 +1,4 @@
+import TextoInvalido from "../excepciones/textoInvalido";
 import NombreInvalido from "../excepciones/textoInvalido";
 
 export default class Validador{
@@ -9,7 +10,7 @@ export default class Validador{
      */
     public static validarTexto(texto: string): void{
         if (!texto.trim()) {
-            throw new NombreInvalido("El texto proporcionado no puede estar vacío.");
+            throw new TextoInvalido("El texto proporcionado no puede estar vacío.");
         }
     }
 }

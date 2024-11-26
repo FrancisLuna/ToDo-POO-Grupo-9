@@ -6,6 +6,7 @@ import { ESTADO } from "../enums/estado";
 import { PRIORIDAD } from "../enums/prioridad";
 import EstadoInvalido from "../excepciones/estadoInvalido";
 import ITarea from "../interfaces/iTarea";
+import Validador from "./validador";
 
 /**
  * Representa una tarea dentro de la aplicación.
@@ -58,6 +59,7 @@ export default class Tarea implements ITarea{
      */
     constructor(titulo: string, diasParaCompletar: number){
         this.id = Tarea.constadorId++;
+        Validador.validarTexto(titulo);
         this.titulo = titulo;
         this.fechaVencimiento = this.fechaCreacion.clone().add(diasParaCompletar,'days');
         this.prioridad = PRIORIDAD.Baja;
@@ -87,6 +89,7 @@ export default class Tarea implements ITarea{
      * @param titulo - El nuevo título de la tarea.
      */
     public setTitulo(titulo: string): void{
+        Validador.validarTexto(titulo);
         this.titulo = titulo;
     }
 
@@ -103,6 +106,7 @@ export default class Tarea implements ITarea{
      * @param descripcion - La nueva descripción de la tarea.
      */
     public setDescripcion(descripcion: string): void{
+        Validador.validarTexto(descripcion)
         this.descripcion = descripcion;
     }
 

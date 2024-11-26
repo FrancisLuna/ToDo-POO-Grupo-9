@@ -18,14 +18,14 @@ end
 Cliente -> listado ++: 3: new ListadoDeTareas()
 listado --> Cliente: nuevoListado
 
-Cliente -> tarea ++: 4: new Tarea(titulo, id)
+Cliente -> tarea ++: 4: new Tarea(titulo, diasParaCompletar)
 
-Cliente -> tarea: 5: Definir atributos
-Cliente -> categoria ++: 6: setCategoria
+Cliente -> tarea: 5: Actualizar atributos opcionales
+Cliente -> categoria: 6: setCategoria
 categoria --> tarea: categoriaAsignada
 deactivate categoria
 
-Cliente -> etiqueta ++: 7: setEtiqueta
+Cliente -> etiqueta: 7: setEtiqueta
 etiqueta --> tarea: etiquetaAsignada
 deactivate etiqueta
 
